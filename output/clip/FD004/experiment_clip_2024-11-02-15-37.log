@@ -1,0 +1,766 @@
+2024-11-02 15:37:28,080 training config:{'data': {'input_type': '',
+          'max_rul': 125,
+          'num_worker': 4,
+          'root': './data',
+          'seq_len': 30,
+          'set': 'FD004',
+          'test_id': 0},
+ 'dist_backend': 'nccl',
+ 'dist_url': 'tcp://224.66.41.62:23456',
+ 'distributed': False,
+ 'gpu': '0',
+ 'multiprocessing_distributed': False,
+ 'net': {'aux_dim': 4,
+         'hand_craft': False,
+         'hand_dim': 28,
+         'input_dim': 14,
+         'name': 'bilstm_clip',
+         'num_hidden': 18},
+ 'output_pt': '/home/qchenax/astar/rul_prompt/output/clip/FD004',
+ 'rank': -1,
+ 'save_frequency': 1,
+ 'seed': 5000,
+ 'task': 't1',
+ 'test': {'model_name': 'exp_202110121100_cnn_pe_ep-0050.pth',
+          'model_path': './output/basic/FD004'},
+ 'train': {'batch_size': 128,
+           'callback_freq': 50,
+           'end_epoch': 160,
+           'fine_tune': True,
+           'lr': 0.001,
+           'lr_epoch': [50, 100],
+           'lr_factor': 0.1,
+           'lr_mult': 0.2,
+           'optimizer': 'adam',
+           'resume_epoch': 0,
+           'warmup_iters': 0},
+ 'world_size': -1}
+
+2024-11-02 15:37:28,429 CMPDataIter:: iterator initialized (train dataset: 'FD004', shape: (61249, 26))
+2024-11-02 15:37:28,429 CMPDataIter:: iterator initialized (test dataset: 'FD004', shape: (41214, 26))
+2024-11-02 15:37:28,595 CMPDataIter:: iterator initialized (train engine number: 249)
+2024-11-02 15:37:28,715 CMPDataIter:: iterator initialized (test engine number: 248)
+2024-11-02 15:37:28,758 CMPDataIter:: data includes multi operating conditions
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (train data shape: 54028)
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (train operation shape: 54028)
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (train label shape: 54028)
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (test data shape: 248)
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (test operation shape: 248)
+2024-11-02 15:37:28,968 CMPDataIter:: iterator initialized (test label shape: 248)
+2024-11-02 15:37:29,024 CMPDataIter:: initialize the dataset
+2024-11-02 15:37:30,503 Train-Epoch[0/160]Batch[0]	Speed 143.2 (+396.6) sample/sec 	RMSE = 75.21952, RULscore = 133102.98955, CLIP_Loss = 1.06341 	
+2024-11-02 15:37:31,651 Train-Epoch[0/160]Batch[50]	Speed 5574.3 (+36.5) sample/sec 	RMSE = 67.79730, RULscore = 7350434.77948, CLIP_Loss = 1.09239 	
+2024-11-02 15:37:32,757 Train-Epoch[0/160]Batch[100]	Speed 5785.5 (+37.4) sample/sec 	RMSE = 60.45459, RULscore = 18909067.82027, CLIP_Loss = 1.09389 	
+2024-11-02 15:37:33,936 Train-Epoch[0/160]Batch[150]	Speed 5426.5 (+34.8) sample/sec 	RMSE = 53.95816, RULscore = 19477430.67409, CLIP_Loss = 1.08808 	
+2024-11-02 15:37:35,164 Train-Epoch[0/160]Batch[200]	Speed 5212.4 (+31.9) sample/sec 	RMSE = 49.35238, RULscore = 19808205.15879, CLIP_Loss = 1.08392 	
+2024-11-02 15:37:36,352 Train-Epoch[0/160]Batch[250]	Speed 5388.5 (+36.1) sample/sec 	RMSE = 47.04336, RULscore = 20472066.97137, CLIP_Loss = 1.07723 	
+2024-11-02 15:37:37,698 Train-Epoch[0/160]Batch[300]	Speed 4755.8 (+27.4) sample/sec 	RMSE = 44.64115, RULscore = 20787924.93879, CLIP_Loss = 1.07291 	
+2024-11-02 15:37:38,586 Train-Epoch[0/160]Batch[339]	Speed 5375.1 (+34.1) sample/sec 	RMSE = 43.07106, RULscore = 21054504.25635, CLIP_Loss = 1.06962 	
+2024-11-02 15:37:38,642 Test-Epoch[0/160]Batch[0]	Speed 1113.9 (+1544.3) sample/sec 	RMSE = 27.67998, RULscore = 876.75591, CLIP_Loss = 1.43028 	
+2024-11-02 15:37:38,675 Test-Epoch[0/160]Batch[3]	Speed 6611.4 (+292.1) sample/sec 	RMSE = 27.21742, RULscore = 3728.34876, CLIP_Loss = 1.37484 	
+2024-11-02 15:37:38,676 Test-Epoch[0/160]Batch[3]	RMSE = 27.21742, RULscore = 3728.34876, CLIP_Loss = 1.37484 	
+2024-11-02 15:37:38,676 Final_Epoch [0]   time cost: 9.07 sec (0.00 h)
+2024-11-02 15:37:38,676 Train_RMSE = 43.07106, Train_RULscore = 21054504.25635, Train_CLIP_Loss = 1.06962, Test_RMSE = 27.21742, Test_RULscore = 3728.34876, Test_CLIP_Loss = 1.37484, Train_RMSE_cor = 43.07106, Train_RULscore_min = 21054504.25635, Test_RMSE_cor = 27.21742, Test_RULscore_min = 3728.34876, Model_ID = 1.00000 	
+2024-11-02 15:37:38,686 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0001.pth
+2024-11-02 15:37:38,777 Train-Epoch[1/160]Batch[0]	Speed 1522.7 (+2200.1) sample/sec 	RMSE = 26.52048, RULscore = 2149.57838, CLIP_Loss = 1.01515 	
+2024-11-02 15:37:40,025 Train-Epoch[1/160]Batch[50]	Speed 5126.6 (+32.9) sample/sec 	RMSE = 26.66973, RULscore = 344935.50174, CLIP_Loss = 1.06381 	
+2024-11-02 15:37:41,231 Train-Epoch[1/160]Batch[100]	Speed 5305.3 (+33.6) sample/sec 	RMSE = 27.17262, RULscore = 603012.82204, CLIP_Loss = 1.06395 	
+2024-11-02 15:37:42,393 Train-Epoch[1/160]Batch[150]	Speed 5509.0 (+36.8) sample/sec 	RMSE = 26.47424, RULscore = 812781.44916, CLIP_Loss = 1.06097 	
+2024-11-02 15:37:43,656 Train-Epoch[1/160]Batch[200]	Speed 5067.8 (+30.2) sample/sec 	RMSE = 25.93551, RULscore = 1037665.47991, CLIP_Loss = 1.06030 	
+2024-11-02 15:37:44,911 Train-Epoch[1/160]Batch[250]	Speed 5099.4 (+31.8) sample/sec 	RMSE = 25.51957, RULscore = 1243764.57313, CLIP_Loss = 1.05542 	
+2024-11-02 15:37:46,062 Train-Epoch[1/160]Batch[300]	Speed 5561.5 (+36.8) sample/sec 	RMSE = 25.31642, RULscore = 1441119.90373, CLIP_Loss = 1.05273 	
+2024-11-02 15:37:46,946 Train-Epoch[1/160]Batch[339]	Speed 5424.7 (+37.9) sample/sec 	RMSE = 25.13431, RULscore = 1592085.84605, CLIP_Loss = 1.05000 	
+2024-11-02 15:37:46,994 Test-Epoch[1/160]Batch[0]	Speed 1306.4 (+2058.5) sample/sec 	RMSE = 25.03111, RULscore = 1330.59966, CLIP_Loss = 1.41527 	
+2024-11-02 15:37:47,025 Test-Epoch[1/160]Batch[3]	Speed 7328.4 (+563.9) sample/sec 	RMSE = 22.90011, RULscore = 3529.79203, CLIP_Loss = 1.36362 	
+2024-11-02 15:37:47,025 Test-Epoch[1/160]Batch[3]	RMSE = 22.90011, RULscore = 3529.79203, CLIP_Loss = 1.36362 	
+2024-11-02 15:37:47,025 Final_Epoch [1]   time cost: 8.34 sec (0.00 h)
+2024-11-02 15:37:47,025 Train_RMSE = 25.13431, Train_RULscore = 1592085.84605, Train_CLIP_Loss = 1.05000, Test_RMSE = 22.90011, Test_RULscore = 3529.79203, Test_CLIP_Loss = 1.36362, Train_RMSE_cor = 25.13431, Train_RULscore_min = 1592085.84605, Test_RMSE_cor = 22.90011, Test_RULscore_min = 3529.79203, Model_ID = 2.00000 	
+2024-11-02 15:37:47,034 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0002.pth
+2024-11-02 15:37:47,126 Train-Epoch[2/160]Batch[0]	Speed 1490.1 (+1955.2) sample/sec 	RMSE = 21.39381, RULscore = 1907.97529, CLIP_Loss = 1.00355 	
+2024-11-02 15:37:48,349 Train-Epoch[2/160]Batch[50]	Speed 5229.6 (+34.9) sample/sec 	RMSE = 23.66161, RULscore = 187476.73319, CLIP_Loss = 1.05060 	
+2024-11-02 15:37:49,596 Train-Epoch[2/160]Batch[100]	Speed 5134.0 (+31.9) sample/sec 	RMSE = 24.36163, RULscore = 353788.37065, CLIP_Loss = 1.05240 	
+2024-11-02 15:37:50,860 Train-Epoch[2/160]Batch[150]	Speed 5063.7 (+31.8) sample/sec 	RMSE = 24.02304, RULscore = 502534.74997, CLIP_Loss = 1.05056 	
+2024-11-02 15:37:52,086 Train-Epoch[2/160]Batch[200]	Speed 5220.7 (+34.1) sample/sec 	RMSE = 23.79676, RULscore = 670886.66483, CLIP_Loss = 1.05176 	
+2024-11-02 15:37:53,332 Train-Epoch[2/160]Batch[250]	Speed 5136.4 (+33.1) sample/sec 	RMSE = 23.72463, RULscore = 831889.01564, CLIP_Loss = 1.04743 	
+2024-11-02 15:37:54,715 Train-Epoch[2/160]Batch[300]	Speed 4626.4 (+28.3) sample/sec 	RMSE = 23.63295, RULscore = 978052.01953, CLIP_Loss = 1.04504 	
+2024-11-02 15:37:55,718 Train-Epoch[2/160]Batch[339]	Speed 4836.2 (+33.5) sample/sec 	RMSE = 23.58009, RULscore = 1108353.85218, CLIP_Loss = 1.04348 	
+2024-11-02 15:37:55,775 Test-Epoch[2/160]Batch[0]	Speed 1101.3 (+2354.5) sample/sec 	RMSE = 24.55200, RULscore = 1296.41418, CLIP_Loss = 1.40661 	
+2024-11-02 15:37:55,813 Test-Epoch[2/160]Batch[3]	Speed 5914.9 (+390.2) sample/sec 	RMSE = 22.57703, RULscore = 3241.86111, CLIP_Loss = 1.35863 	
+2024-11-02 15:37:55,813 Test-Epoch[2/160]Batch[3]	RMSE = 22.57703, RULscore = 3241.86111, CLIP_Loss = 1.35863 	
+2024-11-02 15:37:55,813 Final_Epoch [2]   time cost: 8.78 sec (0.00 h)
+2024-11-02 15:37:55,813 Train_RMSE = 23.58009, Train_RULscore = 1108353.85218, Train_CLIP_Loss = 1.04348, Test_RMSE = 22.57703, Test_RULscore = 3241.86111, Test_CLIP_Loss = 1.35863, Train_RMSE_cor = 23.58009, Train_RULscore_min = 1108353.85218, Test_RMSE_cor = 22.57703, Test_RULscore_min = 3241.86111, Model_ID = 3.00000 	
+2024-11-02 15:37:55,820 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0003.pth
+2024-11-02 15:37:55,908 Train-Epoch[3/160]Batch[0]	Speed 1585.6 (+2122.4) sample/sec 	RMSE = 21.76849, RULscore = 2388.41793, CLIP_Loss = 1.00058 	
+2024-11-02 15:37:57,216 Train-Epoch[3/160]Batch[50]	Speed 4892.8 (+33.9) sample/sec 	RMSE = 23.20610, RULscore = 176781.02984, CLIP_Loss = 1.04934 	
+2024-11-02 15:37:58,649 Train-Epoch[3/160]Batch[100]	Speed 4466.7 (+29.0) sample/sec 	RMSE = 23.13945, RULscore = 301582.48852, CLIP_Loss = 1.04779 	
+2024-11-02 15:37:59,952 Train-Epoch[3/160]Batch[150]	Speed 4912.6 (+33.7) sample/sec 	RMSE = 23.02156, RULscore = 477871.17961, CLIP_Loss = 1.04842 	
+2024-11-02 15:38:01,403 Train-Epoch[3/160]Batch[200]	Speed 4410.0 (+28.3) sample/sec 	RMSE = 23.06797, RULscore = 660158.84504, CLIP_Loss = 1.04883 	
+2024-11-02 15:38:02,704 Train-Epoch[3/160]Batch[250]	Speed 4917.8 (+31.5) sample/sec 	RMSE = 22.90397, RULscore = 794750.60811, CLIP_Loss = 1.04486 	
+2024-11-02 15:38:04,061 Train-Epoch[3/160]Batch[300]	Speed 4719.8 (+29.5) sample/sec 	RMSE = 22.77831, RULscore = 899951.36314, CLIP_Loss = 1.04395 	
+2024-11-02 15:38:05,022 Train-Epoch[3/160]Batch[339]	Speed 5018.2 (+33.8) sample/sec 	RMSE = 22.69953, RULscore = 1009821.07927, CLIP_Loss = 1.04098 	
+2024-11-02 15:38:05,075 Test-Epoch[3/160]Batch[0]	Speed 1209.5 (+1740.5) sample/sec 	RMSE = 27.55853, RULscore = 1086.45867, CLIP_Loss = 1.40959 	
+2024-11-02 15:38:05,103 Test-Epoch[3/160]Batch[3]	Speed 8570.6 (+792.3) sample/sec 	RMSE = 26.16420, RULscore = 4003.02406, CLIP_Loss = 1.35900 	
+2024-11-02 15:38:05,104 Test-Epoch[3/160]Batch[3]	RMSE = 26.16420, RULscore = 4003.02406, CLIP_Loss = 1.35900 	
+2024-11-02 15:38:05,104 Final_Epoch [3]   time cost: 9.28 sec (0.00 h)
+2024-11-02 15:38:05,104 Train_RMSE = 22.69953, Train_RULscore = 1009821.07927, Train_CLIP_Loss = 1.04098, Test_RMSE = 26.16420, Test_RULscore = 4003.02406, Test_CLIP_Loss = 1.35900, Train_RMSE_cor = 22.69953, Train_RULscore_min = 1009821.07927, Test_RMSE_cor = 22.57703, Test_RULscore_min = 3241.86111, Model_ID = 3.00000 	
+2024-11-02 15:38:05,113 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0004.pth
+2024-11-02 15:38:05,224 Train-Epoch[4/160]Batch[0]	Speed 1230.8 (+1453.0) sample/sec 	RMSE = 27.32816, RULscore = 2406.86849, CLIP_Loss = 1.00207 	
+2024-11-02 15:38:06,468 Train-Epoch[4/160]Batch[50]	Speed 5141.1 (+36.0) sample/sec 	RMSE = 25.11329, RULscore = 188967.93503, CLIP_Loss = 1.04724 	
+2024-11-02 15:38:07,672 Train-Epoch[4/160]Batch[100]	Speed 5317.0 (+34.9) sample/sec 	RMSE = 24.88626, RULscore = 341234.60672, CLIP_Loss = 1.04943 	
+2024-11-02 15:38:08,937 Train-Epoch[4/160]Batch[150]	Speed 5060.1 (+36.0) sample/sec 	RMSE = 24.03598, RULscore = 515573.39922, CLIP_Loss = 1.04692 	
+2024-11-02 15:38:10,151 Train-Epoch[4/160]Batch[200]	Speed 5271.2 (+36.4) sample/sec 	RMSE = 23.61667, RULscore = 663264.42871, CLIP_Loss = 1.04912 	
+2024-11-02 15:38:11,571 Train-Epoch[4/160]Batch[250]	Speed 4507.7 (+25.4) sample/sec 	RMSE = 23.38138, RULscore = 789717.86698, CLIP_Loss = 1.04486 	
+2024-11-02 15:38:12,853 Train-Epoch[4/160]Batch[300]	Speed 4992.0 (+32.1) sample/sec 	RMSE = 23.25487, RULscore = 916350.59520, CLIP_Loss = 1.04280 	
+2024-11-02 15:38:13,845 Train-Epoch[4/160]Batch[339]	Speed 4836.7 (+33.0) sample/sec 	RMSE = 23.10007, RULscore = 1019543.26654, CLIP_Loss = 1.03993 	
+2024-11-02 15:38:13,890 Test-Epoch[4/160]Batch[0]	Speed 1426.1 (+3068.4) sample/sec 	RMSE = 25.12089, RULscore = 958.90171, CLIP_Loss = 1.40426 	
+2024-11-02 15:38:13,921 Test-Epoch[4/160]Batch[3]	Speed 7897.1 (+448.4) sample/sec 	RMSE = 22.90235, RULscore = 2693.20395, CLIP_Loss = 1.35244 	
+2024-11-02 15:38:13,921 Test-Epoch[4/160]Batch[3]	RMSE = 22.90235, RULscore = 2693.20395, CLIP_Loss = 1.35244 	
+2024-11-02 15:38:13,922 Final_Epoch [4]   time cost: 8.81 sec (0.00 h)
+2024-11-02 15:38:13,922 Train_RMSE = 23.10007, Train_RULscore = 1019543.26654, Train_CLIP_Loss = 1.03993, Test_RMSE = 22.90235, Test_RULscore = 2693.20395, Test_CLIP_Loss = 1.35244, Train_RMSE_cor = 22.69953, Train_RULscore_min = 1009821.07927, Test_RMSE_cor = 22.90235, Test_RULscore_min = 2693.20395, Model_ID = 5.00000 	
+2024-11-02 15:38:13,931 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0005.pth
+2024-11-02 15:38:14,027 Train-Epoch[5/160]Batch[0]	Speed 1450.4 (+1737.7) sample/sec 	RMSE = 19.39837, RULscore = 820.69015, CLIP_Loss = 1.01240 	
+2024-11-02 15:38:15,279 Train-Epoch[5/160]Batch[50]	Speed 5111.4 (+36.5) sample/sec 	RMSE = 22.62963, RULscore = 151423.51388, CLIP_Loss = 1.04493 	
+2024-11-02 15:38:16,600 Train-Epoch[5/160]Batch[100]	Speed 4842.2 (+30.4) sample/sec 	RMSE = 22.47984, RULscore = 245849.96853, CLIP_Loss = 1.04768 	
+2024-11-02 15:38:17,962 Train-Epoch[5/160]Batch[150]	Speed 4700.2 (+29.6) sample/sec 	RMSE = 22.43545, RULscore = 384362.09565, CLIP_Loss = 1.04662 	
+2024-11-02 15:38:19,242 Train-Epoch[5/160]Batch[200]	Speed 5001.5 (+32.0) sample/sec 	RMSE = 22.27208, RULscore = 512234.50841, CLIP_Loss = 1.04680 	
+2024-11-02 15:38:20,563 Train-Epoch[5/160]Batch[250]	Speed 4845.9 (+34.2) sample/sec 	RMSE = 22.11591, RULscore = 619354.63355, CLIP_Loss = 1.04247 	
+2024-11-02 15:38:22,032 Train-Epoch[5/160]Batch[300]	Speed 4354.9 (+27.9) sample/sec 	RMSE = 22.08445, RULscore = 721591.10167, CLIP_Loss = 1.04049 	
+2024-11-02 15:38:23,210 Train-Epoch[5/160]Batch[339]	Speed 4078.9 (+25.3) sample/sec 	RMSE = 22.06377, RULscore = 807821.37211, CLIP_Loss = 1.03862 	
+2024-11-02 15:38:23,266 Test-Epoch[5/160]Batch[0]	Speed 1138.1 (+2422.1) sample/sec 	RMSE = 22.70372, RULscore = 1994.31295, CLIP_Loss = 1.40664 	
+2024-11-02 15:38:23,307 Test-Epoch[5/160]Batch[3]	Speed 5287.8 (+262.9) sample/sec 	RMSE = 21.13588, RULscore = 4328.73759, CLIP_Loss = 1.35509 	
+2024-11-02 15:38:23,307 Test-Epoch[5/160]Batch[3]	RMSE = 21.13588, RULscore = 4328.73759, CLIP_Loss = 1.35509 	
+2024-11-02 15:38:23,307 Final_Epoch [5]   time cost: 9.38 sec (0.00 h)
+2024-11-02 15:38:23,307 Train_RMSE = 22.06377, Train_RULscore = 807821.37211, Train_CLIP_Loss = 1.03862, Test_RMSE = 21.13588, Test_RULscore = 4328.73759, Test_CLIP_Loss = 1.35509, Train_RMSE_cor = 22.06377, Train_RULscore_min = 807821.37211, Test_RMSE_cor = 22.90235, Test_RULscore_min = 2693.20395, Model_ID = 5.00000 	
+2024-11-02 15:38:23,312 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0006.pth
+2024-11-02 15:38:23,404 Train-Epoch[6/160]Batch[0]	Speed 1510.1 (+2393.0) sample/sec 	RMSE = 21.20344, RULscore = 2642.45246, CLIP_Loss = 1.00197 	
+2024-11-02 15:38:24,801 Train-Epoch[6/160]Batch[50]	Speed 4579.0 (+30.6) sample/sec 	RMSE = 22.09325, RULscore = 135900.04337, CLIP_Loss = 1.04769 	
+2024-11-02 15:38:26,157 Train-Epoch[6/160]Batch[100]	Speed 4721.0 (+30.2) sample/sec 	RMSE = 22.00317, RULscore = 227500.26528, CLIP_Loss = 1.04828 	
+2024-11-02 15:38:27,521 Train-Epoch[6/160]Batch[150]	Speed 4691.9 (+31.2) sample/sec 	RMSE = 21.69804, RULscore = 364421.80082, CLIP_Loss = 1.04599 	
+2024-11-02 15:38:28,919 Train-Epoch[6/160]Batch[200]	Speed 4577.5 (+27.5) sample/sec 	RMSE = 21.80382, RULscore = 506474.94758, CLIP_Loss = 1.04593 	
+2024-11-02 15:38:30,189 Train-Epoch[6/160]Batch[250]	Speed 5038.4 (+33.2) sample/sec 	RMSE = 21.58227, RULscore = 602403.67759, CLIP_Loss = 1.04151 	
+2024-11-02 15:38:31,472 Train-Epoch[6/160]Batch[300]	Speed 4989.2 (+31.7) sample/sec 	RMSE = 21.58398, RULscore = 723414.05054, CLIP_Loss = 1.03934 	
+2024-11-02 15:38:32,490 Train-Epoch[6/160]Batch[339]	Speed 4727.3 (+30.7) sample/sec 	RMSE = 21.62649, RULscore = 797247.17341, CLIP_Loss = 1.03690 	
+2024-11-02 15:38:32,549 Test-Epoch[6/160]Batch[0]	Speed 1072.6 (+1849.8) sample/sec 	RMSE = 24.83659, RULscore = 959.19473, CLIP_Loss = 1.39820 	
+2024-11-02 15:38:32,583 Test-Epoch[6/160]Batch[3]	Speed 6578.9 (+541.6) sample/sec 	RMSE = 22.50501, RULscore = 2651.94301, CLIP_Loss = 1.34697 	
+2024-11-02 15:38:32,584 Test-Epoch[6/160]Batch[3]	RMSE = 22.50501, RULscore = 2651.94301, CLIP_Loss = 1.34697 	
+2024-11-02 15:38:32,584 Final_Epoch [6]   time cost: 9.27 sec (0.00 h)
+2024-11-02 15:38:32,584 Train_RMSE = 21.62649, Train_RULscore = 797247.17341, Train_CLIP_Loss = 1.03690, Test_RMSE = 22.50501, Test_RULscore = 2651.94301, Test_CLIP_Loss = 1.34697, Train_RMSE_cor = 21.62649, Train_RULscore_min = 797247.17341, Test_RMSE_cor = 22.50501, Test_RULscore_min = 2651.94301, Model_ID = 7.00000 	
+2024-11-02 15:38:32,589 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0007.pth
+2024-11-02 15:38:32,676 Train-Epoch[7/160]Batch[0]	Speed 1575.8 (+1912.0) sample/sec 	RMSE = 22.61412, RULscore = 1529.75341, CLIP_Loss = 0.99499 	
+2024-11-02 15:38:34,062 Train-Epoch[7/160]Batch[50]	Speed 4617.2 (+29.2) sample/sec 	RMSE = 21.61130, RULscore = 113804.88857, CLIP_Loss = 1.03984 	
+2024-11-02 15:38:35,398 Train-Epoch[7/160]Batch[100]	Speed 4790.2 (+29.8) sample/sec 	RMSE = 21.43005, RULscore = 187735.21483, CLIP_Loss = 1.04116 	
+2024-11-02 15:38:36,601 Train-Epoch[7/160]Batch[150]	Speed 5322.6 (+34.2) sample/sec 	RMSE = 21.42998, RULscore = 302103.13366, CLIP_Loss = 1.03987 	
+2024-11-02 15:38:37,812 Train-Epoch[7/160]Batch[200]	Speed 5284.6 (+36.9) sample/sec 	RMSE = 21.39152, RULscore = 413406.24593, CLIP_Loss = 1.04142 	
+2024-11-02 15:38:39,165 Train-Epoch[7/160]Batch[250]	Speed 4731.2 (+29.0) sample/sec 	RMSE = 21.08635, RULscore = 497033.26220, CLIP_Loss = 1.03712 	
+2024-11-02 15:38:40,494 Train-Epoch[7/160]Batch[300]	Speed 4815.3 (+31.0) sample/sec 	RMSE = 21.13235, RULscore = 603791.76771, CLIP_Loss = 1.03483 	
+2024-11-02 15:38:41,492 Train-Epoch[7/160]Batch[339]	Speed 4806.7 (+31.6) sample/sec 	RMSE = 21.04918, RULscore = 688364.72679, CLIP_Loss = 1.03343 	
+2024-11-02 15:38:41,553 Test-Epoch[7/160]Batch[0]	Speed 1031.9 (+2629.6) sample/sec 	RMSE = 23.83653, RULscore = 1340.29775, CLIP_Loss = 1.40231 	
+2024-11-02 15:38:41,585 Test-Epoch[7/160]Batch[3]	Speed 7921.4 (+777.6) sample/sec 	RMSE = 22.12085, RULscore = 3376.80417, CLIP_Loss = 1.35074 	
+2024-11-02 15:38:41,586 Test-Epoch[7/160]Batch[3]	RMSE = 22.12085, RULscore = 3376.80417, CLIP_Loss = 1.35074 	
+2024-11-02 15:38:41,586 Final_Epoch [7]   time cost: 9.00 sec (0.00 h)
+2024-11-02 15:38:41,586 Train_RMSE = 21.04918, Train_RULscore = 688364.72679, Train_CLIP_Loss = 1.03343, Test_RMSE = 22.12085, Test_RULscore = 3376.80417, Test_CLIP_Loss = 1.35074, Train_RMSE_cor = 21.04918, Train_RULscore_min = 688364.72679, Test_RMSE_cor = 22.50501, Test_RULscore_min = 2651.94301, Model_ID = 7.00000 	
+2024-11-02 15:38:41,594 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0008.pth
+2024-11-02 15:38:41,686 Train-Epoch[8/160]Batch[0]	Speed 1510.9 (+1315.0) sample/sec 	RMSE = 21.57165, RULscore = 1767.54827, CLIP_Loss = 0.99649 	
+2024-11-02 15:38:42,951 Train-Epoch[8/160]Batch[50]	Speed 5055.7 (+34.0) sample/sec 	RMSE = 21.39951, RULscore = 135579.06321, CLIP_Loss = 1.04079 	
+2024-11-02 15:38:44,569 Train-Epoch[8/160]Batch[100]	Speed 3956.5 (+22.1) sample/sec 	RMSE = 21.42292, RULscore = 213443.08353, CLIP_Loss = 1.03942 	
+2024-11-02 15:38:45,969 Train-Epoch[8/160]Batch[150]	Speed 4570.0 (+29.3) sample/sec 	RMSE = 21.20955, RULscore = 352313.42346, CLIP_Loss = 1.04017 	
+2024-11-02 15:38:47,316 Train-Epoch[8/160]Batch[200]	Speed 4751.5 (+31.6) sample/sec 	RMSE = 21.10425, RULscore = 449202.37814, CLIP_Loss = 1.04027 	
+2024-11-02 15:38:48,709 Train-Epoch[8/160]Batch[250]	Speed 4595.5 (+29.4) sample/sec 	RMSE = 21.01619, RULscore = 569816.03772, CLIP_Loss = 1.03650 	
+2024-11-02 15:38:49,954 Train-Epoch[8/160]Batch[300]	Speed 5139.6 (+37.1) sample/sec 	RMSE = 20.93258, RULscore = 647359.34254, CLIP_Loss = 1.03552 	
+2024-11-02 15:38:51,092 Train-Epoch[8/160]Batch[339]	Speed 4191.5 (+26.3) sample/sec 	RMSE = 20.83893, RULscore = 737531.67888, CLIP_Loss = 1.03251 	
+2024-11-02 15:38:51,142 Test-Epoch[8/160]Batch[0]	Speed 1249.8 (+2546.8) sample/sec 	RMSE = 24.38480, RULscore = 1163.08538, CLIP_Loss = 1.39579 	
+2024-11-02 15:38:51,179 Test-Epoch[8/160]Batch[3]	Speed 6062.0 (+542.7) sample/sec 	RMSE = 21.92440, RULscore = 2953.43505, CLIP_Loss = 1.34503 	
+2024-11-02 15:38:51,180 Test-Epoch[8/160]Batch[3]	RMSE = 21.92440, RULscore = 2953.43505, CLIP_Loss = 1.34503 	
+2024-11-02 15:38:51,180 Final_Epoch [8]   time cost: 9.59 sec (0.00 h)
+2024-11-02 15:38:51,180 Train_RMSE = 20.83893, Train_RULscore = 737531.67888, Train_CLIP_Loss = 1.03251, Test_RMSE = 21.92440, Test_RULscore = 2953.43505, Test_CLIP_Loss = 1.34503, Train_RMSE_cor = 21.04918, Train_RULscore_min = 688364.72679, Test_RMSE_cor = 22.50501, Test_RULscore_min = 2651.94301, Model_ID = 7.00000 	
+2024-11-02 15:38:51,187 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0009.pth
+2024-11-02 15:38:51,293 Train-Epoch[9/160]Batch[0]	Speed 1307.3 (+1569.5) sample/sec 	RMSE = 18.70390, RULscore = 1108.29981, CLIP_Loss = 0.99031 	
+2024-11-02 15:38:52,703 Train-Epoch[9/160]Batch[50]	Speed 4535.8 (+31.7) sample/sec 	RMSE = 21.08919, RULscore = 133420.44309, CLIP_Loss = 1.03680 	
+2024-11-02 15:38:54,162 Train-Epoch[9/160]Batch[100]	Speed 4387.3 (+25.7) sample/sec 	RMSE = 20.84841, RULscore = 204242.51873, CLIP_Loss = 1.03834 	
+2024-11-02 15:38:55,546 Train-Epoch[9/160]Batch[150]	Speed 4624.7 (+30.2) sample/sec 	RMSE = 20.80090, RULscore = 330697.34506, CLIP_Loss = 1.03664 	
+2024-11-02 15:38:56,891 Train-Epoch[9/160]Batch[200]	Speed 4756.6 (+30.7) sample/sec 	RMSE = 20.52628, RULscore = 430477.03980, CLIP_Loss = 1.03946 	
+2024-11-02 15:38:58,286 Train-Epoch[9/160]Batch[250]	Speed 4589.6 (+29.2) sample/sec 	RMSE = 20.55390, RULscore = 556997.94197, CLIP_Loss = 1.03611 	
+2024-11-02 15:38:59,736 Train-Epoch[9/160]Batch[300]	Speed 4412.9 (+29.4) sample/sec 	RMSE = 20.50781, RULscore = 644830.56586, CLIP_Loss = 1.03432 	
+2024-11-02 15:39:00,870 Train-Epoch[9/160]Batch[339]	Speed 4229.3 (+30.9) sample/sec 	RMSE = 20.40175, RULscore = 727901.22984, CLIP_Loss = 1.03149 	
+2024-11-02 15:39:00,923 Test-Epoch[9/160]Batch[0]	Speed 1215.1 (+2406.8) sample/sec 	RMSE = 22.98045, RULscore = 870.12594, CLIP_Loss = 1.38990 	
+2024-11-02 15:39:00,961 Test-Epoch[9/160]Batch[3]	Speed 5646.4 (+428.6) sample/sec 	RMSE = 21.05175, RULscore = 2392.42571, CLIP_Loss = 1.33857 	
+2024-11-02 15:39:00,962 Test-Epoch[9/160]Batch[3]	RMSE = 21.05175, RULscore = 2392.42571, CLIP_Loss = 1.33857 	
+2024-11-02 15:39:00,962 Final_Epoch [9]   time cost: 9.77 sec (0.00 h)
+2024-11-02 15:39:00,962 Train_RMSE = 20.40175, Train_RULscore = 727901.22984, Train_CLIP_Loss = 1.03149, Test_RMSE = 21.05175, Test_RULscore = 2392.42571, Test_CLIP_Loss = 1.33857, Train_RMSE_cor = 21.04918, Train_RULscore_min = 688364.72679, Test_RMSE_cor = 21.05175, Test_RULscore_min = 2392.42571, Model_ID = 10.00000 	
+2024-11-02 15:39:00,966 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0010.pth
+2024-11-02 15:39:01,061 Train-Epoch[10/160]Batch[0]	Speed 1463.9 (+1664.7) sample/sec 	RMSE = 18.07082, RULscore = 729.19870, CLIP_Loss = 1.00587 	
+2024-11-02 15:39:02,449 Train-Epoch[10/160]Batch[50]	Speed 4611.6 (+32.4) sample/sec 	RMSE = 20.81431, RULscore = 123330.96114, CLIP_Loss = 1.03811 	
+2024-11-02 15:39:03,737 Train-Epoch[10/160]Batch[100]	Speed 4969.5 (+34.3) sample/sec 	RMSE = 20.59085, RULscore = 195991.36665, CLIP_Loss = 1.04049 	
+2024-11-02 15:39:05,106 Train-Epoch[10/160]Batch[150]	Speed 4672.2 (+28.8) sample/sec 	RMSE = 20.18084, RULscore = 288456.76593, CLIP_Loss = 1.03911 	
+2024-11-02 15:39:06,354 Train-Epoch[10/160]Batch[200]	Speed 5129.2 (+33.9) sample/sec 	RMSE = 19.92318, RULscore = 385824.87549, CLIP_Loss = 1.03928 	
+2024-11-02 15:39:07,644 Train-Epoch[10/160]Batch[250]	Speed 4963.3 (+32.8) sample/sec 	RMSE = 19.82986, RULscore = 465096.10695, CLIP_Loss = 1.03503 	
+2024-11-02 15:39:08,976 Train-Epoch[10/160]Batch[300]	Speed 4804.8 (+29.7) sample/sec 	RMSE = 19.87577, RULscore = 543870.19911, CLIP_Loss = 1.03331 	
+2024-11-02 15:39:10,018 Train-Epoch[10/160]Batch[339]	Speed 4629.8 (+33.6) sample/sec 	RMSE = 19.76987, RULscore = 613163.45780, CLIP_Loss = 1.03147 	
+2024-11-02 15:39:10,070 Test-Epoch[10/160]Batch[0]	Speed 1193.3 (+2475.3) sample/sec 	RMSE = 22.04258, RULscore = 1317.16738, CLIP_Loss = 1.39197 	
+2024-11-02 15:39:10,117 Test-Epoch[10/160]Batch[3]	Speed 4816.8 (+272.2) sample/sec 	RMSE = 20.22493, RULscore = 3044.77449, CLIP_Loss = 1.33963 	
+2024-11-02 15:39:10,117 Test-Epoch[10/160]Batch[3]	RMSE = 20.22493, RULscore = 3044.77449, CLIP_Loss = 1.33963 	
+2024-11-02 15:39:10,118 Final_Epoch [10]   time cost: 9.15 sec (0.00 h)
+2024-11-02 15:39:10,118 Train_RMSE = 19.76987, Train_RULscore = 613163.45780, Train_CLIP_Loss = 1.03147, Test_RMSE = 20.22493, Test_RULscore = 3044.77449, Test_CLIP_Loss = 1.33963, Train_RMSE_cor = 19.76987, Train_RULscore_min = 613163.45780, Test_RMSE_cor = 21.05175, Test_RULscore_min = 2392.42571, Model_ID = 10.00000 	
+2024-11-02 15:39:10,123 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0011.pth
+2024-11-02 15:39:10,212 Train-Epoch[11/160]Batch[0]	Speed 1540.0 (+2398.7) sample/sec 	RMSE = 19.33645, RULscore = 1326.74570, CLIP_Loss = 0.98994 	
+2024-11-02 15:39:11,591 Train-Epoch[11/160]Batch[50]	Speed 4640.2 (+32.1) sample/sec 	RMSE = 20.43696, RULscore = 117969.76642, CLIP_Loss = 1.04193 	
+2024-11-02 15:39:12,996 Train-Epoch[11/160]Batch[100]	Speed 4554.9 (+30.6) sample/sec 	RMSE = 20.28301, RULscore = 191371.76421, CLIP_Loss = 1.04252 	
+2024-11-02 15:39:14,313 Train-Epoch[11/160]Batch[150]	Speed 4859.5 (+31.5) sample/sec 	RMSE = 20.02747, RULscore = 293671.05171, CLIP_Loss = 1.04033 	
+2024-11-02 15:39:15,791 Train-Epoch[11/160]Batch[200]	Speed 4333.0 (+28.8) sample/sec 	RMSE = 19.93938, RULscore = 409597.71435, CLIP_Loss = 1.03999 	
+2024-11-02 15:39:17,330 Train-Epoch[11/160]Batch[250]	Speed 4158.2 (+26.4) sample/sec 	RMSE = 19.71362, RULscore = 507386.61101, CLIP_Loss = 1.03578 	
+2024-11-02 15:39:18,674 Train-Epoch[11/160]Batch[300]	Speed 4759.3 (+32.0) sample/sec 	RMSE = 19.55440, RULscore = 599252.14069, CLIP_Loss = 1.03357 	
+2024-11-02 15:39:19,677 Train-Epoch[11/160]Batch[339]	Speed 4836.0 (+34.0) sample/sec 	RMSE = 19.47274, RULscore = 664401.53176, CLIP_Loss = 1.03114 	
+2024-11-02 15:39:19,722 Test-Epoch[11/160]Batch[0]	Speed 1400.1 (+2859.0) sample/sec 	RMSE = 20.96269, RULscore = 1087.14255, CLIP_Loss = 1.38853 	
+2024-11-02 15:39:19,758 Test-Epoch[11/160]Batch[3]	Speed 6048.8 (+371.8) sample/sec 	RMSE = 19.37250, RULscore = 2531.95219, CLIP_Loss = 1.33859 	
+2024-11-02 15:39:19,759 Test-Epoch[11/160]Batch[3]	RMSE = 19.37250, RULscore = 2531.95219, CLIP_Loss = 1.33859 	
+2024-11-02 15:39:19,759 Final_Epoch [11]   time cost: 9.64 sec (0.00 h)
+2024-11-02 15:39:19,759 Train_RMSE = 19.47274, Train_RULscore = 664401.53176, Train_CLIP_Loss = 1.03114, Test_RMSE = 19.37250, Test_RULscore = 2531.95219, Test_CLIP_Loss = 1.33859, Train_RMSE_cor = 19.76987, Train_RULscore_min = 613163.45780, Test_RMSE_cor = 21.05175, Test_RULscore_min = 2392.42571, Model_ID = 10.00000 	
+2024-11-02 15:39:19,764 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0012.pth
+2024-11-02 15:39:19,865 Train-Epoch[12/160]Batch[0]	Speed 1348.1 (+1331.3) sample/sec 	RMSE = 18.58111, RULscore = 1166.56343, CLIP_Loss = 0.99156 	
+2024-11-02 15:39:21,207 Train-Epoch[12/160]Batch[50]	Speed 4768.3 (+34.7) sample/sec 	RMSE = 20.29889, RULscore = 112005.26938, CLIP_Loss = 1.03600 	
+2024-11-02 15:39:22,554 Train-Epoch[12/160]Batch[100]	Speed 4749.9 (+31.4) sample/sec 	RMSE = 20.12915, RULscore = 173334.50965, CLIP_Loss = 1.03663 	
+2024-11-02 15:39:23,791 Train-Epoch[12/160]Batch[150]	Speed 5176.1 (+34.6) sample/sec 	RMSE = 19.82505, RULscore = 258040.44287, CLIP_Loss = 1.03483 	
+2024-11-02 15:39:24,986 Train-Epoch[12/160]Batch[200]	Speed 5356.4 (+37.6) sample/sec 	RMSE = 19.79820, RULscore = 332803.93856, CLIP_Loss = 1.03622 	
+2024-11-02 15:39:26,355 Train-Epoch[12/160]Batch[250]	Speed 4674.9 (+31.6) sample/sec 	RMSE = 19.56870, RULscore = 423136.60261, CLIP_Loss = 1.03210 	
+2024-11-02 15:39:27,719 Train-Epoch[12/160]Batch[300]	Speed 4692.9 (+34.5) sample/sec 	RMSE = 19.53792, RULscore = 502689.24077, CLIP_Loss = 1.02989 	
+2024-11-02 15:39:28,765 Train-Epoch[12/160]Batch[339]	Speed 4595.8 (+30.5) sample/sec 	RMSE = 19.50134, RULscore = 571866.40084, CLIP_Loss = 1.02848 	
+2024-11-02 15:39:28,825 Test-Epoch[12/160]Batch[0]	Speed 1053.3 (+2535.4) sample/sec 	RMSE = 23.43262, RULscore = 822.93040, CLIP_Loss = 1.39454 	
+2024-11-02 15:39:28,859 Test-Epoch[12/160]Batch[3]	Speed 6570.7 (+421.2) sample/sec 	RMSE = 21.83218, RULscore = 2572.32830, CLIP_Loss = 1.34146 	
+2024-11-02 15:39:28,859 Test-Epoch[12/160]Batch[3]	RMSE = 21.83218, RULscore = 2572.32830, CLIP_Loss = 1.34146 	
+2024-11-02 15:39:28,860 Final_Epoch [12]   time cost: 9.10 sec (0.00 h)
+2024-11-02 15:39:28,860 Train_RMSE = 19.50134, Train_RULscore = 571866.40084, Train_CLIP_Loss = 1.02848, Test_RMSE = 21.83218, Test_RULscore = 2572.32830, Test_CLIP_Loss = 1.34146, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 21.05175, Test_RULscore_min = 2392.42571, Model_ID = 10.00000 	
+2024-11-02 15:39:28,865 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0013.pth
+2024-11-02 15:39:28,976 Train-Epoch[13/160]Batch[0]	Speed 1222.3 (+1269.2) sample/sec 	RMSE = 21.19644, RULscore = 1136.99762, CLIP_Loss = 0.99128 	
+2024-11-02 15:39:30,480 Train-Epoch[13/160]Batch[50]	Speed 4255.9 (+27.1) sample/sec 	RMSE = 20.05049, RULscore = 117539.48339, CLIP_Loss = 1.03699 	
+2024-11-02 15:39:31,815 Train-Epoch[13/160]Batch[100]	Speed 4793.4 (+32.1) sample/sec 	RMSE = 19.83618, RULscore = 197275.13068, CLIP_Loss = 1.03553 	
+2024-11-02 15:39:33,216 Train-Epoch[13/160]Batch[150]	Speed 4567.1 (+29.1) sample/sec 	RMSE = 19.74259, RULscore = 315939.86743, CLIP_Loss = 1.03626 	
+2024-11-02 15:39:34,569 Train-Epoch[13/160]Batch[200]	Speed 4730.3 (+30.3) sample/sec 	RMSE = 19.59862, RULscore = 418844.97061, CLIP_Loss = 1.03635 	
+2024-11-02 15:39:35,833 Train-Epoch[13/160]Batch[250]	Speed 5062.7 (+35.8) sample/sec 	RMSE = 19.37398, RULscore = 533000.12832, CLIP_Loss = 1.03266 	
+2024-11-02 15:39:37,130 Train-Epoch[13/160]Batch[300]	Speed 4937.2 (+34.8) sample/sec 	RMSE = 19.37357, RULscore = 607227.55300, CLIP_Loss = 1.03186 	
+2024-11-02 15:39:38,134 Train-Epoch[13/160]Batch[339]	Speed 4808.9 (+32.2) sample/sec 	RMSE = 19.33465, RULscore = 696737.86465, CLIP_Loss = 1.02896 	
+2024-11-02 15:39:38,193 Test-Epoch[13/160]Batch[0]	Speed 1088.0 (+1876.6) sample/sec 	RMSE = 21.30417, RULscore = 907.69965, CLIP_Loss = 1.39134 	
+2024-11-02 15:39:38,234 Test-Epoch[13/160]Batch[3]	Speed 5169.0 (+309.5) sample/sec 	RMSE = 19.45791, RULscore = 2239.94358, CLIP_Loss = 1.33939 	
+2024-11-02 15:39:38,235 Test-Epoch[13/160]Batch[3]	RMSE = 19.45791, RULscore = 2239.94358, CLIP_Loss = 1.33939 	
+2024-11-02 15:39:38,235 Final_Epoch [13]   time cost: 9.37 sec (0.00 h)
+2024-11-02 15:39:38,235 Train_RMSE = 19.33465, Train_RULscore = 696737.86465, Train_CLIP_Loss = 1.02896, Test_RMSE = 19.45791, Test_RULscore = 2239.94358, Test_CLIP_Loss = 1.33939, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 19.45791, Test_RULscore_min = 2239.94358, Model_ID = 14.00000 	
+2024-11-02 15:39:38,245 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0014.pth
+2024-11-02 15:39:38,336 Train-Epoch[14/160]Batch[0]	Speed 1500.4 (+2235.5) sample/sec 	RMSE = 17.79023, RULscore = 834.28055, CLIP_Loss = 0.98935 	
+2024-11-02 15:39:39,740 Train-Epoch[14/160]Batch[50]	Speed 4558.1 (+28.3) sample/sec 	RMSE = 19.78405, RULscore = 129706.05676, CLIP_Loss = 1.03352 	
+2024-11-02 15:39:41,089 Train-Epoch[14/160]Batch[100]	Speed 4746.5 (+30.9) sample/sec 	RMSE = 19.79417, RULscore = 201401.23073, CLIP_Loss = 1.03564 	
+2024-11-02 15:39:42,317 Train-Epoch[14/160]Batch[150]	Speed 5209.7 (+37.3) sample/sec 	RMSE = 19.63505, RULscore = 328859.76431, CLIP_Loss = 1.03423 	
+2024-11-02 15:39:43,533 Train-Epoch[14/160]Batch[200]	Speed 5262.9 (+36.9) sample/sec 	RMSE = 19.39959, RULscore = 410025.81282, CLIP_Loss = 1.03676 	
+2024-11-02 15:39:44,965 Train-Epoch[14/160]Batch[250]	Speed 4468.9 (+29.0) sample/sec 	RMSE = 19.19797, RULscore = 498283.22078, CLIP_Loss = 1.03297 	
+2024-11-02 15:39:46,432 Train-Epoch[14/160]Batch[300]	Speed 4362.4 (+27.9) sample/sec 	RMSE = 19.33564, RULscore = 594612.45945, CLIP_Loss = 1.03145 	
+2024-11-02 15:39:47,569 Train-Epoch[14/160]Batch[339]	Speed 4223.0 (+30.7) sample/sec 	RMSE = 19.28101, RULscore = 673312.27945, CLIP_Loss = 1.02870 	
+2024-11-02 15:39:47,630 Test-Epoch[14/160]Batch[0]	Speed 1037.6 (+4353.6) sample/sec 	RMSE = 21.49519, RULscore = 807.36619, CLIP_Loss = 1.38302 	
+2024-11-02 15:39:47,670 Test-Epoch[14/160]Batch[3]	Speed 5600.6 (+234.5) sample/sec 	RMSE = 19.59824, RULscore = 2017.30136, CLIP_Loss = 1.33224 	
+2024-11-02 15:39:47,671 Test-Epoch[14/160]Batch[3]	RMSE = 19.59824, RULscore = 2017.30136, CLIP_Loss = 1.33224 	
+2024-11-02 15:39:47,671 Final_Epoch [14]   time cost: 9.43 sec (0.00 h)
+2024-11-02 15:39:47,671 Train_RMSE = 19.28101, Train_RULscore = 673312.27945, Train_CLIP_Loss = 1.02870, Test_RMSE = 19.59824, Test_RULscore = 2017.30136, Test_CLIP_Loss = 1.33224, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 19.59824, Test_RULscore_min = 2017.30136, Model_ID = 15.00000 	
+2024-11-02 15:39:47,681 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0015.pth
+2024-11-02 15:39:47,768 Train-Epoch[15/160]Batch[0]	Speed 1588.1 (+1915.3) sample/sec 	RMSE = 16.30160, RULscore = 679.22280, CLIP_Loss = 1.00274 	
+2024-11-02 15:39:49,175 Train-Epoch[15/160]Batch[50]	Speed 4548.2 (+35.0) sample/sec 	RMSE = 19.03668, RULscore = 122557.65730, CLIP_Loss = 1.03465 	
+2024-11-02 15:39:50,622 Train-Epoch[15/160]Batch[100]	Speed 4423.5 (+27.8) sample/sec 	RMSE = 18.94512, RULscore = 195652.18042, CLIP_Loss = 1.03707 	
+2024-11-02 15:39:51,899 Train-Epoch[15/160]Batch[150]	Speed 5012.2 (+34.1) sample/sec 	RMSE = 18.97718, RULscore = 293424.90617, CLIP_Loss = 1.03623 	
+2024-11-02 15:39:53,358 Train-Epoch[15/160]Batch[200]	Speed 4385.4 (+29.3) sample/sec 	RMSE = 18.83403, RULscore = 374082.85162, CLIP_Loss = 1.03638 	
+2024-11-02 15:39:54,693 Train-Epoch[15/160]Batch[250]	Speed 4793.6 (+34.6) sample/sec 	RMSE = 18.77847, RULscore = 466955.72021, CLIP_Loss = 1.03230 	
+2024-11-02 15:39:55,956 Train-Epoch[15/160]Batch[300]	Speed 5067.7 (+33.4) sample/sec 	RMSE = 18.81648, RULscore = 539625.96553, CLIP_Loss = 1.03059 	
+2024-11-02 15:39:57,063 Train-Epoch[15/160]Batch[339]	Speed 4328.2 (+29.8) sample/sec 	RMSE = 18.77962, RULscore = 612234.73414, CLIP_Loss = 1.02883 	
+2024-11-02 15:39:57,125 Test-Epoch[15/160]Batch[0]	Speed 1013.5 (+1963.8) sample/sec 	RMSE = 22.42134, RULscore = 1378.42516, CLIP_Loss = 1.39306 	
+2024-11-02 15:39:57,157 Test-Epoch[15/160]Batch[3]	Speed 7209.4 (+633.3) sample/sec 	RMSE = 20.41439, RULscore = 3221.71686, CLIP_Loss = 1.34132 	
+2024-11-02 15:39:57,157 Test-Epoch[15/160]Batch[3]	RMSE = 20.41439, RULscore = 3221.71686, CLIP_Loss = 1.34132 	
+2024-11-02 15:39:57,157 Final_Epoch [15]   time cost: 9.48 sec (0.00 h)
+2024-11-02 15:39:57,158 Train_RMSE = 18.77962, Train_RULscore = 612234.73414, Train_CLIP_Loss = 1.02883, Test_RMSE = 20.41439, Test_RULscore = 3221.71686, Test_CLIP_Loss = 1.34132, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 19.59824, Test_RULscore_min = 2017.30136, Model_ID = 15.00000 	
+2024-11-02 15:39:57,167 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0016.pth
+2024-11-02 15:39:57,277 Train-Epoch[16/160]Batch[0]	Speed 1238.5 (+993.8) sample/sec 	RMSE = 18.38733, RULscore = 1522.98154, CLIP_Loss = 0.99178 	
+2024-11-02 15:39:58,605 Train-Epoch[16/160]Batch[50]	Speed 4817.8 (+33.6) sample/sec 	RMSE = 19.28314, RULscore = 109019.33393, CLIP_Loss = 1.03901 	
+2024-11-02 15:40:00,012 Train-Epoch[16/160]Batch[100]	Speed 4551.1 (+32.0) sample/sec 	RMSE = 19.12419, RULscore = 191694.85774, CLIP_Loss = 1.03971 	
+2024-11-02 15:40:01,306 Train-Epoch[16/160]Batch[150]	Speed 4946.3 (+33.1) sample/sec 	RMSE = 18.96932, RULscore = 282234.26470, CLIP_Loss = 1.03735 	
+2024-11-02 15:40:02,657 Train-Epoch[16/160]Batch[200]	Speed 4734.7 (+30.9) sample/sec 	RMSE = 18.94144, RULscore = 377121.38837, CLIP_Loss = 1.03696 	
+2024-11-02 15:40:03,842 Train-Epoch[16/160]Batch[250]	Speed 5401.3 (+37.1) sample/sec 	RMSE = 18.70924, RULscore = 469964.27912, CLIP_Loss = 1.03281 	
+2024-11-02 15:40:05,083 Train-Epoch[16/160]Batch[300]	Speed 5158.6 (+36.5) sample/sec 	RMSE = 18.68773, RULscore = 553706.22696, CLIP_Loss = 1.03083 	
+2024-11-02 15:40:06,078 Train-Epoch[16/160]Batch[339]	Speed 4870.0 (+32.7) sample/sec 	RMSE = 18.61079, RULscore = 619771.90651, CLIP_Loss = 1.02844 	
+2024-11-02 15:40:06,127 Test-Epoch[16/160]Batch[0]	Speed 1281.1 (+2434.4) sample/sec 	RMSE = 20.79926, RULscore = 870.57886, CLIP_Loss = 1.38362 	
+2024-11-02 15:40:06,167 Test-Epoch[16/160]Batch[3]	Speed 5686.5 (+327.9) sample/sec 	RMSE = 18.62371, RULscore = 2047.56468, CLIP_Loss = 1.33451 	
+2024-11-02 15:40:06,167 Test-Epoch[16/160]Batch[3]	RMSE = 18.62371, RULscore = 2047.56468, CLIP_Loss = 1.33451 	
+2024-11-02 15:40:06,168 Final_Epoch [16]   time cost: 9.00 sec (0.00 h)
+2024-11-02 15:40:06,168 Train_RMSE = 18.61079, Train_RULscore = 619771.90651, Train_CLIP_Loss = 1.02844, Test_RMSE = 18.62371, Test_RULscore = 2047.56468, Test_CLIP_Loss = 1.33451, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 19.59824, Test_RULscore_min = 2017.30136, Model_ID = 15.00000 	
+2024-11-02 15:40:06,173 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0017.pth
+2024-11-02 15:40:06,264 Train-Epoch[17/160]Batch[0]	Speed 1521.1 (+2261.5) sample/sec 	RMSE = 19.33585, RULscore = 1243.54137, CLIP_Loss = 0.99207 	
+2024-11-02 15:40:07,520 Train-Epoch[17/160]Batch[50]	Speed 5096.4 (+35.3) sample/sec 	RMSE = 18.60020, RULscore = 97340.03532, CLIP_Loss = 1.03156 	
+2024-11-02 15:40:08,965 Train-Epoch[17/160]Batch[100]	Speed 4426.7 (+25.6) sample/sec 	RMSE = 18.85044, RULscore = 164073.23490, CLIP_Loss = 1.03291 	
+2024-11-02 15:40:10,241 Train-Epoch[17/160]Batch[150]	Speed 5016.3 (+32.5) sample/sec 	RMSE = 18.85035, RULscore = 251562.95095, CLIP_Loss = 1.03162 	
+2024-11-02 15:40:11,520 Train-Epoch[17/160]Batch[200]	Speed 5003.7 (+34.1) sample/sec 	RMSE = 18.77308, RULscore = 332031.35515, CLIP_Loss = 1.03325 	
+2024-11-02 15:40:12,710 Train-Epoch[17/160]Batch[250]	Speed 5380.8 (+38.6) sample/sec 	RMSE = 18.61282, RULscore = 427351.05338, CLIP_Loss = 1.02940 	
+2024-11-02 15:40:13,932 Train-Epoch[17/160]Batch[300]	Speed 5238.3 (+36.1) sample/sec 	RMSE = 18.61915, RULscore = 513293.56814, CLIP_Loss = 1.02758 	
+2024-11-02 15:40:14,918 Train-Epoch[17/160]Batch[339]	Speed 4897.9 (+34.2) sample/sec 	RMSE = 18.57071, RULscore = 580140.70037, CLIP_Loss = 1.02612 	
+2024-11-02 15:40:14,968 Test-Epoch[17/160]Batch[0]	Speed 1248.5 (+2784.2) sample/sec 	RMSE = 20.02193, RULscore = 851.66033, CLIP_Loss = 1.38436 	
+2024-11-02 15:40:15,003 Test-Epoch[17/160]Batch[3]	Speed 6510.7 (+484.0) sample/sec 	RMSE = 18.46357, RULscore = 2194.79806, CLIP_Loss = 1.33427 	
+2024-11-02 15:40:15,003 Test-Epoch[17/160]Batch[3]	RMSE = 18.46357, RULscore = 2194.79806, CLIP_Loss = 1.33427 	
+2024-11-02 15:40:15,003 Final_Epoch [17]   time cost: 8.83 sec (0.00 h)
+2024-11-02 15:40:15,003 Train_RMSE = 18.57071, Train_RULscore = 580140.70037, Train_CLIP_Loss = 1.02612, Test_RMSE = 18.46357, Test_RULscore = 2194.79806, Test_CLIP_Loss = 1.33427, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 19.59824, Test_RULscore_min = 2017.30136, Model_ID = 15.00000 	
+2024-11-02 15:40:15,011 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0018.pth
+2024-11-02 15:40:15,103 Train-Epoch[18/160]Batch[0]	Speed 1513.7 (+2244.8) sample/sec 	RMSE = 16.20740, RULscore = 1131.84565, CLIP_Loss = 0.98838 	
+2024-11-02 15:40:16,440 Train-Epoch[18/160]Batch[50]	Speed 4787.6 (+32.4) sample/sec 	RMSE = 19.65554, RULscore = 120784.88422, CLIP_Loss = 1.03520 	
+2024-11-02 15:40:17,837 Train-Epoch[18/160]Batch[100]	Speed 4580.0 (+29.2) sample/sec 	RMSE = 19.06822, RULscore = 191970.01405, CLIP_Loss = 1.03287 	
+2024-11-02 15:40:19,089 Train-Epoch[18/160]Batch[150]	Speed 5112.6 (+35.6) sample/sec 	RMSE = 19.20637, RULscore = 304791.04407, CLIP_Loss = 1.03344 	
+2024-11-02 15:40:20,516 Train-Epoch[18/160]Batch[200]	Speed 4483.8 (+32.2) sample/sec 	RMSE = 19.05053, RULscore = 390594.08679, CLIP_Loss = 1.03355 	
+2024-11-02 15:40:21,800 Train-Epoch[18/160]Batch[250]	Speed 4986.4 (+32.6) sample/sec 	RMSE = 18.85580, RULscore = 489263.70355, CLIP_Loss = 1.02994 	
+2024-11-02 15:40:23,101 Train-Epoch[18/160]Batch[300]	Speed 4919.6 (+31.0) sample/sec 	RMSE = 18.80498, RULscore = 560077.04521, CLIP_Loss = 1.02925 	
+2024-11-02 15:40:24,052 Train-Epoch[18/160]Batch[339]	Speed 5055.4 (+35.5) sample/sec 	RMSE = 18.73073, RULscore = 629541.76864, CLIP_Loss = 1.02631 	
+2024-11-02 15:40:24,092 Test-Epoch[18/160]Batch[0]	Speed 1563.5 (+4096.7) sample/sec 	RMSE = 19.89105, RULscore = 731.62882, CLIP_Loss = 1.38099 	
+2024-11-02 15:40:24,130 Test-Epoch[18/160]Batch[3]	Speed 6285.4 (+407.2) sample/sec 	RMSE = 18.21255, RULscore = 1874.08004, CLIP_Loss = 1.32942 	
+2024-11-02 15:40:24,130 Test-Epoch[18/160]Batch[3]	RMSE = 18.21255, RULscore = 1874.08004, CLIP_Loss = 1.32942 	
+2024-11-02 15:40:24,130 Final_Epoch [18]   time cost: 9.12 sec (0.00 h)
+2024-11-02 15:40:24,131 Train_RMSE = 18.73073, Train_RULscore = 629541.76864, Train_CLIP_Loss = 1.02631, Test_RMSE = 18.21255, Test_RULscore = 1874.08004, Test_CLIP_Loss = 1.32942, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 18.21255, Test_RULscore_min = 1874.08004, Model_ID = 19.00000 	
+2024-11-02 15:40:24,140 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0019.pth
+2024-11-02 15:40:24,232 Train-Epoch[19/160]Batch[0]	Speed 1490.2 (+1988.0) sample/sec 	RMSE = 15.34117, RULscore = 663.11327, CLIP_Loss = 0.98493 	
+2024-11-02 15:40:25,769 Train-Epoch[19/160]Batch[50]	Speed 4164.3 (+26.0) sample/sec 	RMSE = 19.29062, RULscore = 120183.72109, CLIP_Loss = 1.03107 	
+2024-11-02 15:40:27,081 Train-Epoch[19/160]Batch[100]	Speed 4875.9 (+31.2) sample/sec 	RMSE = 19.17432, RULscore = 187471.77654, CLIP_Loss = 1.03308 	
+2024-11-02 15:40:28,463 Train-Epoch[19/160]Batch[150]	Speed 4633.7 (+28.5) sample/sec 	RMSE = 18.67142, RULscore = 287284.93111, CLIP_Loss = 1.03101 	
+2024-11-02 15:40:29,801 Train-Epoch[19/160]Batch[200]	Speed 4781.9 (+31.3) sample/sec 	RMSE = 18.54391, RULscore = 365511.01429, CLIP_Loss = 1.03388 	
+2024-11-02 15:40:31,064 Train-Epoch[19/160]Batch[250]	Speed 5065.4 (+35.7) sample/sec 	RMSE = 18.54554, RULscore = 455209.81297, CLIP_Loss = 1.03038 	
+2024-11-02 15:40:32,287 Train-Epoch[19/160]Batch[300]	Speed 5236.1 (+78.4) sample/sec 	RMSE = 18.50101, RULscore = 537554.72521, CLIP_Loss = 1.02864 	
+2024-11-02 15:40:33,242 Train-Epoch[19/160]Batch[339]	Speed 5030.5 (+35.4) sample/sec 	RMSE = 18.44394, RULscore = 610332.86600, CLIP_Loss = 1.02592 	
+2024-11-02 15:40:33,294 Test-Epoch[19/160]Batch[0]	Speed 1234.4 (+4422.3) sample/sec 	RMSE = 18.82768, RULscore = 582.85521, CLIP_Loss = 1.37625 	
+2024-11-02 15:40:33,346 Test-Epoch[19/160]Batch[3]	Speed 4161.6 (+159.8) sample/sec 	RMSE = 17.29565, RULscore = 1550.63643, CLIP_Loss = 1.32767 	
+2024-11-02 15:40:33,347 Test-Epoch[19/160]Batch[3]	RMSE = 17.29565, RULscore = 1550.63643, CLIP_Loss = 1.32767 	
+2024-11-02 15:40:33,347 Final_Epoch [19]   time cost: 9.21 sec (0.00 h)
+2024-11-02 15:40:33,347 Train_RMSE = 18.44394, Train_RULscore = 610332.86600, Train_CLIP_Loss = 1.02592, Test_RMSE = 17.29565, Test_RULscore = 1550.63643, Test_CLIP_Loss = 1.32767, Train_RMSE_cor = 19.50134, Train_RULscore_min = 571866.40084, Test_RMSE_cor = 17.29565, Test_RULscore_min = 1550.63643, Model_ID = 20.00000 	
+2024-11-02 15:40:33,352 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0020.pth
+2024-11-02 15:40:33,450 Train-Epoch[20/160]Batch[0]	Speed 1397.3 (+1478.1) sample/sec 	RMSE = 15.47326, RULscore = 925.97695, CLIP_Loss = 1.00139 	
+2024-11-02 15:40:34,813 Train-Epoch[20/160]Batch[50]	Speed 4693.1 (+30.9) sample/sec 	RMSE = 18.77879, RULscore = 108077.36411, CLIP_Loss = 1.03239 	
+2024-11-02 15:40:36,142 Train-Epoch[20/160]Batch[100]	Speed 4819.2 (+31.9) sample/sec 	RMSE = 18.51738, RULscore = 173845.17481, CLIP_Loss = 1.03451 	
+2024-11-02 15:40:37,401 Train-Epoch[20/160]Batch[150]	Speed 5079.5 (+35.7) sample/sec 	RMSE = 18.57238, RULscore = 252532.65942, CLIP_Loss = 1.03354 	
+2024-11-02 15:40:38,708 Train-Epoch[20/160]Batch[200]	Speed 4899.6 (+33.1) sample/sec 	RMSE = 18.31678, RULscore = 334696.57195, CLIP_Loss = 1.03371 	
+2024-11-02 15:40:40,089 Train-Epoch[20/160]Batch[250]	Speed 4632.5 (+29.9) sample/sec 	RMSE = 18.20451, RULscore = 419238.95686, CLIP_Loss = 1.02988 	
+2024-11-02 15:40:41,552 Train-Epoch[20/160]Batch[300]	Speed 4374.1 (+28.1) sample/sec 	RMSE = 18.16154, RULscore = 482439.65815, CLIP_Loss = 1.02812 	
+2024-11-02 15:40:42,559 Train-Epoch[20/160]Batch[339]	Speed 4804.6 (+36.1) sample/sec 	RMSE = 18.09896, RULscore = 540273.82374, CLIP_Loss = 1.02623 	
+2024-11-02 15:40:42,613 Test-Epoch[20/160]Batch[0]	Speed 1187.5 (+3741.8) sample/sec 	RMSE = 19.48236, RULscore = 581.41150, CLIP_Loss = 1.38213 	
+2024-11-02 15:40:42,646 Test-Epoch[20/160]Batch[3]	Speed 6902.0 (+397.4) sample/sec 	RMSE = 17.96403, RULscore = 1890.45556, CLIP_Loss = 1.33090 	
+2024-11-02 15:40:42,646 Test-Epoch[20/160]Batch[3]	RMSE = 17.96403, RULscore = 1890.45556, CLIP_Loss = 1.33090 	
+2024-11-02 15:40:42,646 Final_Epoch [20]   time cost: 9.29 sec (0.00 h)
+2024-11-02 15:40:42,646 Train_RMSE = 18.09896, Train_RULscore = 540273.82374, Train_CLIP_Loss = 1.02623, Test_RMSE = 17.96403, Test_RULscore = 1890.45556, Test_CLIP_Loss = 1.33090, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.29565, Test_RULscore_min = 1550.63643, Model_ID = 20.00000 	
+2024-11-02 15:40:42,652 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0021.pth
+2024-11-02 15:40:42,761 Train-Epoch[21/160]Batch[0]	Speed 1245.8 (+1102.0) sample/sec 	RMSE = 15.40064, RULscore = 899.04051, CLIP_Loss = 0.98612 	
+2024-11-02 15:40:44,207 Train-Epoch[21/160]Batch[50]	Speed 4426.1 (+33.3) sample/sec 	RMSE = 18.89584, RULscore = 103181.88569, CLIP_Loss = 1.03677 	
+2024-11-02 15:40:45,604 Train-Epoch[21/160]Batch[100]	Speed 4579.3 (+31.9) sample/sec 	RMSE = 18.42908, RULscore = 173449.04803, CLIP_Loss = 1.03691 	
+2024-11-02 15:40:47,100 Train-Epoch[21/160]Batch[150]	Speed 4279.3 (+27.9) sample/sec 	RMSE = 18.39572, RULscore = 257442.16609, CLIP_Loss = 1.03479 	
+2024-11-02 15:40:48,683 Train-Epoch[21/160]Batch[200]	Speed 4043.9 (+25.7) sample/sec 	RMSE = 18.26656, RULscore = 348772.43600, CLIP_Loss = 1.03443 	
+2024-11-02 15:40:50,184 Train-Epoch[21/160]Batch[250]	Speed 4262.4 (+24.3) sample/sec 	RMSE = 18.11964, RULscore = 445015.21953, CLIP_Loss = 1.03061 	
+2024-11-02 15:40:51,563 Train-Epoch[21/160]Batch[300]	Speed 4642.5 (+28.9) sample/sec 	RMSE = 18.11817, RULscore = 529054.82920, CLIP_Loss = 1.02867 	
+2024-11-02 15:40:52,658 Train-Epoch[21/160]Batch[339]	Speed 4396.4 (+28.0) sample/sec 	RMSE = 18.08726, RULscore = 589736.30526, CLIP_Loss = 1.02624 	
+2024-11-02 15:40:52,713 Test-Epoch[21/160]Batch[0]	Speed 1144.7 (+2012.8) sample/sec 	RMSE = 19.34207, RULscore = 421.17425, CLIP_Loss = 1.37989 	
+2024-11-02 15:40:52,759 Test-Epoch[21/160]Batch[3]	Speed 4591.0 (+274.6) sample/sec 	RMSE = 17.90535, RULscore = 1453.25518, CLIP_Loss = 1.32995 	
+2024-11-02 15:40:52,760 Test-Epoch[21/160]Batch[3]	RMSE = 17.90535, RULscore = 1453.25518, CLIP_Loss = 1.32995 	
+2024-11-02 15:40:52,760 Final_Epoch [21]   time cost: 10.11 sec (0.00 h)
+2024-11-02 15:40:52,760 Train_RMSE = 18.08726, Train_RULscore = 589736.30526, Train_CLIP_Loss = 1.02624, Test_RMSE = 17.90535, Test_RULscore = 1453.25518, Test_CLIP_Loss = 1.32995, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.90535, Test_RULscore_min = 1453.25518, Model_ID = 22.00000 	
+2024-11-02 15:40:52,765 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0022.pth
+2024-11-02 15:40:52,848 Train-Epoch[22/160]Batch[0]	Speed 1655.1 (+2109.9) sample/sec 	RMSE = 18.30023, RULscore = 954.45116, CLIP_Loss = 0.98881 	
+2024-11-02 15:40:54,368 Train-Epoch[22/160]Batch[50]	Speed 4211.8 (+25.5) sample/sec 	RMSE = 18.44995, RULscore = 99062.53313, CLIP_Loss = 1.02958 	
+2024-11-02 15:40:55,718 Train-Epoch[22/160]Batch[100]	Speed 4740.3 (+27.7) sample/sec 	RMSE = 18.52439, RULscore = 161954.55313, CLIP_Loss = 1.03151 	
+2024-11-02 15:40:57,034 Train-Epoch[22/160]Batch[150]	Speed 4861.3 (+29.1) sample/sec 	RMSE = 18.24401, RULscore = 239940.89649, CLIP_Loss = 1.03004 	
+2024-11-02 15:40:58,267 Train-Epoch[22/160]Batch[200]	Speed 5191.1 (+34.4) sample/sec 	RMSE = 18.15685, RULscore = 319029.47109, CLIP_Loss = 1.03154 	
+2024-11-02 15:40:59,543 Train-Epoch[22/160]Batch[250]	Speed 5018.4 (+32.3) sample/sec 	RMSE = 17.98263, RULscore = 399083.63582, CLIP_Loss = 1.02748 	
+2024-11-02 15:41:01,031 Train-Epoch[22/160]Batch[300]	Speed 4299.3 (+27.5) sample/sec 	RMSE = 17.98988, RULscore = 479930.50262, CLIP_Loss = 1.02548 	
+2024-11-02 15:41:02,179 Train-Epoch[22/160]Batch[339]	Speed 4209.9 (+31.8) sample/sec 	RMSE = 17.95798, RULscore = 548401.91825, CLIP_Loss = 1.02404 	
+2024-11-02 15:41:02,238 Test-Epoch[22/160]Batch[0]	Speed 1050.4 (+1915.8) sample/sec 	RMSE = 19.62784, RULscore = 1001.49092, CLIP_Loss = 1.38317 	
+2024-11-02 15:41:02,271 Test-Epoch[22/160]Batch[3]	Speed 6825.1 (+553.4) sample/sec 	RMSE = 17.99185, RULscore = 2452.56270, CLIP_Loss = 1.33607 	
+2024-11-02 15:41:02,272 Test-Epoch[22/160]Batch[3]	RMSE = 17.99185, RULscore = 2452.56270, CLIP_Loss = 1.33607 	
+2024-11-02 15:41:02,272 Final_Epoch [22]   time cost: 9.51 sec (0.00 h)
+2024-11-02 15:41:02,272 Train_RMSE = 17.95798, Train_RULscore = 548401.91825, Train_CLIP_Loss = 1.02404, Test_RMSE = 17.99185, Test_RULscore = 2452.56270, Test_CLIP_Loss = 1.33607, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.90535, Test_RULscore_min = 1453.25518, Model_ID = 22.00000 	
+2024-11-02 15:41:02,277 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0023.pth
+2024-11-02 15:41:02,382 Train-Epoch[23/160]Batch[0]	Speed 1295.6 (+1557.3) sample/sec 	RMSE = 16.64496, RULscore = 1399.16993, CLIP_Loss = 0.98989 	
+2024-11-02 15:41:03,872 Train-Epoch[23/160]Batch[50]	Speed 4293.4 (+25.8) sample/sec 	RMSE = 18.83007, RULscore = 103214.75843, CLIP_Loss = 1.03291 	
+2024-11-02 15:41:05,310 Train-Epoch[23/160]Batch[100]	Speed 4453.2 (+29.0) sample/sec 	RMSE = 18.58071, RULscore = 175531.06862, CLIP_Loss = 1.03097 	
+2024-11-02 15:41:06,718 Train-Epoch[23/160]Batch[150]	Speed 4544.9 (+33.7) sample/sec 	RMSE = 18.51564, RULscore = 271469.73146, CLIP_Loss = 1.03153 	
+2024-11-02 15:41:08,140 Train-Epoch[23/160]Batch[200]	Speed 4500.2 (+31.0) sample/sec 	RMSE = 18.54755, RULscore = 357408.21252, CLIP_Loss = 1.03177 	
+2024-11-02 15:41:09,743 Train-Epoch[23/160]Batch[250]	Speed 3993.0 (+22.3) sample/sec 	RMSE = 18.44866, RULscore = 454174.17750, CLIP_Loss = 1.02808 	
+2024-11-02 15:41:11,074 Train-Epoch[23/160]Batch[300]	Speed 4808.7 (+30.4) sample/sec 	RMSE = 18.40524, RULscore = 527533.93755, CLIP_Loss = 1.02757 	
+2024-11-02 15:41:12,237 Train-Epoch[23/160]Batch[339]	Speed 4130.2 (+27.4) sample/sec 	RMSE = 18.35320, RULscore = 601428.95931, CLIP_Loss = 1.02463 	
+2024-11-02 15:41:12,290 Test-Epoch[23/160]Batch[0]	Speed 1179.1 (+2258.4) sample/sec 	RMSE = 17.71916, RULscore = 823.43334, CLIP_Loss = 1.37473 	
+2024-11-02 15:41:12,321 Test-Epoch[23/160]Batch[3]	Speed 7602.5 (+910.2) sample/sec 	RMSE = 16.83725, RULscore = 2034.22274, CLIP_Loss = 1.33109 	
+2024-11-02 15:41:12,321 Test-Epoch[23/160]Batch[3]	RMSE = 16.83725, RULscore = 2034.22274, CLIP_Loss = 1.33109 	
+2024-11-02 15:41:12,321 Final_Epoch [23]   time cost: 10.04 sec (0.00 h)
+2024-11-02 15:41:12,321 Train_RMSE = 18.35320, Train_RULscore = 601428.95931, Train_CLIP_Loss = 1.02463, Test_RMSE = 16.83725, Test_RULscore = 2034.22274, Test_CLIP_Loss = 1.33109, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.90535, Test_RULscore_min = 1453.25518, Model_ID = 22.00000 	
+2024-11-02 15:41:12,326 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0024.pth
+2024-11-02 15:41:12,432 Train-Epoch[24/160]Batch[0]	Speed 1302.5 (+1649.9) sample/sec 	RMSE = 16.28578, RULscore = 1115.33654, CLIP_Loss = 0.98862 	
+2024-11-02 15:41:13,850 Train-Epoch[24/160]Batch[50]	Speed 4514.4 (+31.7) sample/sec 	RMSE = 18.89291, RULscore = 114865.69438, CLIP_Loss = 1.02977 	
+2024-11-02 15:41:15,286 Train-Epoch[24/160]Batch[100]	Speed 4454.9 (+26.7) sample/sec 	RMSE = 18.53554, RULscore = 179145.81464, CLIP_Loss = 1.03166 	
+2024-11-02 15:41:16,683 Train-Epoch[24/160]Batch[150]	Speed 4582.9 (+28.5) sample/sec 	RMSE = 18.40533, RULscore = 256390.78692, CLIP_Loss = 1.03000 	
+2024-11-02 15:41:17,993 Train-Epoch[24/160]Batch[200]	Speed 4883.6 (+35.6) sample/sec 	RMSE = 18.29462, RULscore = 329153.14862, CLIP_Loss = 1.03263 	
+2024-11-02 15:41:19,455 Train-Epoch[24/160]Batch[250]	Speed 4377.9 (+30.1) sample/sec 	RMSE = 18.10889, RULscore = 412970.07924, CLIP_Loss = 1.02873 	
+2024-11-02 15:41:20,741 Train-Epoch[24/160]Batch[300]	Speed 4975.9 (+34.2) sample/sec 	RMSE = 18.06025, RULscore = 494600.86491, CLIP_Loss = 1.02717 	
+2024-11-02 15:41:21,864 Train-Epoch[24/160]Batch[339]	Speed 4270.1 (+28.9) sample/sec 	RMSE = 18.04678, RULscore = 569260.17738, CLIP_Loss = 1.02438 	
+2024-11-02 15:41:21,911 Test-Epoch[24/160]Batch[0]	Speed 1339.3 (+2692.5) sample/sec 	RMSE = 18.20590, RULscore = 531.40580, CLIP_Loss = 1.37796 	
+2024-11-02 15:41:21,945 Test-Epoch[24/160]Batch[3]	Speed 6589.9 (+479.8) sample/sec 	RMSE = 16.93755, RULscore = 1637.83984, CLIP_Loss = 1.33043 	
+2024-11-02 15:41:21,946 Test-Epoch[24/160]Batch[3]	RMSE = 16.93755, RULscore = 1637.83984, CLIP_Loss = 1.33043 	
+2024-11-02 15:41:21,946 Final_Epoch [24]   time cost: 9.62 sec (0.00 h)
+2024-11-02 15:41:21,946 Train_RMSE = 18.04678, Train_RULscore = 569260.17738, Train_CLIP_Loss = 1.02438, Test_RMSE = 16.93755, Test_RULscore = 1637.83984, Test_CLIP_Loss = 1.33043, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.90535, Test_RULscore_min = 1453.25518, Model_ID = 22.00000 	
+2024-11-02 15:41:21,952 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0025.pth
+2024-11-02 15:41:22,053 Train-Epoch[25/160]Batch[0]	Speed 1352.5 (+1903.2) sample/sec 	RMSE = 16.77191, RULscore = 1315.35952, CLIP_Loss = 1.00084 	
+2024-11-02 15:41:23,487 Train-Epoch[25/160]Batch[50]	Speed 4462.8 (+31.7) sample/sec 	RMSE = 18.44989, RULscore = 111250.14057, CLIP_Loss = 1.03098 	
+2024-11-02 15:41:24,842 Train-Epoch[25/160]Batch[100]	Speed 4725.0 (+29.2) sample/sec 	RMSE = 18.21860, RULscore = 184318.24299, CLIP_Loss = 1.03309 	
+2024-11-02 15:41:26,368 Train-Epoch[25/160]Batch[150]	Speed 4193.5 (+26.3) sample/sec 	RMSE = 18.27128, RULscore = 260926.66052, CLIP_Loss = 1.03185 	
+2024-11-02 15:41:27,765 Train-Epoch[25/160]Batch[200]	Speed 4579.6 (+31.8) sample/sec 	RMSE = 18.04011, RULscore = 341954.30074, CLIP_Loss = 1.03207 	
+2024-11-02 15:41:29,070 Train-Epoch[25/160]Batch[250]	Speed 4906.6 (+33.1) sample/sec 	RMSE = 17.93443, RULscore = 423369.08456, CLIP_Loss = 1.02832 	
+2024-11-02 15:41:30,575 Train-Epoch[25/160]Batch[300]	Speed 4253.3 (+28.6) sample/sec 	RMSE = 17.93238, RULscore = 487967.13452, CLIP_Loss = 1.02662 	
+2024-11-02 15:41:31,689 Train-Epoch[25/160]Batch[339]	Speed 4299.8 (+29.6) sample/sec 	RMSE = 17.89212, RULscore = 542084.13651, CLIP_Loss = 1.02471 	
+2024-11-02 15:41:31,741 Test-Epoch[25/160]Batch[0]	Speed 1223.4 (+2830.4) sample/sec 	RMSE = 17.44304, RULscore = 367.53147, CLIP_Loss = 1.37552 	
+2024-11-02 15:41:31,772 Test-Epoch[25/160]Batch[3]	Speed 7558.8 (+598.4) sample/sec 	RMSE = 16.61559, RULscore = 1522.66474, CLIP_Loss = 1.32901 	
+2024-11-02 15:41:31,772 Test-Epoch[25/160]Batch[3]	RMSE = 16.61559, RULscore = 1522.66474, CLIP_Loss = 1.32901 	
+2024-11-02 15:41:31,772 Final_Epoch [25]   time cost: 9.82 sec (0.00 h)
+2024-11-02 15:41:31,772 Train_RMSE = 17.89212, Train_RULscore = 542084.13651, Train_CLIP_Loss = 1.02471, Test_RMSE = 16.61559, Test_RULscore = 1522.66474, Test_CLIP_Loss = 1.32901, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 17.90535, Test_RULscore_min = 1453.25518, Model_ID = 22.00000 	
+2024-11-02 15:41:31,778 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0026.pth
+2024-11-02 15:41:31,877 Train-Epoch[26/160]Batch[0]	Speed 1380.4 (+1749.5) sample/sec 	RMSE = 14.82713, RULscore = 778.36964, CLIP_Loss = 0.98749 	
+2024-11-02 15:41:33,281 Train-Epoch[26/160]Batch[50]	Speed 4556.2 (+30.2) sample/sec 	RMSE = 18.35221, RULscore = 104441.20705, CLIP_Loss = 1.03545 	
+2024-11-02 15:41:34,566 Train-Epoch[26/160]Batch[100]	Speed 4983.5 (+33.0) sample/sec 	RMSE = 18.30541, RULscore = 174271.51859, CLIP_Loss = 1.03584 	
+2024-11-02 15:41:35,939 Train-Epoch[26/160]Batch[150]	Speed 4660.0 (+29.7) sample/sec 	RMSE = 18.18792, RULscore = 257346.38414, CLIP_Loss = 1.03355 	
+2024-11-02 15:41:37,329 Train-Epoch[26/160]Batch[200]	Speed 4603.2 (+32.4) sample/sec 	RMSE = 18.09143, RULscore = 349091.53621, CLIP_Loss = 1.03309 	
+2024-11-02 15:41:38,628 Train-Epoch[26/160]Batch[250]	Speed 4927.5 (+32.4) sample/sec 	RMSE = 17.94242, RULscore = 443086.26187, CLIP_Loss = 1.02908 	
+2024-11-02 15:41:40,002 Train-Epoch[26/160]Batch[300]	Speed 4658.7 (+28.7) sample/sec 	RMSE = 17.92465, RULscore = 524713.33254, CLIP_Loss = 1.02717 	
+2024-11-02 15:41:40,992 Train-Epoch[26/160]Batch[339]	Speed 4851.5 (+32.3) sample/sec 	RMSE = 17.92905, RULscore = 588809.23147, CLIP_Loss = 1.02486 	
+2024-11-02 15:41:41,050 Test-Epoch[26/160]Batch[0]	Speed 1075.7 (+2241.3) sample/sec 	RMSE = 17.02559, RULscore = 312.52908, CLIP_Loss = 1.37864 	
+2024-11-02 15:41:41,084 Test-Epoch[26/160]Batch[3]	Speed 6745.1 (+455.9) sample/sec 	RMSE = 16.98529, RULscore = 1337.23016, CLIP_Loss = 1.33236 	
+2024-11-02 15:41:41,085 Test-Epoch[26/160]Batch[3]	RMSE = 16.98529, RULscore = 1337.23016, CLIP_Loss = 1.33236 	
+2024-11-02 15:41:41,085 Final_Epoch [26]   time cost: 9.31 sec (0.00 h)
+2024-11-02 15:41:41,085 Train_RMSE = 17.92905, Train_RULscore = 588809.23147, Train_CLIP_Loss = 1.02486, Test_RMSE = 16.98529, Test_RULscore = 1337.23016, Test_CLIP_Loss = 1.33236, Train_RMSE_cor = 18.09896, Train_RULscore_min = 540273.82374, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:41:41,090 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0027.pth
+2024-11-02 15:41:41,216 Train-Epoch[27/160]Batch[0]	Speed 1083.3 (+1081.4) sample/sec 	RMSE = 15.62825, RULscore = 933.21533, CLIP_Loss = 0.98894 	
+2024-11-02 15:41:42,466 Train-Epoch[27/160]Batch[50]	Speed 5120.2 (+37.4) sample/sec 	RMSE = 18.19936, RULscore = 97496.59502, CLIP_Loss = 1.02912 	
+2024-11-02 15:41:43,866 Train-Epoch[27/160]Batch[100]	Speed 4569.2 (+29.4) sample/sec 	RMSE = 18.28982, RULscore = 161494.58627, CLIP_Loss = 1.03052 	
+2024-11-02 15:41:45,215 Train-Epoch[27/160]Batch[150]	Speed 4744.9 (+29.2) sample/sec 	RMSE = 18.25118, RULscore = 241118.09981, CLIP_Loss = 1.02898 	
+2024-11-02 15:41:46,568 Train-Epoch[27/160]Batch[200]	Speed 4731.7 (+31.3) sample/sec 	RMSE = 18.31146, RULscore = 315666.27796, CLIP_Loss = 1.03068 	
+2024-11-02 15:41:47,844 Train-Epoch[27/160]Batch[250]	Speed 5015.8 (+35.3) sample/sec 	RMSE = 18.07664, RULscore = 393600.05754, CLIP_Loss = 1.02657 	
+2024-11-02 15:41:49,064 Train-Epoch[27/160]Batch[300]	Speed 5242.9 (+37.9) sample/sec 	RMSE = 18.03484, RULscore = 472835.45393, CLIP_Loss = 1.02460 	
+2024-11-02 15:41:50,067 Train-Epoch[27/160]Batch[339]	Speed 4787.0 (+33.3) sample/sec 	RMSE = 18.01341, RULscore = 537823.92677, CLIP_Loss = 1.02320 	
+2024-11-02 15:41:50,114 Test-Epoch[27/160]Batch[0]	Speed 1333.8 (+2229.8) sample/sec 	RMSE = 18.95346, RULscore = 841.22215, CLIP_Loss = 1.38046 	
+2024-11-02 15:41:50,163 Test-Epoch[27/160]Batch[3]	Speed 4327.9 (+249.5) sample/sec 	RMSE = 17.45327, RULscore = 2166.51572, CLIP_Loss = 1.33279 	
+2024-11-02 15:41:50,164 Test-Epoch[27/160]Batch[3]	RMSE = 17.45327, RULscore = 2166.51572, CLIP_Loss = 1.33279 	
+2024-11-02 15:41:50,164 Final_Epoch [27]   time cost: 9.07 sec (0.00 h)
+2024-11-02 15:41:50,164 Train_RMSE = 18.01341, Train_RULscore = 537823.92677, Train_CLIP_Loss = 1.02320, Test_RMSE = 17.45327, Test_RULscore = 2166.51572, Test_CLIP_Loss = 1.33279, Train_RMSE_cor = 18.01341, Train_RULscore_min = 537823.92677, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:41:50,174 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0028.pth
+2024-11-02 15:41:50,275 Train-Epoch[28/160]Batch[0]	Speed 1363.4 (+1807.2) sample/sec 	RMSE = 16.10973, RULscore = 1206.61944, CLIP_Loss = 0.98780 	
+2024-11-02 15:41:51,680 Train-Epoch[28/160]Batch[50]	Speed 4554.6 (+28.5) sample/sec 	RMSE = 18.33106, RULscore = 108658.41594, CLIP_Loss = 1.03080 	
+2024-11-02 15:41:52,948 Train-Epoch[28/160]Batch[100]	Speed 5047.8 (+33.5) sample/sec 	RMSE = 18.65020, RULscore = 186108.00936, CLIP_Loss = 1.02957 	
+2024-11-02 15:41:54,210 Train-Epoch[28/160]Batch[150]	Speed 5073.5 (+36.3) sample/sec 	RMSE = 18.50180, RULscore = 273149.09233, CLIP_Loss = 1.03042 	
+2024-11-02 15:41:55,574 Train-Epoch[28/160]Batch[200]	Speed 4689.8 (+30.6) sample/sec 	RMSE = 18.46503, RULscore = 357225.54104, CLIP_Loss = 1.03066 	
+2024-11-02 15:41:57,092 Train-Epoch[28/160]Batch[250]	Speed 4216.6 (+23.3) sample/sec 	RMSE = 18.31442, RULscore = 451707.51787, CLIP_Loss = 1.02686 	
+2024-11-02 15:41:58,515 Train-Epoch[28/160]Batch[300]	Speed 4497.9 (+28.1) sample/sec 	RMSE = 18.27865, RULscore = 523973.40796, CLIP_Loss = 1.02634 	
+2024-11-02 15:41:59,665 Train-Epoch[28/160]Batch[339]	Speed 4196.6 (+26.3) sample/sec 	RMSE = 18.24438, RULscore = 596530.65493, CLIP_Loss = 1.02339 	
+2024-11-02 15:41:59,722 Test-Epoch[28/160]Batch[0]	Speed 1104.3 (+2111.6) sample/sec 	RMSE = 17.36172, RULscore = 461.82093, CLIP_Loss = 1.37555 	
+2024-11-02 15:41:59,756 Test-Epoch[28/160]Batch[3]	Speed 7075.5 (+473.4) sample/sec 	RMSE = 16.54972, RULscore = 1567.80076, CLIP_Loss = 1.32933 	
+2024-11-02 15:41:59,757 Test-Epoch[28/160]Batch[3]	RMSE = 16.54972, RULscore = 1567.80076, CLIP_Loss = 1.32933 	
+2024-11-02 15:41:59,757 Final_Epoch [28]   time cost: 9.58 sec (0.00 h)
+2024-11-02 15:41:59,757 Train_RMSE = 18.24438, Train_RULscore = 596530.65493, Train_CLIP_Loss = 1.02339, Test_RMSE = 16.54972, Test_RULscore = 1567.80076, Test_CLIP_Loss = 1.32933, Train_RMSE_cor = 18.01341, Train_RULscore_min = 537823.92677, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:41:59,767 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0029.pth
+2024-11-02 15:41:59,852 Train-Epoch[29/160]Batch[0]	Speed 1633.7 (+1591.4) sample/sec 	RMSE = 16.56002, RULscore = 1153.88248, CLIP_Loss = 0.98654 	
+2024-11-02 15:42:01,176 Train-Epoch[29/160]Batch[50]	Speed 4832.8 (+33.6) sample/sec 	RMSE = 18.33046, RULscore = 115738.80748, CLIP_Loss = 1.02794 	
+2024-11-02 15:42:02,455 Train-Epoch[29/160]Batch[100]	Speed 5003.7 (+35.0) sample/sec 	RMSE = 18.21229, RULscore = 182257.49202, CLIP_Loss = 1.02984 	
+2024-11-02 15:42:03,798 Train-Epoch[29/160]Batch[150]	Speed 4763.9 (+33.2) sample/sec 	RMSE = 18.16398, RULscore = 264691.39969, CLIP_Loss = 1.02821 	
+2024-11-02 15:42:05,127 Train-Epoch[29/160]Batch[200]	Speed 4818.0 (+32.0) sample/sec 	RMSE = 18.10120, RULscore = 336967.13197, CLIP_Loss = 1.03102 	
+2024-11-02 15:42:06,557 Train-Epoch[29/160]Batch[250]	Speed 4474.8 (+26.1) sample/sec 	RMSE = 18.06981, RULscore = 415623.53119, CLIP_Loss = 1.02726 	
+2024-11-02 15:42:08,036 Train-Epoch[29/160]Batch[300]	Speed 4328.3 (+28.4) sample/sec 	RMSE = 17.98938, RULscore = 494290.62608, CLIP_Loss = 1.02568 	
+2024-11-02 15:42:09,153 Train-Epoch[29/160]Batch[339]	Speed 4288.1 (+27.2) sample/sec 	RMSE = 17.97170, RULscore = 564168.12380, CLIP_Loss = 1.02299 	
+2024-11-02 15:42:09,197 Test-Epoch[29/160]Batch[0]	Speed 1437.1 (+3965.5) sample/sec 	RMSE = 20.21855, RULscore = 471.48392, CLIP_Loss = 1.37705 	
+2024-11-02 15:42:09,240 Test-Epoch[29/160]Batch[3]	Speed 5228.4 (+278.6) sample/sec 	RMSE = 18.84499, RULscore = 1579.30625, CLIP_Loss = 1.32368 	
+2024-11-02 15:42:09,241 Test-Epoch[29/160]Batch[3]	RMSE = 18.84499, RULscore = 1579.30625, CLIP_Loss = 1.32368 	
+2024-11-02 15:42:09,241 Final_Epoch [29]   time cost: 9.47 sec (0.00 h)
+2024-11-02 15:42:09,241 Train_RMSE = 17.97170, Train_RULscore = 564168.12380, Train_CLIP_Loss = 1.02299, Test_RMSE = 18.84499, Test_RULscore = 1579.30625, Test_CLIP_Loss = 1.32368, Train_RMSE_cor = 18.01341, Train_RULscore_min = 537823.92677, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:42:09,251 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0030.pth
+2024-11-02 15:42:09,372 Train-Epoch[30/160]Batch[0]	Speed 1123.3 (+2263.4) sample/sec 	RMSE = 18.76770, RULscore = 970.95314, CLIP_Loss = 1.00030 	
+2024-11-02 15:42:10,780 Train-Epoch[30/160]Batch[50]	Speed 4546.3 (+29.3) sample/sec 	RMSE = 18.34933, RULscore = 107313.12819, CLIP_Loss = 1.03005 	
+2024-11-02 15:42:12,231 Train-Epoch[30/160]Batch[100]	Speed 4409.7 (+26.6) sample/sec 	RMSE = 17.97403, RULscore = 172252.36199, CLIP_Loss = 1.03203 	
+2024-11-02 15:42:13,508 Train-Epoch[30/160]Batch[150]	Speed 5011.2 (+32.6) sample/sec 	RMSE = 18.25172, RULscore = 248838.33465, CLIP_Loss = 1.03092 	
+2024-11-02 15:42:14,911 Train-Epoch[30/160]Batch[200]	Speed 4562.5 (+28.1) sample/sec 	RMSE = 18.02482, RULscore = 328837.98442, CLIP_Loss = 1.03114 	
+2024-11-02 15:42:16,217 Train-Epoch[30/160]Batch[250]	Speed 4902.0 (+31.2) sample/sec 	RMSE = 17.95907, RULscore = 411035.85922, CLIP_Loss = 1.02725 	
+2024-11-02 15:42:17,542 Train-Epoch[30/160]Batch[300]	Speed 4829.0 (+31.6) sample/sec 	RMSE = 17.89679, RULscore = 472547.77070, CLIP_Loss = 1.02556 	
+2024-11-02 15:42:18,703 Train-Epoch[30/160]Batch[339]	Speed 4144.2 (+25.9) sample/sec 	RMSE = 17.88481, RULscore = 529009.21329, CLIP_Loss = 1.02370 	
+2024-11-02 15:42:18,751 Test-Epoch[30/160]Batch[0]	Speed 1301.1 (+3129.8) sample/sec 	RMSE = 18.21475, RULscore = 487.00508, CLIP_Loss = 1.38216 	
+2024-11-02 15:42:18,782 Test-Epoch[30/160]Batch[3]	Speed 7574.5 (+606.7) sample/sec 	RMSE = 17.23837, RULscore = 1907.95439, CLIP_Loss = 1.33437 	
+2024-11-02 15:42:18,782 Test-Epoch[30/160]Batch[3]	RMSE = 17.23837, RULscore = 1907.95439, CLIP_Loss = 1.33437 	
+2024-11-02 15:42:18,782 Final_Epoch [30]   time cost: 9.53 sec (0.00 h)
+2024-11-02 15:42:18,783 Train_RMSE = 17.88481, Train_RULscore = 529009.21329, Train_CLIP_Loss = 1.02370, Test_RMSE = 17.23837, Test_RULscore = 1907.95439, Test_CLIP_Loss = 1.33437, Train_RMSE_cor = 17.88481, Train_RULscore_min = 529009.21329, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:42:18,788 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0031.pth
+2024-11-02 15:42:18,908 Train-Epoch[31/160]Batch[0]	Speed 1131.6 (+953.8) sample/sec 	RMSE = 15.92880, RULscore = 1089.09216, CLIP_Loss = 0.99154 	
+2024-11-02 15:42:20,491 Train-Epoch[31/160]Batch[50]	Speed 4041.1 (+25.4) sample/sec 	RMSE = 18.15484, RULscore = 104187.01384, CLIP_Loss = 1.03495 	
+2024-11-02 15:42:21,950 Train-Epoch[31/160]Batch[100]	Speed 4388.3 (+26.9) sample/sec 	RMSE = 17.84597, RULscore = 168267.40765, CLIP_Loss = 1.03491 	
+2024-11-02 15:42:23,450 Train-Epoch[31/160]Batch[150]	Speed 4267.3 (+26.5) sample/sec 	RMSE = 17.78195, RULscore = 252520.22839, CLIP_Loss = 1.03252 	
+2024-11-02 15:42:24,946 Train-Epoch[31/160]Batch[200]	Speed 4276.0 (+26.2) sample/sec 	RMSE = 17.75978, RULscore = 343548.70604, CLIP_Loss = 1.03209 	
+2024-11-02 15:42:26,362 Train-Epoch[31/160]Batch[250]	Speed 4521.8 (+29.4) sample/sec 	RMSE = 17.61602, RULscore = 437593.87613, CLIP_Loss = 1.02809 	
+2024-11-02 15:42:27,721 Train-Epoch[31/160]Batch[300]	Speed 4706.6 (+30.5) sample/sec 	RMSE = 17.66532, RULscore = 519570.70916, CLIP_Loss = 1.02614 	
+2024-11-02 15:42:28,825 Train-Epoch[31/160]Batch[339]	Speed 4341.8 (+28.2) sample/sec 	RMSE = 17.64591, RULscore = 577855.85351, CLIP_Loss = 1.02368 	
+2024-11-02 15:42:28,873 Test-Epoch[31/160]Batch[0]	Speed 1317.5 (+3245.9) sample/sec 	RMSE = 17.56674, RULscore = 400.74787, CLIP_Loss = 1.37253 	
+2024-11-02 15:42:28,910 Test-Epoch[31/160]Batch[3]	Speed 6583.4 (+435.6) sample/sec 	RMSE = 16.58257, RULscore = 1441.38747, CLIP_Loss = 1.32565 	
+2024-11-02 15:42:28,910 Test-Epoch[31/160]Batch[3]	RMSE = 16.58257, RULscore = 1441.38747, CLIP_Loss = 1.32565 	
+2024-11-02 15:42:28,910 Final_Epoch [31]   time cost: 10.12 sec (0.00 h)
+2024-11-02 15:42:28,910 Train_RMSE = 17.64591, Train_RULscore = 577855.85351, Train_CLIP_Loss = 1.02368, Test_RMSE = 16.58257, Test_RULscore = 1441.38747, Test_CLIP_Loss = 1.32565, Train_RMSE_cor = 17.88481, Train_RULscore_min = 529009.21329, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:42:28,916 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0032.pth
+2024-11-02 15:42:29,012 Train-Epoch[32/160]Batch[0]	Speed 1453.1 (+1706.5) sample/sec 	RMSE = 17.30449, RULscore = 1359.51883, CLIP_Loss = 0.98500 	
+2024-11-02 15:42:30,393 Train-Epoch[32/160]Batch[50]	Speed 4633.5 (+30.9) sample/sec 	RMSE = 18.20196, RULscore = 98924.34901, CLIP_Loss = 1.02720 	
+2024-11-02 15:42:31,912 Train-Epoch[32/160]Batch[100]	Speed 4212.8 (+24.2) sample/sec 	RMSE = 18.12188, RULscore = 160565.96662, CLIP_Loss = 1.02866 	
+2024-11-02 15:42:33,271 Train-Epoch[32/160]Batch[150]	Speed 4711.3 (+39.9) sample/sec 	RMSE = 17.97470, RULscore = 236085.97719, CLIP_Loss = 1.02727 	
+2024-11-02 15:42:34,668 Train-Epoch[32/160]Batch[200]	Speed 4578.8 (+26.5) sample/sec 	RMSE = 17.95311, RULscore = 309451.04563, CLIP_Loss = 1.02880 	
+2024-11-02 15:42:36,132 Train-Epoch[32/160]Batch[250]	Speed 4371.9 (+25.7) sample/sec 	RMSE = 17.85708, RULscore = 393644.33137, CLIP_Loss = 1.02494 	
+2024-11-02 15:42:37,434 Train-Epoch[32/160]Batch[300]	Speed 4918.0 (+32.3) sample/sec 	RMSE = 17.96403, RULscore = 475884.23677, CLIP_Loss = 1.02325 	
+2024-11-02 15:42:38,419 Train-Epoch[32/160]Batch[339]	Speed 4900.5 (+33.7) sample/sec 	RMSE = 17.95569, RULscore = 538778.57909, CLIP_Loss = 1.02177 	
+2024-11-02 15:42:38,468 Test-Epoch[32/160]Batch[0]	Speed 1300.4 (+2955.6) sample/sec 	RMSE = 18.16199, RULscore = 511.58967, CLIP_Loss = 1.38009 	
+2024-11-02 15:42:38,501 Test-Epoch[32/160]Batch[3]	Speed 6965.0 (+474.9) sample/sec 	RMSE = 17.09949, RULscore = 1795.22322, CLIP_Loss = 1.33381 	
+2024-11-02 15:42:38,502 Test-Epoch[32/160]Batch[3]	RMSE = 17.09949, RULscore = 1795.22322, CLIP_Loss = 1.33381 	
+2024-11-02 15:42:38,502 Final_Epoch [32]   time cost: 9.59 sec (0.00 h)
+2024-11-02 15:42:38,502 Train_RMSE = 17.95569, Train_RULscore = 538778.57909, Train_CLIP_Loss = 1.02177, Test_RMSE = 17.09949, Test_RULscore = 1795.22322, Test_CLIP_Loss = 1.33381, Train_RMSE_cor = 17.88481, Train_RULscore_min = 529009.21329, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:42:38,512 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0033.pth
+2024-11-02 15:42:38,602 Train-Epoch[33/160]Batch[0]	Speed 1549.7 (+1254.7) sample/sec 	RMSE = 16.38192, RULscore = 1236.95226, CLIP_Loss = 0.98845 	
+2024-11-02 15:42:40,020 Train-Epoch[33/160]Batch[50]	Speed 4511.0 (+30.3) sample/sec 	RMSE = 18.63462, RULscore = 106627.85561, CLIP_Loss = 1.03116 	
+2024-11-02 15:42:41,360 Train-Epoch[33/160]Batch[100]	Speed 4776.3 (+32.0) sample/sec 	RMSE = 18.39750, RULscore = 175770.00011, CLIP_Loss = 1.02941 	
+2024-11-02 15:42:42,789 Train-Epoch[33/160]Batch[150]	Speed 4479.4 (+27.6) sample/sec 	RMSE = 18.55383, RULscore = 266490.33180, CLIP_Loss = 1.03034 	
+2024-11-02 15:42:44,118 Train-Epoch[33/160]Batch[200]	Speed 4815.8 (+30.7) sample/sec 	RMSE = 18.47248, RULscore = 353149.97950, CLIP_Loss = 1.03028 	
+2024-11-02 15:42:45,581 Train-Epoch[33/160]Batch[250]	Speed 4374.6 (+25.4) sample/sec 	RMSE = 18.35418, RULscore = 442109.19681, CLIP_Loss = 1.02644 	
+2024-11-02 15:42:47,087 Train-Epoch[33/160]Batch[300]	Speed 4249.8 (+25.5) sample/sec 	RMSE = 18.27243, RULscore = 512056.29816, CLIP_Loss = 1.02587 	
+2024-11-02 15:42:48,080 Train-Epoch[33/160]Batch[339]	Speed 4860.5 (+32.3) sample/sec 	RMSE = 18.26837, RULscore = 581724.03989, CLIP_Loss = 1.02304 	
+2024-11-02 15:42:48,125 Test-Epoch[33/160]Batch[0]	Speed 1403.7 (+4268.6) sample/sec 	RMSE = 16.88405, RULscore = 383.52776, CLIP_Loss = 1.38067 	
+2024-11-02 15:42:48,170 Test-Epoch[33/160]Batch[3]	Speed 5003.6 (+228.9) sample/sec 	RMSE = 16.60194, RULscore = 1497.33165, CLIP_Loss = 1.33585 	
+2024-11-02 15:42:48,170 Test-Epoch[33/160]Batch[3]	RMSE = 16.60194, RULscore = 1497.33165, CLIP_Loss = 1.33585 	
+2024-11-02 15:42:48,170 Final_Epoch [33]   time cost: 9.66 sec (0.00 h)
+2024-11-02 15:42:48,171 Train_RMSE = 18.26837, Train_RULscore = 581724.03989, Train_CLIP_Loss = 1.02304, Test_RMSE = 16.60194, Test_RULscore = 1497.33165, Test_CLIP_Loss = 1.33585, Train_RMSE_cor = 17.88481, Train_RULscore_min = 529009.21329, Test_RMSE_cor = 16.98529, Test_RULscore_min = 1337.23016, Model_ID = 27.00000 	
+2024-11-02 15:42:48,176 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0034.pth
+2024-11-02 15:42:48,291 Train-Epoch[34/160]Batch[0]	Speed 1181.3 (+910.4) sample/sec 	RMSE = 17.33291, RULscore = 1253.72688, CLIP_Loss = 0.99097 	
+2024-11-02 15:42:49,695 Train-Epoch[34/160]Batch[50]	Speed 4558.4 (+30.1) sample/sec 	RMSE = 18.21086, RULscore = 120221.50096, CLIP_Loss = 1.02709 	
+2024-11-02 15:42:51,180 Train-Epoch[34/160]Batch[100]	Speed 4308.7 (+25.8) sample/sec 	RMSE = 18.06096, RULscore = 179042.90098, CLIP_Loss = 1.02906 	
+2024-11-02 15:42:52,677 Train-Epoch[34/160]Batch[150]	Speed 4277.0 (+24.5) sample/sec 	RMSE = 18.08662, RULscore = 280938.18244, CLIP_Loss = 1.02742 	
+2024-11-02 15:42:54,047 Train-Epoch[34/160]Batch[200]	Speed 4669.2 (+29.1) sample/sec 	RMSE = 17.95339, RULscore = 347216.75007, CLIP_Loss = 1.03023 	
+2024-11-02 15:42:55,380 Train-Epoch[34/160]Batch[250]	Speed 4803.5 (+30.4) sample/sec 	RMSE = 17.84212, RULscore = 425545.76644, CLIP_Loss = 1.02653 	
+2024-11-02 15:42:56,639 Train-Epoch[34/160]Batch[300]	Speed 5083.5 (+35.1) sample/sec 	RMSE = 17.84060, RULscore = 502212.82521, CLIP_Loss = 1.02488 	
+2024-11-02 15:42:57,765 Train-Epoch[34/160]Batch[339]	Speed 4287.8 (+27.3) sample/sec 	RMSE = 17.85702, RULscore = 567261.61780, CLIP_Loss = 1.02211 	
+2024-11-02 15:42:57,813 Test-Epoch[34/160]Batch[0]	Speed 1308.7 (+3202.9) sample/sec 	RMSE = 16.87286, RULscore = 305.80085, CLIP_Loss = 1.37219 	
+2024-11-02 15:42:57,848 Test-Epoch[34/160]Batch[3]	Speed 6604.5 (+459.1) sample/sec 	RMSE = 15.99772, RULscore = 1202.34511, CLIP_Loss = 1.32394 	
+2024-11-02 15:42:57,848 Test-Epoch[34/160]Batch[3]	RMSE = 15.99772, RULscore = 1202.34511, CLIP_Loss = 1.32394 	
+2024-11-02 15:42:57,848 Final_Epoch [34]   time cost: 9.67 sec (0.00 h)
+2024-11-02 15:42:57,848 Train_RMSE = 17.85702, Train_RULscore = 567261.61780, Train_CLIP_Loss = 1.02211, Test_RMSE = 15.99772, Test_RULscore = 1202.34511, Test_CLIP_Loss = 1.32394, Train_RMSE_cor = 17.88481, Train_RULscore_min = 529009.21329, Test_RMSE_cor = 15.99772, Test_RULscore_min = 1202.34511, Model_ID = 35.00000 	
+2024-11-02 15:42:57,857 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0035.pth
+2024-11-02 15:42:57,948 Train-Epoch[35/160]Batch[0]	Speed 1505.8 (+1983.5) sample/sec 	RMSE = 16.04851, RULscore = 956.84335, CLIP_Loss = 0.99967 	
+2024-11-02 15:42:59,310 Train-Epoch[35/160]Batch[50]	Speed 4698.3 (+32.0) sample/sec 	RMSE = 18.75862, RULscore = 106857.72540, CLIP_Loss = 1.02994 	
+2024-11-02 15:43:00,645 Train-Epoch[35/160]Batch[100]	Speed 4794.4 (+32.1) sample/sec 	RMSE = 18.35857, RULscore = 171648.74358, CLIP_Loss = 1.03172 	
+2024-11-02 15:43:02,003 Train-Epoch[35/160]Batch[150]	Speed 4713.5 (+29.4) sample/sec 	RMSE = 18.37370, RULscore = 240085.96122, CLIP_Loss = 1.03060 	
+2024-11-02 15:43:03,366 Train-Epoch[35/160]Batch[200]	Speed 4694.5 (+37.4) sample/sec 	RMSE = 18.04735, RULscore = 320555.25949, CLIP_Loss = 1.03068 	
+2024-11-02 15:43:04,616 Train-Epoch[35/160]Batch[250]	Speed 5121.7 (+33.6) sample/sec 	RMSE = 17.97620, RULscore = 399769.69931, CLIP_Loss = 1.02677 	
+2024-11-02 15:43:05,888 Train-Epoch[35/160]Batch[300]	Speed 5029.6 (+34.1) sample/sec 	RMSE = 17.95605, RULscore = 466188.61612, CLIP_Loss = 1.02505 	
+2024-11-02 15:43:06,944 Train-Epoch[35/160]Batch[339]	Speed 4584.1 (+32.4) sample/sec 	RMSE = 17.93256, RULscore = 522097.76123, CLIP_Loss = 1.02316 	
+2024-11-02 15:43:07,000 Test-Epoch[35/160]Batch[0]	Speed 1138.6 (+2298.6) sample/sec 	RMSE = 17.26213, RULscore = 372.81240, CLIP_Loss = 1.37823 	
+2024-11-02 15:43:07,052 Test-Epoch[35/160]Batch[3]	Speed 4092.7 (+215.2) sample/sec 	RMSE = 16.47165, RULscore = 1484.39239, CLIP_Loss = 1.32896 	
+2024-11-02 15:43:07,053 Test-Epoch[35/160]Batch[3]	RMSE = 16.47165, RULscore = 1484.39239, CLIP_Loss = 1.32896 	
+2024-11-02 15:43:07,053 Final_Epoch [35]   time cost: 9.20 sec (0.00 h)
+2024-11-02 15:43:07,053 Train_RMSE = 17.93256, Train_RULscore = 522097.76123, Train_CLIP_Loss = 1.02316, Test_RMSE = 16.47165, Test_RULscore = 1484.39239, Test_CLIP_Loss = 1.32896, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.99772, Test_RULscore_min = 1202.34511, Model_ID = 35.00000 	
+2024-11-02 15:43:07,058 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0036.pth
+2024-11-02 15:43:07,150 Train-Epoch[36/160]Batch[0]	Speed 1499.0 (+2130.4) sample/sec 	RMSE = 15.67542, RULscore = 1046.55054, CLIP_Loss = 0.98599 	
+2024-11-02 15:43:08,522 Train-Epoch[36/160]Batch[50]	Speed 4665.7 (+29.8) sample/sec 	RMSE = 18.09815, RULscore = 98814.90239, CLIP_Loss = 1.03353 	
+2024-11-02 15:43:09,709 Train-Epoch[36/160]Batch[100]	Speed 5391.1 (+38.9) sample/sec 	RMSE = 18.01457, RULscore = 164378.88106, CLIP_Loss = 1.03397 	
+2024-11-02 15:43:11,092 Train-Epoch[36/160]Batch[150]	Speed 4626.6 (+28.2) sample/sec 	RMSE = 18.02009, RULscore = 253151.52443, CLIP_Loss = 1.03183 	
+2024-11-02 15:43:12,441 Train-Epoch[36/160]Batch[200]	Speed 4743.2 (+40.8) sample/sec 	RMSE = 18.01479, RULscore = 344801.29740, CLIP_Loss = 1.03144 	
+2024-11-02 15:43:13,720 Train-Epoch[36/160]Batch[250]	Speed 5003.8 (+60.9) sample/sec 	RMSE = 17.87745, RULscore = 430990.39794, CLIP_Loss = 1.02747 	
+2024-11-02 15:43:15,080 Train-Epoch[36/160]Batch[300]	Speed 4707.4 (+30.6) sample/sec 	RMSE = 17.87928, RULscore = 513113.84094, CLIP_Loss = 1.02559 	
+2024-11-02 15:43:16,037 Train-Epoch[36/160]Batch[339]	Speed 5022.5 (+35.8) sample/sec 	RMSE = 17.85608, RULscore = 573910.05267, CLIP_Loss = 1.02317 	
+2024-11-02 15:43:16,098 Test-Epoch[36/160]Batch[0]	Speed 1044.4 (+1981.6) sample/sec 	RMSE = 18.77607, RULscore = 410.83178, CLIP_Loss = 1.37555 	
+2024-11-02 15:43:16,133 Test-Epoch[36/160]Batch[3]	Speed 6267.1 (+517.5) sample/sec 	RMSE = 17.53193, RULscore = 1430.08197, CLIP_Loss = 1.32566 	
+2024-11-02 15:43:16,133 Test-Epoch[36/160]Batch[3]	RMSE = 17.53193, RULscore = 1430.08197, CLIP_Loss = 1.32566 	
+2024-11-02 15:43:16,134 Final_Epoch [36]   time cost: 9.08 sec (0.00 h)
+2024-11-02 15:43:16,134 Train_RMSE = 17.85608, Train_RULscore = 573910.05267, Train_CLIP_Loss = 1.02317, Test_RMSE = 17.53193, Test_RULscore = 1430.08197, Test_CLIP_Loss = 1.32566, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.99772, Test_RULscore_min = 1202.34511, Model_ID = 35.00000 	
+2024-11-02 15:43:16,141 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0037.pth
+2024-11-02 15:43:16,260 Train-Epoch[37/160]Batch[0]	Speed 1145.9 (+1017.9) sample/sec 	RMSE = 16.71381, RULscore = 717.37300, CLIP_Loss = 0.98597 	
+2024-11-02 15:43:17,624 Train-Epoch[37/160]Batch[50]	Speed 4691.3 (+31.3) sample/sec 	RMSE = 17.93048, RULscore = 87770.18926, CLIP_Loss = 1.02705 	
+2024-11-02 15:43:18,847 Train-Epoch[37/160]Batch[100]	Speed 5230.4 (+37.9) sample/sec 	RMSE = 17.83447, RULscore = 149678.61281, CLIP_Loss = 1.02801 	
+2024-11-02 15:43:20,229 Train-Epoch[37/160]Batch[150]	Speed 4631.5 (+29.7) sample/sec 	RMSE = 17.87804, RULscore = 229389.48065, CLIP_Loss = 1.02671 	
+2024-11-02 15:43:21,595 Train-Epoch[37/160]Batch[200]	Speed 4685.8 (+31.8) sample/sec 	RMSE = 17.84155, RULscore = 307545.97180, CLIP_Loss = 1.02855 	
+2024-11-02 15:43:23,020 Train-Epoch[37/160]Batch[250]	Speed 4491.5 (+30.6) sample/sec 	RMSE = 17.63618, RULscore = 393894.05325, CLIP_Loss = 1.02446 	
+2024-11-02 15:43:24,462 Train-Epoch[37/160]Batch[300]	Speed 4440.1 (+27.9) sample/sec 	RMSE = 17.69790, RULscore = 475893.55982, CLIP_Loss = 1.02267 	
+2024-11-02 15:43:25,458 Train-Epoch[37/160]Batch[339]	Speed 4779.6 (+32.9) sample/sec 	RMSE = 17.68905, RULscore = 526742.68933, CLIP_Loss = 1.02122 	
+2024-11-02 15:43:25,515 Test-Epoch[37/160]Batch[0]	Speed 1092.3 (+5005.8) sample/sec 	RMSE = 15.69031, RULscore = 267.47085, CLIP_Loss = 1.37574 	
+2024-11-02 15:43:25,554 Test-Epoch[37/160]Batch[3]	Speed 5724.8 (+180.6) sample/sec 	RMSE = 15.65543, RULscore = 1282.90101, CLIP_Loss = 1.32899 	
+2024-11-02 15:43:25,555 Test-Epoch[37/160]Batch[3]	RMSE = 15.65543, RULscore = 1282.90101, CLIP_Loss = 1.32899 	
+2024-11-02 15:43:25,555 Final_Epoch [37]   time cost: 9.41 sec (0.00 h)
+2024-11-02 15:43:25,555 Train_RMSE = 17.68905, Train_RULscore = 526742.68933, Train_CLIP_Loss = 1.02122, Test_RMSE = 15.65543, Test_RULscore = 1282.90101, Test_CLIP_Loss = 1.32899, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.99772, Test_RULscore_min = 1202.34511, Model_ID = 35.00000 	
+2024-11-02 15:43:25,563 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0038.pth
+2024-11-02 15:43:25,651 Train-Epoch[38/160]Batch[0]	Speed 1551.1 (+1815.6) sample/sec 	RMSE = 16.13009, RULscore = 1027.60722, CLIP_Loss = 0.98673 	
+2024-11-02 15:43:26,983 Train-Epoch[38/160]Batch[50]	Speed 4805.9 (+31.3) sample/sec 	RMSE = 18.24953, RULscore = 104891.40806, CLIP_Loss = 1.02951 	
+2024-11-02 15:43:28,349 Train-Epoch[38/160]Batch[100]	Speed 4684.4 (+29.3) sample/sec 	RMSE = 18.17364, RULscore = 169454.89123, CLIP_Loss = 1.02770 	
+2024-11-02 15:43:29,737 Train-Epoch[38/160]Batch[150]	Speed 4610.8 (+28.1) sample/sec 	RMSE = 18.32897, RULscore = 260603.07692, CLIP_Loss = 1.02910 	
+2024-11-02 15:43:31,105 Train-Epoch[38/160]Batch[200]	Speed 4680.2 (+28.5) sample/sec 	RMSE = 18.25344, RULscore = 346141.66767, CLIP_Loss = 1.02928 	
+2024-11-02 15:43:32,428 Train-Epoch[38/160]Batch[250]	Speed 4835.3 (+32.5) sample/sec 	RMSE = 18.12203, RULscore = 435247.10604, CLIP_Loss = 1.02549 	
+2024-11-02 15:43:33,737 Train-Epoch[38/160]Batch[300]	Speed 4890.5 (+32.2) sample/sec 	RMSE = 18.14475, RULscore = 507127.95919, CLIP_Loss = 1.02499 	
+2024-11-02 15:43:34,693 Train-Epoch[38/160]Batch[339]	Speed 5030.2 (+36.3) sample/sec 	RMSE = 18.09865, RULscore = 572879.61907, CLIP_Loss = 1.02191 	
+2024-11-02 15:43:34,741 Test-Epoch[38/160]Batch[0]	Speed 1327.9 (+4038.7) sample/sec 	RMSE = 15.43326, RULscore = 258.95109, CLIP_Loss = 1.36831 	
+2024-11-02 15:43:34,776 Test-Epoch[38/160]Batch[3]	Speed 6196.4 (+397.5) sample/sec 	RMSE = 15.35914, RULscore = 1106.96235, CLIP_Loss = 1.32149 	
+2024-11-02 15:43:34,777 Test-Epoch[38/160]Batch[3]	RMSE = 15.35914, RULscore = 1106.96235, CLIP_Loss = 1.32149 	
+2024-11-02 15:43:34,777 Final_Epoch [38]   time cost: 9.21 sec (0.00 h)
+2024-11-02 15:43:34,777 Train_RMSE = 18.09865, Train_RULscore = 572879.61907, Train_CLIP_Loss = 1.02191, Test_RMSE = 15.35914, Test_RULscore = 1106.96235, Test_CLIP_Loss = 1.32149, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:43:34,784 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0039.pth
+2024-11-02 15:43:34,879 Train-Epoch[39/160]Batch[0]	Speed 1437.5 (+1580.2) sample/sec 	RMSE = 17.67701, RULscore = 1137.05195, CLIP_Loss = 0.97988 	
+2024-11-02 15:43:36,264 Train-Epoch[39/160]Batch[50]	Speed 4622.4 (+31.1) sample/sec 	RMSE = 18.44765, RULscore = 117381.53244, CLIP_Loss = 1.02678 	
+2024-11-02 15:43:37,450 Train-Epoch[39/160]Batch[100]	Speed 5394.1 (+38.2) sample/sec 	RMSE = 18.10083, RULscore = 177195.07734, CLIP_Loss = 1.02848 	
+2024-11-02 15:43:38,880 Train-Epoch[39/160]Batch[150]	Speed 4477.0 (+26.2) sample/sec 	RMSE = 17.93738, RULscore = 276885.86642, CLIP_Loss = 1.02673 	
+2024-11-02 15:43:40,174 Train-Epoch[39/160]Batch[200]	Speed 4943.6 (+33.6) sample/sec 	RMSE = 17.85636, RULscore = 353809.09529, CLIP_Loss = 1.02947 	
+2024-11-02 15:43:41,527 Train-Epoch[39/160]Batch[250]	Speed 4730.4 (+29.9) sample/sec 	RMSE = 17.76832, RULscore = 427027.94714, CLIP_Loss = 1.02577 	
+2024-11-02 15:43:42,751 Train-Epoch[39/160]Batch[300]	Speed 5231.9 (+36.7) sample/sec 	RMSE = 17.82953, RULscore = 510204.71337, CLIP_Loss = 1.02431 	
+2024-11-02 15:43:43,734 Train-Epoch[39/160]Batch[339]	Speed 4903.0 (+36.4) sample/sec 	RMSE = 17.84743, RULscore = 573097.28382, CLIP_Loss = 1.02162 	
+2024-11-02 15:43:43,789 Test-Epoch[39/160]Batch[0]	Speed 1171.4 (+2504.5) sample/sec 	RMSE = 17.12020, RULscore = 322.13488, CLIP_Loss = 1.36994 	
+2024-11-02 15:43:43,838 Test-Epoch[39/160]Batch[3]	Speed 4415.3 (+235.7) sample/sec 	RMSE = 16.16841, RULscore = 1154.40024, CLIP_Loss = 1.32153 	
+2024-11-02 15:43:43,839 Test-Epoch[39/160]Batch[3]	RMSE = 16.16841, RULscore = 1154.40024, CLIP_Loss = 1.32153 	
+2024-11-02 15:43:43,839 Final_Epoch [39]   time cost: 9.05 sec (0.00 h)
+2024-11-02 15:43:43,839 Train_RMSE = 17.84743, Train_RULscore = 573097.28382, Train_CLIP_Loss = 1.02162, Test_RMSE = 16.16841, Test_RULscore = 1154.40024, Test_CLIP_Loss = 1.32153, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:43:43,846 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0040.pth
+2024-11-02 15:43:43,944 Train-Epoch[40/160]Batch[0]	Speed 1392.8 (+1633.3) sample/sec 	RMSE = 16.20065, RULscore = 894.51579, CLIP_Loss = 0.99692 	
+2024-11-02 15:43:45,315 Train-Epoch[40/160]Batch[50]	Speed 4668.6 (+30.8) sample/sec 	RMSE = 18.40085, RULscore = 109050.49826, CLIP_Loss = 1.02945 	
+2024-11-02 15:43:46,679 Train-Epoch[40/160]Batch[100]	Speed 4691.3 (+30.3) sample/sec 	RMSE = 17.94545, RULscore = 173962.85682, CLIP_Loss = 1.03096 	
+2024-11-02 15:43:47,977 Train-Epoch[40/160]Batch[150]	Speed 4929.6 (+34.3) sample/sec 	RMSE = 17.96138, RULscore = 239852.94861, CLIP_Loss = 1.02964 	
+2024-11-02 15:43:49,195 Train-Epoch[40/160]Batch[200]	Speed 5256.5 (+35.8) sample/sec 	RMSE = 17.70847, RULscore = 320565.60383, CLIP_Loss = 1.02985 	
+2024-11-02 15:43:50,525 Train-Epoch[40/160]Batch[250]	Speed 4809.6 (+31.2) sample/sec 	RMSE = 17.59440, RULscore = 395635.25655, CLIP_Loss = 1.02575 	
+2024-11-02 15:43:51,942 Train-Epoch[40/160]Batch[300]	Speed 4518.7 (+27.3) sample/sec 	RMSE = 17.67409, RULscore = 465617.08982, CLIP_Loss = 1.02413 	
+2024-11-02 15:43:53,059 Train-Epoch[40/160]Batch[339]	Speed 4308.5 (+28.6) sample/sec 	RMSE = 17.64533, RULscore = 522858.74048, CLIP_Loss = 1.02227 	
+2024-11-02 15:43:53,116 Test-Epoch[40/160]Batch[0]	Speed 1119.0 (+2663.6) sample/sec 	RMSE = 15.77734, RULscore = 277.05614, CLIP_Loss = 1.37288 	
+2024-11-02 15:43:53,155 Test-Epoch[40/160]Batch[3]	Speed 5515.2 (+365.5) sample/sec 	RMSE = 15.54772, RULscore = 1236.24409, CLIP_Loss = 1.32553 	
+2024-11-02 15:43:53,156 Test-Epoch[40/160]Batch[3]	RMSE = 15.54772, RULscore = 1236.24409, CLIP_Loss = 1.32553 	
+2024-11-02 15:43:53,156 Final_Epoch [40]   time cost: 9.31 sec (0.00 h)
+2024-11-02 15:43:53,156 Train_RMSE = 17.64533, Train_RULscore = 522858.74048, Train_CLIP_Loss = 1.02227, Test_RMSE = 15.54772, Test_RULscore = 1236.24409, Test_CLIP_Loss = 1.32553, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:43:53,166 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0041.pth
+2024-11-02 15:43:53,254 Train-Epoch[41/160]Batch[0]	Speed 1590.1 (+1951.9) sample/sec 	RMSE = 15.89688, RULscore = 1033.78264, CLIP_Loss = 0.98326 	
+2024-11-02 15:43:54,612 Train-Epoch[41/160]Batch[50]	Speed 4709.7 (+32.2) sample/sec 	RMSE = 18.05734, RULscore = 102147.30246, CLIP_Loss = 1.03286 	
+2024-11-02 15:43:55,977 Train-Epoch[41/160]Batch[100]	Speed 4689.8 (+32.0) sample/sec 	RMSE = 17.97682, RULscore = 167378.88727, CLIP_Loss = 1.03336 	
+2024-11-02 15:43:57,441 Train-Epoch[41/160]Batch[150]	Speed 4372.0 (+27.5) sample/sec 	RMSE = 17.90250, RULscore = 256228.54096, CLIP_Loss = 1.03111 	
+2024-11-02 15:43:58,705 Train-Epoch[41/160]Batch[200]	Speed 5062.4 (+33.0) sample/sec 	RMSE = 17.99216, RULscore = 343550.22473, CLIP_Loss = 1.03093 	
+2024-11-02 15:43:59,947 Train-Epoch[41/160]Batch[250]	Speed 5154.2 (+34.4) sample/sec 	RMSE = 17.82923, RULscore = 424580.76601, CLIP_Loss = 1.02674 	
+2024-11-02 15:44:01,227 Train-Epoch[41/160]Batch[300]	Speed 4998.1 (+32.8) sample/sec 	RMSE = 17.80157, RULscore = 503190.09965, CLIP_Loss = 1.02482 	
+2024-11-02 15:44:02,310 Train-Epoch[41/160]Batch[339]	Speed 4446.8 (+27.3) sample/sec 	RMSE = 17.76847, RULscore = 566702.32128, CLIP_Loss = 1.02237 	
+2024-11-02 15:44:02,361 Test-Epoch[41/160]Batch[0]	Speed 1239.9 (+2422.0) sample/sec 	RMSE = 15.95935, RULscore = 286.87200, CLIP_Loss = 1.37239 	
+2024-11-02 15:44:02,409 Test-Epoch[41/160]Batch[3]	Speed 4774.3 (+257.2) sample/sec 	RMSE = 16.04621, RULscore = 1247.96909, CLIP_Loss = 1.32383 	
+2024-11-02 15:44:02,409 Test-Epoch[41/160]Batch[3]	RMSE = 16.04621, RULscore = 1247.96909, CLIP_Loss = 1.32383 	
+2024-11-02 15:44:02,409 Final_Epoch [41]   time cost: 9.24 sec (0.00 h)
+2024-11-02 15:44:02,409 Train_RMSE = 17.76847, Train_RULscore = 566702.32128, Train_CLIP_Loss = 1.02237, Test_RMSE = 16.04621, Test_RULscore = 1247.96909, Test_CLIP_Loss = 1.32383, Train_RMSE_cor = 17.93256, Train_RULscore_min = 522097.76123, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:02,415 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0042.pth
+2024-11-02 15:44:02,513 Train-Epoch[42/160]Batch[0]	Speed 1396.6 (+1871.8) sample/sec 	RMSE = 14.92429, RULscore = 770.86325, CLIP_Loss = 0.98049 	
+2024-11-02 15:44:03,813 Train-Epoch[42/160]Batch[50]	Speed 4923.2 (+34.8) sample/sec 	RMSE = 18.18668, RULscore = 93028.70211, CLIP_Loss = 1.02602 	
+2024-11-02 15:44:05,103 Train-Epoch[42/160]Batch[100]	Speed 4960.6 (+31.4) sample/sec 	RMSE = 18.22879, RULscore = 151936.62461, CLIP_Loss = 1.02728 	
+2024-11-02 15:44:06,580 Train-Epoch[42/160]Batch[150]	Speed 4333.9 (+25.3) sample/sec 	RMSE = 17.98298, RULscore = 222790.69712, CLIP_Loss = 1.02586 	
+2024-11-02 15:44:07,886 Train-Epoch[42/160]Batch[200]	Speed 4898.9 (+32.9) sample/sec 	RMSE = 17.96532, RULscore = 298028.55233, CLIP_Loss = 1.02754 	
+2024-11-02 15:44:09,210 Train-Epoch[42/160]Batch[250]	Speed 4834.7 (+32.4) sample/sec 	RMSE = 17.81509, RULscore = 379946.86227, CLIP_Loss = 1.02367 	
+2024-11-02 15:44:10,461 Train-Epoch[42/160]Batch[300]	Speed 5116.1 (+35.0) sample/sec 	RMSE = 17.90409, RULscore = 459734.68496, CLIP_Loss = 1.02188 	
+2024-11-02 15:44:11,499 Train-Epoch[42/160]Batch[339]	Speed 4618.9 (+32.0) sample/sec 	RMSE = 17.85282, RULscore = 515927.53326, CLIP_Loss = 1.02039 	
+2024-11-02 15:44:11,547 Test-Epoch[42/160]Batch[0]	Speed 1315.1 (+3972.9) sample/sec 	RMSE = 15.63044, RULscore = 264.21580, CLIP_Loss = 1.37399 	
+2024-11-02 15:44:11,575 Test-Epoch[42/160]Batch[3]	Speed 8429.2 (+716.3) sample/sec 	RMSE = 15.56029, RULscore = 1241.54588, CLIP_Loss = 1.32748 	
+2024-11-02 15:44:11,575 Test-Epoch[42/160]Batch[3]	RMSE = 15.56029, RULscore = 1241.54588, CLIP_Loss = 1.32748 	
+2024-11-02 15:44:11,575 Final_Epoch [42]   time cost: 9.16 sec (0.00 h)
+2024-11-02 15:44:11,575 Train_RMSE = 17.85282, Train_RULscore = 515927.53326, Train_CLIP_Loss = 1.02039, Test_RMSE = 15.56029, Test_RULscore = 1241.54588, Test_CLIP_Loss = 1.32748, Train_RMSE_cor = 17.85282, Train_RULscore_min = 515927.53326, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:11,581 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0043.pth
+2024-11-02 15:44:11,685 Train-Epoch[43/160]Batch[0]	Speed 1325.7 (+1213.2) sample/sec 	RMSE = 16.57323, RULscore = 1044.37347, CLIP_Loss = 0.98402 	
+2024-11-02 15:44:13,045 Train-Epoch[43/160]Batch[50]	Speed 4705.2 (+29.1) sample/sec 	RMSE = 18.14775, RULscore = 101285.50253, CLIP_Loss = 1.02834 	
+2024-11-02 15:44:14,348 Train-Epoch[43/160]Batch[100]	Speed 4914.7 (+31.6) sample/sec 	RMSE = 17.85840, RULscore = 169595.82094, CLIP_Loss = 1.02714 	
+2024-11-02 15:44:15,668 Train-Epoch[43/160]Batch[150]	Speed 4846.2 (+71.7) sample/sec 	RMSE = 18.01963, RULscore = 266405.20233, CLIP_Loss = 1.02842 	
+2024-11-02 15:44:16,977 Train-Epoch[43/160]Batch[200]	Speed 4892.0 (+32.3) sample/sec 	RMSE = 18.01903, RULscore = 347590.16945, CLIP_Loss = 1.02852 	
+2024-11-02 15:44:18,290 Train-Epoch[43/160]Batch[250]	Speed 4872.0 (+31.2) sample/sec 	RMSE = 17.89019, RULscore = 433578.60040, CLIP_Loss = 1.02477 	
+2024-11-02 15:44:19,633 Train-Epoch[43/160]Batch[300]	Speed 4764.9 (+30.6) sample/sec 	RMSE = 17.85568, RULscore = 502847.71022, CLIP_Loss = 1.02425 	
+2024-11-02 15:44:20,725 Train-Epoch[43/160]Batch[339]	Speed 4391.0 (+25.6) sample/sec 	RMSE = 17.86170, RULscore = 570281.48164, CLIP_Loss = 1.02133 	
+2024-11-02 15:44:20,777 Test-Epoch[43/160]Batch[0]	Speed 1233.7 (+4464.8) sample/sec 	RMSE = 14.96566, RULscore = 255.45495, CLIP_Loss = 1.37126 	
+2024-11-02 15:44:20,806 Test-Epoch[43/160]Batch[3]	Speed 7982.6 (+516.9) sample/sec 	RMSE = 15.54574, RULscore = 1146.57359, CLIP_Loss = 1.32676 	
+2024-11-02 15:44:20,806 Test-Epoch[43/160]Batch[3]	RMSE = 15.54574, RULscore = 1146.57359, CLIP_Loss = 1.32676 	
+2024-11-02 15:44:20,806 Final_Epoch [43]   time cost: 9.22 sec (0.00 h)
+2024-11-02 15:44:20,806 Train_RMSE = 17.86170, Train_RULscore = 570281.48164, Train_CLIP_Loss = 1.02133, Test_RMSE = 15.54574, Test_RULscore = 1146.57359, Test_CLIP_Loss = 1.32676, Train_RMSE_cor = 17.85282, Train_RULscore_min = 515927.53326, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:20,814 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0044.pth
+2024-11-02 15:44:20,919 Train-Epoch[44/160]Batch[0]	Speed 1297.7 (+1709.7) sample/sec 	RMSE = 15.40799, RULscore = 868.24200, CLIP_Loss = 0.98360 	
+2024-11-02 15:44:22,193 Train-Epoch[44/160]Batch[50]	Speed 5024.4 (+34.3) sample/sec 	RMSE = 18.08077, RULscore = 113099.05039, CLIP_Loss = 1.02541 	
+2024-11-02 15:44:23,669 Train-Epoch[44/160]Batch[100]	Speed 4335.3 (+26.6) sample/sec 	RMSE = 17.83900, RULscore = 169350.47298, CLIP_Loss = 1.02726 	
+2024-11-02 15:44:25,029 Train-Epoch[44/160]Batch[150]	Speed 4708.2 (+30.6) sample/sec 	RMSE = 17.82200, RULscore = 269158.34255, CLIP_Loss = 1.02599 	
+2024-11-02 15:44:26,272 Train-Epoch[44/160]Batch[200]	Speed 5149.0 (+35.0) sample/sec 	RMSE = 17.70533, RULscore = 350740.08744, CLIP_Loss = 1.02864 	
+2024-11-02 15:44:27,463 Train-Epoch[44/160]Batch[250]	Speed 5373.6 (+37.7) sample/sec 	RMSE = 17.61894, RULscore = 425171.08762, CLIP_Loss = 1.02505 	
+2024-11-02 15:44:28,759 Train-Epoch[44/160]Batch[300]	Speed 4936.6 (+34.1) sample/sec 	RMSE = 17.62438, RULscore = 501546.16667, CLIP_Loss = 1.02352 	
+2024-11-02 15:44:29,779 Train-Epoch[44/160]Batch[339]	Speed 4705.5 (+33.8) sample/sec 	RMSE = 17.63076, RULscore = 567619.81433, CLIP_Loss = 1.02073 	
+2024-11-02 15:44:29,837 Test-Epoch[44/160]Batch[0]	Speed 1076.9 (+1936.6) sample/sec 	RMSE = 16.86855, RULscore = 306.59867, CLIP_Loss = 1.36927 	
+2024-11-02 15:44:29,869 Test-Epoch[44/160]Batch[3]	Speed 7114.7 (+633.5) sample/sec 	RMSE = 16.04149, RULscore = 1123.11964, CLIP_Loss = 1.32165 	
+2024-11-02 15:44:29,870 Test-Epoch[44/160]Batch[3]	RMSE = 16.04149, RULscore = 1123.11964, CLIP_Loss = 1.32165 	
+2024-11-02 15:44:29,870 Final_Epoch [44]   time cost: 9.06 sec (0.00 h)
+2024-11-02 15:44:29,870 Train_RMSE = 17.63076, Train_RULscore = 567619.81433, Train_CLIP_Loss = 1.02073, Test_RMSE = 16.04149, Test_RULscore = 1123.11964, Test_CLIP_Loss = 1.32165, Train_RMSE_cor = 17.85282, Train_RULscore_min = 515927.53326, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:29,875 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0045.pth
+2024-11-02 15:44:29,999 Train-Epoch[45/160]Batch[0]	Speed 1084.1 (+900.9) sample/sec 	RMSE = 16.29489, RULscore = 994.70394, CLIP_Loss = 0.99721 	
+2024-11-02 15:44:31,511 Train-Epoch[45/160]Batch[50]	Speed 4231.9 (+30.9) sample/sec 	RMSE = 18.04610, RULscore = 103947.20752, CLIP_Loss = 1.02806 	
+2024-11-02 15:44:32,842 Train-Epoch[45/160]Batch[100]	Speed 4807.8 (+32.9) sample/sec 	RMSE = 17.69680, RULscore = 169022.92087, CLIP_Loss = 1.03001 	
+2024-11-02 15:44:34,127 Train-Epoch[45/160]Batch[150]	Speed 4983.1 (+32.1) sample/sec 	RMSE = 17.88942, RULscore = 231981.55869, CLIP_Loss = 1.02887 	
+2024-11-02 15:44:35,365 Train-Epoch[45/160]Batch[200]	Speed 5167.7 (+34.7) sample/sec 	RMSE = 17.63458, RULscore = 304748.87654, CLIP_Loss = 1.02910 	
+2024-11-02 15:44:36,781 Train-Epoch[45/160]Batch[250]	Speed 4521.1 (+27.1) sample/sec 	RMSE = 17.48234, RULscore = 380088.82756, CLIP_Loss = 1.02507 	
+2024-11-02 15:44:38,084 Train-Epoch[45/160]Batch[300]	Speed 4909.8 (+32.4) sample/sec 	RMSE = 17.59425, RULscore = 452974.14258, CLIP_Loss = 1.02354 	
+2024-11-02 15:44:39,089 Train-Epoch[45/160]Batch[339]	Speed 4780.8 (+30.2) sample/sec 	RMSE = 17.57032, RULscore = 506958.82962, CLIP_Loss = 1.02162 	
+2024-11-02 15:44:39,139 Test-Epoch[45/160]Batch[0]	Speed 1276.4 (+3161.5) sample/sec 	RMSE = 16.32269, RULscore = 289.92488, CLIP_Loss = 1.37550 	
+2024-11-02 15:44:39,172 Test-Epoch[45/160]Batch[3]	Speed 6688.2 (+419.4) sample/sec 	RMSE = 16.18232, RULscore = 1394.94097, CLIP_Loss = 1.32818 	
+2024-11-02 15:44:39,172 Test-Epoch[45/160]Batch[3]	RMSE = 16.18232, RULscore = 1394.94097, CLIP_Loss = 1.32818 	
+2024-11-02 15:44:39,172 Final_Epoch [45]   time cost: 9.30 sec (0.00 h)
+2024-11-02 15:44:39,173 Train_RMSE = 17.57032, Train_RULscore = 506958.82962, Train_CLIP_Loss = 1.02162, Test_RMSE = 16.18232, Test_RULscore = 1394.94097, Test_CLIP_Loss = 1.32818, Train_RMSE_cor = 17.57032, Train_RULscore_min = 506958.82962, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:39,178 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0046.pth
+2024-11-02 15:44:39,279 Train-Epoch[46/160]Batch[0]	Speed 1354.5 (+1978.0) sample/sec 	RMSE = 16.50994, RULscore = 961.07499, CLIP_Loss = 0.98607 	
+2024-11-02 15:44:40,692 Train-Epoch[46/160]Batch[50]	Speed 4529.1 (+32.7) sample/sec 	RMSE = 18.30003, RULscore = 105058.45772, CLIP_Loss = 1.03314 	
+2024-11-02 15:44:42,016 Train-Epoch[46/160]Batch[100]	Speed 4830.7 (+38.7) sample/sec 	RMSE = 18.06182, RULscore = 172521.19816, CLIP_Loss = 1.03323 	
+2024-11-02 15:44:43,319 Train-Epoch[46/160]Batch[150]	Speed 4911.8 (+30.8) sample/sec 	RMSE = 17.88620, RULscore = 251593.71282, CLIP_Loss = 1.03089 	
+2024-11-02 15:44:44,732 Train-Epoch[46/160]Batch[200]	Speed 4531.8 (+31.2) sample/sec 	RMSE = 17.90982, RULscore = 337519.49722, CLIP_Loss = 1.03044 	
+2024-11-02 15:44:46,025 Train-Epoch[46/160]Batch[250]	Speed 4947.2 (+33.5) sample/sec 	RMSE = 17.74386, RULscore = 417732.77261, CLIP_Loss = 1.02636 	
+2024-11-02 15:44:47,302 Train-Epoch[46/160]Batch[300]	Speed 5012.0 (+34.4) sample/sec 	RMSE = 17.75160, RULscore = 502326.65947, CLIP_Loss = 1.02444 	
+2024-11-02 15:44:48,290 Train-Epoch[46/160]Batch[339]	Speed 4907.7 (+35.5) sample/sec 	RMSE = 17.70865, RULscore = 560873.46755, CLIP_Loss = 1.02197 	
+2024-11-02 15:44:48,348 Test-Epoch[46/160]Batch[0]	Speed 1090.8 (+2161.3) sample/sec 	RMSE = 17.44347, RULscore = 353.20398, CLIP_Loss = 1.37238 	
+2024-11-02 15:44:48,389 Test-Epoch[46/160]Batch[3]	Speed 5610.3 (+361.0) sample/sec 	RMSE = 16.65582, RULscore = 1316.60056, CLIP_Loss = 1.32400 	
+2024-11-02 15:44:48,389 Test-Epoch[46/160]Batch[3]	RMSE = 16.65582, RULscore = 1316.60056, CLIP_Loss = 1.32400 	
+2024-11-02 15:44:48,389 Final_Epoch [46]   time cost: 9.21 sec (0.00 h)
+2024-11-02 15:44:48,389 Train_RMSE = 17.70865, Train_RULscore = 560873.46755, Train_CLIP_Loss = 1.02197, Test_RMSE = 16.65582, Test_RULscore = 1316.60056, Test_CLIP_Loss = 1.32400, Train_RMSE_cor = 17.57032, Train_RULscore_min = 506958.82962, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:48,396 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0047.pth
+2024-11-02 15:44:48,490 Train-Epoch[47/160]Batch[0]	Speed 1479.2 (+1727.6) sample/sec 	RMSE = 14.41733, RULscore = 495.46414, CLIP_Loss = 0.98077 	
+2024-11-02 15:44:49,824 Train-Epoch[47/160]Batch[50]	Speed 4797.5 (+31.7) sample/sec 	RMSE = 17.66242, RULscore = 93936.17717, CLIP_Loss = 1.02510 	
+2024-11-02 15:44:51,024 Train-Epoch[47/160]Batch[100]	Speed 5332.8 (+37.3) sample/sec 	RMSE = 17.51328, RULscore = 147958.78875, CLIP_Loss = 1.02634 	
+2024-11-02 15:44:52,282 Train-Epoch[47/160]Batch[150]	Speed 5085.9 (+35.5) sample/sec 	RMSE = 17.58963, RULscore = 222153.90464, CLIP_Loss = 1.02550 	
+2024-11-02 15:44:53,481 Train-Epoch[47/160]Batch[200]	Speed 5341.7 (+37.7) sample/sec 	RMSE = 17.67921, RULscore = 297439.43400, CLIP_Loss = 1.02712 	
+2024-11-02 15:44:54,836 Train-Epoch[47/160]Batch[250]	Speed 4722.3 (+32.4) sample/sec 	RMSE = 17.59558, RULscore = 380060.97924, CLIP_Loss = 1.02327 	
+2024-11-02 15:44:56,140 Train-Epoch[47/160]Batch[300]	Speed 4908.2 (+31.2) sample/sec 	RMSE = 17.72845, RULscore = 461695.55772, CLIP_Loss = 1.02144 	
+2024-11-02 15:44:57,201 Train-Epoch[47/160]Batch[339]	Speed 4551.7 (+29.1) sample/sec 	RMSE = 17.68174, RULscore = 516154.42209, CLIP_Loss = 1.01994 	
+2024-11-02 15:44:57,251 Test-Epoch[47/160]Batch[0]	Speed 1275.1 (+2478.1) sample/sec 	RMSE = 16.38038, RULscore = 291.59347, CLIP_Loss = 1.37062 	
+2024-11-02 15:44:57,291 Test-Epoch[47/160]Batch[3]	Speed 5445.6 (+322.8) sample/sec 	RMSE = 15.89061, RULscore = 1227.54414, CLIP_Loss = 1.32481 	
+2024-11-02 15:44:57,291 Test-Epoch[47/160]Batch[3]	RMSE = 15.89061, RULscore = 1227.54414, CLIP_Loss = 1.32481 	
+2024-11-02 15:44:57,291 Final_Epoch [47]   time cost: 8.89 sec (0.00 h)
+2024-11-02 15:44:57,291 Train_RMSE = 17.68174, Train_RULscore = 516154.42209, Train_CLIP_Loss = 1.01994, Test_RMSE = 15.89061, Test_RULscore = 1227.54414, Test_CLIP_Loss = 1.32481, Train_RMSE_cor = 17.57032, Train_RULscore_min = 506958.82962, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:44:57,296 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0048.pth
+2024-11-02 15:44:57,384 Train-Epoch[48/160]Batch[0]	Speed 1578.7 (+1239.7) sample/sec 	RMSE = 15.22513, RULscore = 787.58928, CLIP_Loss = 0.98027 	
+2024-11-02 15:44:58,866 Train-Epoch[48/160]Batch[50]	Speed 4318.7 (+27.0) sample/sec 	RMSE = 18.22110, RULscore = 107220.60554, CLIP_Loss = 1.02799 	
+2024-11-02 15:45:00,339 Train-Epoch[48/160]Batch[100]	Speed 4342.7 (+27.9) sample/sec 	RMSE = 18.03822, RULscore = 175460.69451, CLIP_Loss = 1.02665 	
+2024-11-02 15:45:01,788 Train-Epoch[48/160]Batch[150]	Speed 4418.4 (+27.0) sample/sec 	RMSE = 18.02796, RULscore = 261203.83870, CLIP_Loss = 1.02773 	
+2024-11-02 15:45:03,102 Train-Epoch[48/160]Batch[200]	Speed 4868.5 (+30.7) sample/sec 	RMSE = 17.97756, RULscore = 341368.37502, CLIP_Loss = 1.02793 	
+2024-11-02 15:45:04,391 Train-Epoch[48/160]Batch[250]	Speed 4968.1 (+34.1) sample/sec 	RMSE = 17.84464, RULscore = 424538.38305, CLIP_Loss = 1.02419 	
+2024-11-02 15:45:05,827 Train-Epoch[48/160]Batch[300]	Speed 4454.9 (+31.8) sample/sec 	RMSE = 17.83873, RULscore = 495521.07495, CLIP_Loss = 1.02367 	
+2024-11-02 15:45:06,771 Train-Epoch[48/160]Batch[339]	Speed 5139.5 (+38.4) sample/sec 	RMSE = 17.82877, RULscore = 562671.74900, CLIP_Loss = 1.02068 	
+2024-11-02 15:45:06,830 Test-Epoch[48/160]Batch[0]	Speed 1064.8 (+2070.6) sample/sec 	RMSE = 15.41360, RULscore = 266.85864, CLIP_Loss = 1.37108 	
+2024-11-02 15:45:06,865 Test-Epoch[48/160]Batch[3]	Speed 7069.3 (+590.4) sample/sec 	RMSE = 15.43049, RULscore = 1126.51767, CLIP_Loss = 1.32526 	
+2024-11-02 15:45:06,865 Test-Epoch[48/160]Batch[3]	RMSE = 15.43049, RULscore = 1126.51767, CLIP_Loss = 1.32526 	
+2024-11-02 15:45:06,866 Final_Epoch [48]   time cost: 9.57 sec (0.00 h)
+2024-11-02 15:45:06,866 Train_RMSE = 17.82877, Train_RULscore = 562671.74900, Train_CLIP_Loss = 1.02068, Test_RMSE = 15.43049, Test_RULscore = 1126.51767, Test_CLIP_Loss = 1.32526, Train_RMSE_cor = 17.57032, Train_RULscore_min = 506958.82962, Test_RMSE_cor = 15.35914, Test_RULscore_min = 1106.96235, Model_ID = 39.00000 	
+2024-11-02 15:45:06,876 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0049.pth
+2024-11-02 15:45:06,967 Train-Epoch[49/160]Batch[0]	Speed 1513.7 (+1976.6) sample/sec 	RMSE = 15.55133, RULscore = 929.40126, CLIP_Loss = 0.98476 	
+2024-11-02 15:45:08,197 Train-Epoch[49/160]Batch[50]	Speed 5203.0 (+36.6) sample/sec 	RMSE = 17.97670, RULscore = 114077.68559, CLIP_Loss = 1.02455 	
+2024-11-02 15:45:09,458 Train-Epoch[49/160]Batch[100]	Speed 5075.3 (+33.8) sample/sec 	RMSE = 17.67879, RULscore = 172038.12491, CLIP_Loss = 1.02671 	
+2024-11-02 15:45:10,674 Train-Epoch[49/160]Batch[150]	Speed 5263.0 (+36.7) sample/sec 	RMSE = 17.60099, RULscore = 268243.52997, CLIP_Loss = 1.02517 	
+2024-11-02 15:45:11,899 Train-Epoch[49/160]Batch[200]	Speed 5225.2 (+36.5) sample/sec 	RMSE = 17.56551, RULscore = 339846.34176, CLIP_Loss = 1.02807 	
+2024-11-02 15:45:13,137 Train-Epoch[49/160]Batch[250]	Speed 5171.5 (+35.7) sample/sec 	RMSE = 17.50602, RULscore = 411566.40649, CLIP_Loss = 1.02454 	
+2024-11-02 15:45:14,366 Train-Epoch[49/160]Batch[300]	Speed 5206.4 (+34.5) sample/sec 	RMSE = 17.50368, RULscore = 484686.74631, CLIP_Loss = 1.02308 	
+2024-11-02 15:45:15,397 Train-Epoch[49/160]Batch[339]	Speed 4651.6 (+29.7) sample/sec 	RMSE = 17.51496, RULscore = 547178.42035, CLIP_Loss = 1.02034 	
+2024-11-02 15:45:15,446 Test-Epoch[49/160]Batch[0]	Speed 1290.8 (+3561.3) sample/sec 	RMSE = 16.37489, RULscore = 283.52116, CLIP_Loss = 1.36727 	
+2024-11-02 15:45:15,484 Test-Epoch[49/160]Batch[3]	Speed 5789.0 (+335.8) sample/sec 	RMSE = 15.66765, RULscore = 1070.46813, CLIP_Loss = 1.32056 	
+2024-11-02 15:45:15,484 Test-Epoch[49/160]Batch[3]	RMSE = 15.66765, RULscore = 1070.46813, CLIP_Loss = 1.32056 	
+2024-11-02 15:45:15,484 Final_Epoch [49]   time cost: 8.61 sec (0.00 h)
+2024-11-02 15:45:15,485 Train_RMSE = 17.51496, Train_RULscore = 547178.42035, Train_CLIP_Loss = 1.02034, Test_RMSE = 15.66765, Test_RULscore = 1070.46813, Test_CLIP_Loss = 1.32056, Train_RMSE_cor = 17.57032, Train_RULscore_min = 506958.82962, Test_RMSE_cor = 15.66765, Test_RULscore_min = 1070.46813, Model_ID = 50.00000 	
+2024-11-02 15:45:15,493 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0050.pth
+2024-11-02 15:45:15,587 Train-Epoch[50/160]Batch[0]	Speed 1451.0 (+2314.0) sample/sec 	RMSE = 17.15713, RULscore = 1294.89176, CLIP_Loss = 0.99771 	
+2024-11-02 15:45:17,067 Train-Epoch[50/160]Batch[50]	Speed 4325.3 (+25.8) sample/sec 	RMSE = 17.50615, RULscore = 98256.48640, CLIP_Loss = 1.02490 	
+2024-11-02 15:45:18,422 Train-Epoch[50/160]Batch[100]	Speed 4720.9 (+29.9) sample/sec 	RMSE = 16.95769, RULscore = 154042.76185, CLIP_Loss = 1.02706 	
+2024-11-02 15:45:19,801 Train-Epoch[50/160]Batch[150]	Speed 4641.3 (+32.5) sample/sec 	RMSE = 16.94025, RULscore = 210585.96960, CLIP_Loss = 1.02580 	
+2024-11-02 15:45:21,064 Train-Epoch[50/160]Batch[200]	Speed 5067.4 (+38.1) sample/sec 	RMSE = 16.94758, RULscore = 284218.11351, CLIP_Loss = 1.02621 	
+2024-11-02 15:45:22,383 Train-Epoch[50/160]Batch[250]	Speed 4854.6 (+31.1) sample/sec 	RMSE = 16.88336, RULscore = 342982.55682, CLIP_Loss = 1.02217 	
+2024-11-02 15:45:23,596 Train-Epoch[50/160]Batch[300]	Speed 5274.0 (+39.4) sample/sec 	RMSE = 16.89213, RULscore = 401169.87545, CLIP_Loss = 1.02048 	
+2024-11-02 15:45:24,819 Train-Epoch[50/160]Batch[339]	Speed 3926.6 (+27.1) sample/sec 	RMSE = 16.89493, RULscore = 452796.07812, CLIP_Loss = 1.01867 	
+2024-11-02 15:45:24,881 Test-Epoch[50/160]Batch[0]	Speed 1026.7 (+1905.5) sample/sec 	RMSE = 16.09586, RULscore = 270.82289, CLIP_Loss = 1.36323 	
+2024-11-02 15:45:24,929 Test-Epoch[50/160]Batch[3]	Speed 4436.8 (+252.6) sample/sec 	RMSE = 15.75143, RULscore = 1081.81776, CLIP_Loss = 1.31807 	
+2024-11-02 15:45:24,930 Test-Epoch[50/160]Batch[3]	RMSE = 15.75143, RULscore = 1081.81776, CLIP_Loss = 1.31807 	
+2024-11-02 15:45:24,930 Final_Epoch [50]   time cost: 9.44 sec (0.00 h)
+2024-11-02 15:45:24,930 Train_RMSE = 16.89493, Train_RULscore = 452796.07812, Train_CLIP_Loss = 1.01867, Test_RMSE = 15.75143, Test_RULscore = 1081.81776, Test_CLIP_Loss = 1.31807, Train_RMSE_cor = 16.89493, Train_RULscore_min = 452796.07812, Test_RMSE_cor = 15.66765, Test_RULscore_min = 1070.46813, Model_ID = 50.00000 	
+2024-11-02 15:45:24,936 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/clip/FD004/exp_202411021537_bilstm_clip_ep-0051.pth
+2024-11-02 15:45:25,048 Train-Epoch[51/160]Batch[0]	Speed 1213.0 (+1218.1) sample/sec 	RMSE = 14.49299, RULscore = 427.73292, CLIP_Loss = 0.97635 	
+2024-11-02 15:45:26,544 Train-Epoch[51/160]Batch[50]	Speed 4276.8 (+28.8) sample/sec 	RMSE = 17.05862, RULscore = 75715.85215, CLIP_Loss = 1.02824 	

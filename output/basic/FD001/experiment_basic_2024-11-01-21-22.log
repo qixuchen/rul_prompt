@@ -1,0 +1,72 @@
+2024-11-01 21:22:12,858 training config:{'data': {'input_type': '',
+          'max_rul': 125,
+          'num_worker': 4,
+          'root': './data',
+          'seq_len': 30,
+          'set': 'FD001',
+          'test_id': 0},
+ 'dist_backend': 'nccl',
+ 'dist_url': 'tcp://224.66.41.62:23456',
+ 'distributed': False,
+ 'gpu': '0',
+ 'multiprocessing_distributed': False,
+ 'net': {'aux_dim': 4,
+         'hand_craft': False,
+         'hand_dim': 28,
+         'input_dim': 14,
+         'name': 'bilstm',
+         'num_hidden': 18},
+ 'output_pt': '/home/qchenax/astar/rul_prompt/output/basic/FD001',
+ 'rank': -1,
+ 'save_frequency': 1,
+ 'seed': 3000,
+ 'task': 't1',
+ 'test': {'model_name': 'exp_202110121100_cnn_pe_ep-0050.pth',
+          'model_path': './output/basic/FD004'},
+ 'train': {'batch_size': 128,
+           'callback_freq': 50,
+           'end_epoch': 160,
+           'fine_tune': True,
+           'lr': 0.001,
+           'lr_epoch': [1000],
+           'lr_factor': 0.1,
+           'lr_mult': 0.2,
+           'optimizer': 'adam',
+           'resume_epoch': 0,
+           'warmup_iters': 0},
+ 'world_size': -1}
+
+2024-11-01 21:22:13,137 CMPDataIter:: iterator initialized (train dataset: 'FD001', shape: (20631, 26))
+2024-11-01 21:22:13,138 CMPDataIter:: iterator initialized (test dataset: 'FD001', shape: (13096, 26))
+2024-11-01 21:22:13,212 CMPDataIter:: iterator initialized (train engine number: 100)
+2024-11-01 21:22:13,244 CMPDataIter:: iterator initialized (test engine number: 100)
+2024-11-01 21:22:13,256 CMPDataIter:: data includes single operating conditions
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (train data shape: 17731)
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (train operation shape: 17731)
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (train label shape: 17731)
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (test data shape: 100)
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (test operation shape: 100)
+2024-11-01 21:22:13,329 CMPDataIter:: iterator initialized (test label shape: 100)
+2024-11-01 21:22:13,334 CMPDataIter:: initialize the dataset
+2024-11-01 21:22:14,568 Train-Epoch[0/160]Batch[0]	Speed 148.2 (+991.9) sample/sec 	RMSE = 113.95981, RULscore = 3991083.81111 	
+2024-11-01 21:22:15,527 Train-Epoch[0/160]Batch[50]	Speed 6676.4 (+48.9) sample/sec 	RMSE = 71.74963, RULscore = 35527895.11006 	
+2024-11-01 21:22:16,524 Train-Epoch[0/160]Batch[100]	Speed 6414.0 (+43.2) sample/sec 	RMSE = 57.33144, RULscore = 36328034.35003 	
+2024-11-01 21:22:16,766 Train-Epoch[0/160]Batch[111]	Speed 5483.3 (+41.0) sample/sec 	RMSE = 55.32469, RULscore = 36394602.18696 	
+2024-11-01 21:22:16,798 Test-Epoch[0/160]Batch[0]	Speed 814.5 (+2656.9) sample/sec 	RMSE = 22.58934, RULscore = 1979.48040 	
+2024-11-01 21:22:16,820 Test-Epoch[0/160]Batch[3]	Speed 4124.9 (+299.0) sample/sec 	RMSE = 25.88234, RULscore = 11490.82984 	
+2024-11-01 21:22:16,820 Test-Epoch[0/160]Batch[3]	RMSE = 25.88234, RULscore = 11490.82984 	
+2024-11-01 21:22:16,821 Final_Epoch [0]   time cost: 3.12 sec (0.00 h)
+2024-11-01 21:22:16,821 Train_RMSE = 55.32469, Train_RULscore = 36394602.18696, Test_RMSE = 25.88234, Test_RULscore = 11490.82984, Train_RMSE_cor = 55.32469, Train_RULscore_min = 36394602.18696, Test_RMSE_cor = 25.88234, Test_RULscore_min = 11490.82984, Model_ID = 1.00000 	
+2024-11-01 21:22:16,826 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/basic/FD001/exp_202411012122_bilstm_ep-0001.pth
+2024-11-01 21:22:16,884 Train-Epoch[1/160]Batch[0]	Speed 2287.9 (+2500.2) sample/sec 	RMSE = 28.12185, RULscore = 9371.64306 	
+2024-11-01 21:22:18,063 Train-Epoch[1/160]Batch[50]	Speed 5428.9 (+30.6) sample/sec 	RMSE = 25.77428, RULscore = 261034.45324 	
+2024-11-01 21:22:19,187 Train-Epoch[1/160]Batch[100]	Speed 5693.8 (+33.6) sample/sec 	RMSE = 25.58537, RULscore = 485868.30017 	
+2024-11-01 21:22:19,422 Train-Epoch[1/160]Batch[111]	Speed 5626.8 (+41.1) sample/sec 	RMSE = 25.54813, RULscore = 544337.00022 	
+2024-11-01 21:22:19,456 Test-Epoch[1/160]Batch[0]	Speed 756.2 (+3103.2) sample/sec 	RMSE = 22.25788, RULscore = 1601.19191 	
+2024-11-01 21:22:19,477 Test-Epoch[1/160]Batch[3]	Speed 4576.1 (+285.6) sample/sec 	RMSE = 25.78416, RULscore = 11378.98694 	
+2024-11-01 21:22:19,477 Test-Epoch[1/160]Batch[3]	RMSE = 25.78416, RULscore = 11378.98694 	
+2024-11-01 21:22:19,477 Final_Epoch [1]   time cost: 2.65 sec (0.00 h)
+2024-11-01 21:22:19,477 Train_RMSE = 25.54813, Train_RULscore = 544337.00022, Test_RMSE = 25.78416, Test_RULscore = 11378.98694, Train_RMSE_cor = 25.54813, Train_RULscore_min = 544337.00022, Test_RMSE_cor = 25.78416, Test_RULscore_min = 11378.98694, Model_ID = 2.00000 	
+2024-11-01 21:22:19,482 Checkpoint (model & optimizer) saved to: /home/qchenax/astar/rul_prompt/output/basic/FD001/exp_202411012122_bilstm_ep-0002.pth
+2024-11-01 21:22:19,537 Train-Epoch[2/160]Batch[0]	Speed 2394.2 (+2381.9) sample/sec 	RMSE = 23.99719, RULscore = 2809.18584 	
+2024-11-01 21:22:20,605 Train-Epoch[2/160]Batch[50]	Speed 5989.1 (+38.8) sample/sec 	RMSE = 25.21496, RULscore = 199940.26944 	
