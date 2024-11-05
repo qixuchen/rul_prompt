@@ -25,7 +25,7 @@ from config import config
 
 class CMPDataIterFed(data.IterableDataset):
     
-    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user, iid=True):
+    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=2, iid=True):
         super(CMPDataIterFed, self).__init__()
         # load params
         self.data_root = data_root
@@ -403,7 +403,7 @@ class CMPDataIterFed(data.IterableDataset):
         return data_matrix[-1,:]
         
     
-    def reset(self, mode, uid):
+    def reset(self, mode, uid=0):
         assert uid < self.n_user, f"user id should be within (0, {self.n_user})"
         self.cur_user = uid
         
@@ -474,12 +474,12 @@ class CMPDataIterFed(data.IterableDataset):
         # output self.train_x, self.train_ops, self.train_y, self.train_prompt1,
         # or self.test_x, self.test_ops, self.test_y, self.test_prompt1 according to self.mode
         
-        # out_x = self.out_x[: self.end]
-        # out_ops = self.out_ops[: self.end]
-        # out_y = self.out_y[: self.end]
-        # out_prompt1 = self.out_prompt1[ self.end]
+        out_x = self.out_x[self.start: self.end]
+        out_ops = self.out_ops[self.start: self.end]
+        out_y = self.out_y[self.start: self.end]
+        out_prompt1 = self.out_prompt1[self.start: self.end]
         
-        return zip(self.out_x, self.out_ops, self.out_y, self.out_prompt1)
+        return iter(zip(out_x, out_ops, out_y, out_prompt1))
 
 
     def __len__(self):
