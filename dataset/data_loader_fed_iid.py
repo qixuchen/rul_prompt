@@ -25,7 +25,7 @@ from config import config
 
 class CMPDataIterFed(data.IterableDataset):
     
-    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=2, iid=True):
+    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=1, iid=True):
         super(CMPDataIterFed, self).__init__()
         # load params
         self.data_root = data_root
@@ -54,7 +54,7 @@ class CMPDataIterFed(data.IterableDataset):
 
         # self.train_df_per_user, self.test_df_per_user, self.test_truth_df_per_user = self.divide_iid(self.n_user, self.train_data_df, self.test_data_df, self.test_truth)
         
-        self.train_x, self.train_ops, self.train_y, self.test_x, self.test_ops, self.test_y, self.train_pmpt1, self.test_pmpt1 = self._process(self.train_data_df, self.test_data_df, self.test_truth)
+        self.train_x, self.train_ops, self.train_y, self.train_pmpt1, self.test_x, self.test_ops, self.test_y, self.test_pmpt1 = self._process(self.train_data_df, self.test_data_df, self.test_truth)
         
         self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
             self.test_y_per_user, self.test_pmpt1_per_user = self.divide_iid()
@@ -349,7 +349,7 @@ class CMPDataIterFed(data.IterableDataset):
         train_pmpt1 = self.generate_prmpts(train_y)
         test_pmpt1 = self.generate_prmpts(test_y)
         
-        return train_x, train_ops, train_y, test_x, test_ops, test_y, train_pmpt1, test_pmpt1
+        return train_x, train_ops, train_y, train_pmpt1, test_x, test_ops, test_y, test_pmpt1
     
 
     def load_prompt(self, pmpt_path):
@@ -404,7 +404,7 @@ class CMPDataIterFed(data.IterableDataset):
         
     
     def reset(self, mode, uid=0):
-        assert uid < self.n_user, f"user id should be within (0, {self.n_user})"
+        assert uid < self.n_user, f"user id should be within [0, {self.n_user}]"
         self.cur_user = uid
         
         if mode == 'train':
