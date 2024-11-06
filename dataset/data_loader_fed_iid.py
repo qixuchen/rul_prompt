@@ -25,7 +25,7 @@ from config import config
 
 class CMPDataIterFed(data.IterableDataset):
     
-    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=1, iid=True):
+    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=1, sample_interval=1, iid=True):
         super(CMPDataIterFed, self).__init__()
         # load params
         self.data_root = data_root
@@ -35,6 +35,7 @@ class CMPDataIterFed(data.IterableDataset):
         self.net_name = net_name
         self.n_user = n_user
         self.iid = iid
+        self.sample_interval = sample_interval
         
         self.column_names = ['id', 'cycle', 'setting1', 'setting2', 'setting3', 's1', 's2', 's3',
                             's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12', 's13', 's14',
@@ -101,13 +102,15 @@ class CMPDataIterFed(data.IterableDataset):
     
     def divide_iid(self):
         # divide the training df using engine id in a iid fashion
-        train_id_list = self.train_data_df['id'].unique().tolist()    
+        train_id_list = self.train_data_df['id'].unique().tolist() 
+        random.shuffle(train_id_list)   
         train_user_id_maps = {} # key is the id, value is the assigned user
         for i in range(len(train_id_list)):
             user = i % self.n_user
             train_user_id_maps[i] = user
             
         test_id_list = self.test_data_df['id'].unique().tolist()
+        random.shuffle(test_id_list)   
         test_user_id_maps = {}
         for i in range(len(test_id_list)):
             user = i % self.n_user
@@ -155,8 +158,7 @@ class CMPDataIterFed(data.IterableDataset):
 
         return train_x_per_user, train_ops_per_user, train_y_per_user, train_pmpt1_per_user, \
             test_x_per_user, test_ops_per_user, test_y_per_user, test_pmpt1_per_user
-
-
+    
     def _process(self, train_df, test_df, test_truth):
         # process train data
         train_rul = pd.DataFrame(train_df.groupby('id')['cycle'].max()).reset_index()
@@ -194,8 +196,11 @@ class CMPDataIterFed(data.IterableDataset):
         test_engine_num = test_df['id'].nunique()
         logging.info("CMPDataIter:: iterator initialized (test engine number: {:})".format(test_engine_num))
 
+        if self.sample_interval > 1:
+            train_y = train_y.apply(lambda x: x - x % self.sample_interval)
+            test_y = test_y.apply(lambda x: x - x % self.sample_interval)
+        
         # normailize both train and test data
-
         train_data = train_df.iloc[:, 2:]
         test_data = test_df.iloc[:, 2:]
 
@@ -413,6 +418,7 @@ class CMPDataIterFed(data.IterableDataset):
             self.out_ops = self.train_ops_per_user[uid]
             self.out_y = self.train_y_per_user[uid]
             self.out_prompt1 = self.train_pmpt1_per_user[uid]
+            self.start = 0
             self.end = len(self.out_x)
             
         elif mode == 'test':
@@ -421,6 +427,7 @@ class CMPDataIterFed(data.IterableDataset):
             self.out_ops = self.test_ops_per_user[uid]
             self.out_y = self.test_y_per_user[uid]
             self.out_prompt1 = self.test_pmpt1_per_user[uid]
+            self.start = 0
             self.end = len(self.out_x)
     
     

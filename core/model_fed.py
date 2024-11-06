@@ -22,22 +22,22 @@ from lib.utils import select_optimizer
 
 class model(object):
 
-    def __init__(self, net, criterion, n_user=1, model_prefix='',
-                step_callback=None, step_callback_freq=50, epoch_callback=None,
-                save_checkpoint_freq=1, logger=None):
+    def __init__(self, net, criterion, config, model_prefix='',
+                step_callback=None, epoch_callback=None, logger=None):
 
         # init params
         self.global_net = net
         self.model_prefix = model_prefix
         self.criterion = criterion
-        self.step_callback_freq = step_callback_freq
-        self.save_checkpoint_freq = save_checkpoint_freq
         self.logger = logger
         self.max_rul = 125
-        self.n_user = n_user
+        self.step_callback_freq = config.train.callback_freq
+        self.save_checkpoint_freq = config.save_frequency
+        self.n_user = config.fed.n_user
+        self.n_train_step = config.fed.n_train_step
         
         self.user_nets = []
-        for _ in range(n_user):
+        for _ in range(self.n_user):
             self.user_nets.append(deepcopy(self.global_net))
         
         self.callback_kwargs = {'epoch': None, 'batch': None, 'sample_elapse': None, 'update_elapse': None,
@@ -251,8 +251,7 @@ class model(object):
             # 1] TRAINING
             ###########
             
-            n_train_step = 2
-            self.train(n_train_step)
+            self.train(self.n_train_step)
             
             ###########
             # 2] Evaluation

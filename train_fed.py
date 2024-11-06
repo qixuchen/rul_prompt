@@ -62,8 +62,7 @@ if __name__ == "__main__":
 					  'You may see unexpected behavior when restarting '
 					  'from checkpoints.')
 
-	data_loader, data_iter = get_dataiter('data_name', config.data.root, config.data.set, config.net.name, config,
-										  config.data.max_rul, config.data.seq_len, 'fed', n_user)
+	data_loader, data_iter = get_dataiter('data_name', config, 'fed')
 	pmpt_1 = data_iter.pmpt_1 if hasattr(data_iter, 'pmpt_1') else None
  
 	# decide wich model to use
@@ -74,8 +73,7 @@ if __name__ == "__main__":
 
 	criterion = criterions.KLLoss_fast()
 
-	net = model(net=sym_net, criterion=criterion, n_user=n_user, model_prefix=model_prefix, step_callback_freq=config.train.callback_freq,
-				save_checkpoint_freq=config.save_frequency, logger = logger)
+	net = model(net=sym_net, criterion=criterion, config=config, model_prefix=model_prefix, logger = logger)
  
 	net.global_net.cuda()
 	for n in net.user_nets:

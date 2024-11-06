@@ -1,7 +1,16 @@
 import torch
 
-def get_dataiter(data_name, root, set, net_name, config, max_rul=125, seq_len=30, mod='normal', n_user = 1):
+def get_dataiter(data_name, config, mod='normal'):
 
+    root = config.data.root
+    set = config.data.set
+    net_name = config.net.name
+    max_rul = config.data.max_rul
+    seq_len = config.data.seq_len
+    n_user = config.fed.n_user
+    sample_interval = config.fed.sample_interval
+    
+    
     if mod == 'normal':
         from .data_loader_v2 import CMPDataIter, worker_init_fn
         data_iter = CMPDataIter(root, set, max_rul, seq_len, net_name)
@@ -10,7 +19,7 @@ def get_dataiter(data_name, root, set, net_name, config, max_rul=125, seq_len=30
         data_iter = CMPDataIter(root, set, max_rul, seq_len, net_name)
     elif mod == 'fed':
         from .data_loader_fed_iid import CMPDataIterFed, worker_init_fn
-        data_iter = CMPDataIterFed(root, set, max_rul, seq_len, net_name, n_user)
+        data_iter = CMPDataIterFed(root, set, max_rul, seq_len, net_name, n_user, sample_interval)
 
     data_loader = torch.utils.data.DataLoader(data_iter, batch_size=config.train.batch_size,
                                                  num_workers=config.data.num_worker,
