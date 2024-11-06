@@ -187,9 +187,23 @@ class model(object):
         target_net.load_state_dict(state_dict=self.global_net.state_dict())
     
     
-    def update_global_net(self, uid):
-        target_net = self.user_nets[uid]
-        self.global_net.load_state_dict(state_dict=target_net.state_dict())
+    def update_global_net(self, chosen_users):
+        
+        def average_weights(updated_models):
+            weights_avg = deepcopy(updated_models[0])
+            for key in weights_avg.keys():
+                for i in range(1, len(updated_models)):
+                    weights_avg[key] += updated_models[i][key]
+                weights_avg[key] = torch.div(weights_avg[key], len(updated_models))
+            return weights_avg
+        
+        updated_models = []
+        for uid in chosen_users:
+            updated_models.append(self.user_nets[uid].state_dict())
+        
+        # Update server model based on clients models
+        updated_weights = average_weights(updated_models)
+        self.global_net.load_state_dict(updated_weights)
         
         
     # def fit(self, data_iter, dataset, optimizer, lr_scheduler, metrics=None, \
@@ -236,13 +250,14 @@ class model(object):
             ###########
             # 1] TRAINING
             ###########
-            for _ in range(2):
-                uid = random.randint(0,self.n_user-1)
-                self.train(uid)
-                self.update_global_net(uid)
+            
+            n_train_step = 2
+            self.train(n_train_step)
+            
             ###########
             # 2] Evaluation
             ###########
+            
             if (self.data_iter is not None) \
                     and ((i_epoch + 1) % max(1, int(self.save_checkpoint_freq / 2))) == 0:
                 self.test()
@@ -268,71 +283,75 @@ class model(object):
 
         self.logger.info("Optimization done!")
 
-    def train(self, uid):
-        self.dataset.reset('train', uid)
+
+    def train(self, n_train_steps):
+        assert n_train_steps <= self.n_user, f"Can only train {self.n_user} users per step."
         self.metrics.reset()
-        self.load_global_state(uid)
-        # print(f'training model of user {uid}')
-        
-        target_net = self.user_nets[uid]
-        target_net.train()
-        target_optimizer = self.optimizers[uid]
-        target_lr_sche = self.lr_schedulers[uid]
-        
         sum_sample_inst = 0
-        sum_sample_elapse = 0.
+        sum_sample_elapse = 0
         sum_update_elapse = 0
         batch_start_time = time.time()
         self.callback_kwargs['prefix'] = 'Train'
-        i= 0
+        
+        chosen_users = random.sample(range(self.n_user), n_train_steps)
+        for uid in chosen_users:
+            # randomly select a user
+            self.dataset.reset('train', uid)
+            self.load_global_state(uid)
+            # print(f'training model of user {uid}')
+            
+            target_net = self.user_nets[uid]
+            target_net.train()
+            target_optimizer = self.optimizers[uid]
+            target_lr_sche = self.lr_schedulers[uid]
+            # i= 0
 
-        # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
-        for i_batch, dats in enumerate(self.data_iter):
- 
-            i += 1
-            self.callback_kwargs['batch'] = i_batch
-            update_start_time = time.time()
+            # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
+            for i_batch, dats in enumerate(self.data_iter):
+    
+                # i += 1
+                self.callback_kwargs['batch'] = i_batch
+                update_start_time = time.time()
 
-            # add negative prompt vectors
-            intypes = ((dats[2].cpu().numpy())*self.max_rul).astype(np.int_)[:,0]
-            intypes_uni = set(intypes.flatten())
-            fulltypes = set(np.arange(self.max_rul+1).flatten())
-            complement = list(fulltypes - intypes_uni)
-            samples = random.sample(complement, len(complement))
-            fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
-            fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
-            add_prompt = torch.zeros(len(samples), 512)
-            for id, val in enumerate(samples):
-                add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
-          
-            add_prompt = add_prompt
-            dats[3] = torch.cat((dats[3], add_prompt), 0)
+                # add negative prompt vectors
+                intypes = ((dats[2].cpu().numpy())*self.max_rul).astype(np.int_)[:,0]
+                intypes_uni = set(intypes.flatten())
+                fulltypes = set(np.arange(self.max_rul+1).flatten())
+                complement = list(fulltypes - intypes_uni)
+                samples = random.sample(complement, len(complement))
+                fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
+                fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
+                add_prompt = torch.zeros(len(samples), 512)
+                for id, val in enumerate(samples):
+                    add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
+            
+                add_prompt = add_prompt
+                dats[3] = torch.cat((dats[3], add_prompt), 0)
 
-            # [forward] making next step
-            outputs, losses = self.forward(target_net, dats)
+                # [forward] making next step
+                outputs, losses = self.forward(target_net, dats)
 
-            # [backward]
-            target_optimizer.zero_grad()
-            for loss in losses: loss.backward()
-            target_optimizer.step()
-            # print('{:}iter, lr0:{:}, lr1:{:}'.format(i, self.optimizer.state_dict()['param_groups'][0]['lr'], self.optimizer.state_dict()['param_groups'][1]['lr']))
+                # [backward]
+                target_optimizer.zero_grad()
+                for loss in losses: loss.backward()
+                target_optimizer.step()
+                # print('{:}iter, lr0:{:}, lr1:{:}'.format(i, self.optimizer.state_dict()['param_groups'][0]['lr'], self.optimizer.state_dict()['param_groups'][1]['lr']))
 
-            # [evaluation] update train metric
-            preds = [fulllabels[outputs[0][0].argmax(dim=-1).cpu().numpy()]]
-            mse_loss = torch.pow((preds[0] - dats[2].cpu()), 2).mean()
+                # [evaluation] update train metric
+                preds = [fulllabels[outputs[0][0].argmax(dim=-1).cpu().numpy()]]
+                mse_loss = torch.pow((preds[0] - dats[2].cpu()), 2).mean()
 
-            self.metrics.update(preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
+                self.metrics.update(preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
 
-            # timing each batch
-            sum_sample_elapse += time.time() - batch_start_time
-            sum_update_elapse += time.time() - update_start_time
-            batch_start_time = time.time()
-            sum_sample_inst += dats[0].shape[0]
+                # timing each batch
+                sum_sample_elapse += time.time() - batch_start_time
+                sum_update_elapse += time.time() - update_start_time
+                batch_start_time = time.time()
+                sum_sample_inst += dats[0].shape[0]
 
             if (i_batch % self.step_callback_freq) == 0:
                 # retrive eval results and reset metic
                 self.callback_kwargs['namevals'] = self.metrics.get_name_value()
-                # self.metrics.reset()
                 # speed monitor
                 self.callback_kwargs['sample_elapse'] = sum_sample_elapse / sum_sample_inst
                 self.callback_kwargs['update_elapse'] = sum_update_elapse / sum_sample_inst
@@ -342,11 +361,14 @@ class model(object):
                 # callbacks
                 self.step_end_callback()
                 
-        # need to use lr_scheduler.step, otherwise lr will not be updated
-        target_lr_sche.step()
+            # need to use lr_scheduler.step, otherwise lr will not be updated
+            target_lr_sche.step()
+            
+        # update gloabel model
+        self.update_global_net(chosen_users)
+            
         # retrive eval results and reset metic
         self.callback_kwargs['namevals'] = self.metrics.get_name_value()
-        # metrics.reset()
         # speed monitor
         self.callback_kwargs['sample_elapse'] = sum_sample_elapse / sum_sample_inst
         self.callback_kwargs['update_elapse'] = sum_update_elapse / sum_sample_inst
@@ -496,7 +518,7 @@ class model(object):
         # callbacks
         self.step_end_callback()
         self.epoch_callback_kwargs['namevals'] += [[('Test_'+x[0][0],x[0][1])]for x in self.metrics.get_name_value()]
-
+        
         if self.callback_kwargs['epoch'] == 0:
             self.test_minrmse = self.epoch_callback_kwargs['namevals'][3][0][1]
             self.test_minscore = self.epoch_callback_kwargs['namevals'][4][0][1]

@@ -13,7 +13,7 @@ distributed: False
 #dataset
 data:
   root: './data'
-  set: 'FD004'
+  set: 'FD002'
   max_rul: 125
   seq_len: 30 
   num_worker: 4
