@@ -1,7 +1,7 @@
 #RMSE_cor = 12.85146, Test_RULscore_min = 206.66571
 ---
 gpu: '0'
-save_frequency: 1
+save_frequency: 5
 seed: 5000
 task: 't1'
 
@@ -33,6 +33,7 @@ fed:
   n_user: 5
   n_train_step: 2
   sample_interval: 1
+  iid: 'iid'
 
 #train
 train:
@@ -50,3 +51,4 @@ train:
 test:
   model_name: 'exp_202110121100_cnn_pe_ep-0050.pth'
   model_path: './output/basic/FD004'
+  test_freq: 1

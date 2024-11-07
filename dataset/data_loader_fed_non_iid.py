@@ -23,13 +23,15 @@ import torch.utils.data as data
 import logging
 from config import config
 
-class CMPDataIterFed(data.IterableDataset):
+class CMPDataIterFedNonIID(data.IterableDataset):
     
-    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=1, sample_interval=1, iid='iid'):
-        super(CMPDataIterFed, self).__init__()
+    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=4, sample_interval=1, iid='non_iid'):
+        super(CMPDataIterFedNonIID, self).__init__()
         # load params
+        assert n_user == 4, "Only support 4 users since there are only 4 datasets."
+        
         self.data_root = data_root
-        self.data_set = data_set
+        self.data_set = 'all_FD'
         self.max_rul = max_rul
         self.seq_len = seq_len
         self.net_name = net_name
@@ -48,28 +50,14 @@ class CMPDataIterFed(data.IterableDataset):
         self.pmpt_1 = self.load_prompt(self.prompt_path)
 
         # load CMAPSS_data
-        self.train_data_df, self.test_data_df, self.test_truth = self._get_data(data_root=data_root, data_set=data_set)
-
-        logging.info("CMPDataIter:: iterator initialized (train dataset: '{:s}', shape: {:})".format(data_set, self.train_data_df.shape))
-        logging.info("CMPDataIter:: iterator initialized (test dataset: '{:s}', shape: {:})".format(data_set, self.test_data_df.shape))
-
-        # self.train_df_per_user, self.test_df_per_user, self.test_truth_df_per_user = self.divide_iid(self.n_user, self.train_data_df, self.test_data_df, self.test_truth)
-        
-        self.train_x, self.train_ops, self.train_y, self.train_pmpt1, self.test_x, self.test_ops, self.test_y, self.test_pmpt1 = self._process(self.train_data_df, self.test_data_df, self.test_truth)
-        
         self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
-            self.test_y_per_user, self.test_pmpt1_per_user = self.divide_iid()
+            self.test_y_per_user, self.test_pmpt1_per_user = [], [], [], [], [], [], [], []
+        for ds in ['FD001', 'FD002', 'FD003', 'FD004']:    
+            train_data, test_data, test_truth = self._get_data(data_root=data_root, data_set=ds)
+            # train_x, train_ops, train_y, train_pmpt1, test_x, test_ops, test_y, test_pmpt1 = self._process(train_data, test_data, test_truth)
+            [l.append(v) for l, v in zip([self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
+                self.test_y_per_user, self.test_pmpt1_per_user], self._process(train_data, test_data, test_truth))]
         
-        # logging.info("CMPDataIter:: iterator initialized (train data shape: {:})".format(len(self.train_x)))
-        # logging.info("CMPDataIter:: iterator initialized (train operation shape: {:})".format(len(self.train_ops)))
-        # logging.info("CMPDataIter:: iterator initialized (train label shape: {:})".format(len(self.train_y)))
-
-        # logging.info("CMPDataIter:: iterator initialized (test data shape: {:})".format(len(self.test_x)))
-        # logging.info("CMPDataIter:: iterator initialized (test operation shape: {:})".format(len(self.test_ops)))
-        # logging.info("CMPDataIter:: iterator initialized (test label shape: {:})".format(len(self.test_y)))
-
-        # self.folded_train_x, self.folded_train_ops, self.folded_train_y, self.folded_train_prmpt1 = self.cross_fold([self.train_x, self.train_ops, self.train_y, self.train_pmpt1])
-
         self.initial()
         logging.info("CMPDataIter:: initialize the dataset")
         
@@ -99,65 +87,6 @@ class CMPDataIterFed(data.IterableDataset):
 
         return train_data_df, test_data_df, test_truth
     
-    
-    def divide_iid(self):
-        # divide the training df using engine id in a iid fashion
-        train_id_list = self.train_data_df['id'].unique().tolist() 
-        random.shuffle(train_id_list)   
-        train_user_id_maps = {} # key is the id, value is the assigned user
-        for i in range(len(train_id_list)):
-            user = i % self.n_user
-            train_user_id_maps[i] = user
-            
-        test_id_list = self.test_data_df['id'].unique().tolist()
-        random.shuffle(test_id_list)   
-        test_user_id_maps = {}
-        for i in range(len(test_id_list)):
-            user = i % self.n_user
-            test_user_id_maps[i] = user
-            
-        train_x_per_user = [[] for _ in range(self.n_user)]
-        for item in self.train_x:
-            assigned_user = train_user_id_maps[item[0]]
-            train_x_per_user[assigned_user].append(item[1])
-            
-        train_ops_per_user = [[] for _ in range(self.n_user)]
-        for item in self.train_ops:
-            assigned_user = train_user_id_maps[item[0]]
-            train_ops_per_user[assigned_user].append(item[1])
-            
-        train_y_per_user = [[] for _ in range(self.n_user)]
-        for item in self.train_y:
-            assigned_user = train_user_id_maps[item[0]]
-            train_y_per_user[assigned_user].append(item[1])
-            
-        train_pmpt1_per_user = [[] for _ in range(self.n_user)]
-        for item in self.train_pmpt1:
-            assigned_user = train_user_id_maps[item[0]]
-            train_pmpt1_per_user[assigned_user].append(item[1])
-            
-        test_x_per_user = [[] for _ in range(self.n_user)]
-        for item in self.test_x:
-            assigned_user = test_user_id_maps[item[0]]
-            test_x_per_user[assigned_user].append(item[1])
-            
-        test_ops_per_user = [[] for _ in range(self.n_user)]
-        for item in self.test_ops:
-            assigned_user = test_user_id_maps[item[0]]
-            test_ops_per_user[assigned_user].append(item[1])
-            
-        test_y_per_user = [[] for _ in range(self.n_user)]
-        for item in self.test_y:
-            assigned_user = test_user_id_maps[item[0]]
-            test_y_per_user[assigned_user].append(item[1])
-            
-        test_pmpt1_per_user = [[] for _ in range(self.n_user)]
-        for item in self.test_pmpt1:
-            assigned_user = test_user_id_maps[item[0]]
-            test_pmpt1_per_user[assigned_user].append(item[1])
-
-        return train_x_per_user, train_ops_per_user, train_y_per_user, train_pmpt1_per_user, \
-            test_x_per_user, test_ops_per_user, test_y_per_user, test_pmpt1_per_user
     
     def _process(self, train_df, test_df, test_truth):
         # process train data
@@ -266,7 +195,7 @@ class CMPDataIterFed(data.IterableDataset):
             if end_index - start_index < self.seq_len-1:
                 print('train data less than seq_len!')
             # for sensor train matrix, number of 21 X 15 needed per data points (minus the first sequence length) per engine, so the array input start from start index
-            val=[(i, x) for x in self.gen_sequence(train_normalized.iloc[start_index:end_index, :], self.seq_len, train_normalized.columns)]
+            val=list(self.gen_sequence(train_normalized.iloc[start_index:end_index, :], self.seq_len, train_normalized.columns))
             seq_gen.extend(val)
             start_index = end_index
         train_x = seq_gen
@@ -280,7 +209,7 @@ class CMPDataIterFed(data.IterableDataset):
                 print('train ops less than seq_len!')
             # for ops train matrix, number of 3 X 15 needed per data points (minus the first sequence length) per engine, so the array input start from start index
             #settings data are in the first 3 columns of Train_Norm
-            val=[(i, x) for x in self.gen_sequence(train_setting.iloc[start_index:end_index, :], self.seq_len, train_setting.columns)]
+            val=list(self.gen_sequence(train_setting.iloc[start_index:end_index, :], self.seq_len, train_setting.columns))
             seq_gen.extend(val)
             start_index = end_index
         train_ops = seq_gen
@@ -290,7 +219,7 @@ class CMPDataIterFed(data.IterableDataset):
         start_index = 0
         for i in range(train_engine_num):
             end_index = start_index+train_rul.loc[i, 'max']
-            val=[(i, x) for x in self.gen_labels(train_y.iloc[start_index:end_index, :], self.seq_len, train_y.columns)]
+            val=list(self.gen_labels(train_y.iloc[start_index:end_index, :], self.seq_len, train_y.columns))
             seq_gen.extend(val)
             start_index = end_index
         train_y = seq_gen
@@ -312,9 +241,9 @@ class CMPDataIterFed(data.IterableDataset):
                 for idx in range(num_pad):
                     new_sg = pd.concat([new_sg.head(1), new_sg], axis=0)
 
-                val=[(i, x) for x in self.gen_sequence(new_sg, self.seq_len, test_normalized.columns)]
+                val=list(self.gen_sequence(new_sg, self.seq_len, test_normalized.columns))
             else:
-                val=[(i, x) for x in self.gen_sequence(test_normalized.iloc[end_index - self.seq_len:end_index, :], self.seq_len, test_normalized.columns)]
+                val=list(self.gen_sequence(test_normalized.iloc[end_index - self.seq_len:end_index, :], self.seq_len, test_normalized.columns))
             seq_gen.extend(val)
             start_index = end_index
         test_x = seq_gen
@@ -335,9 +264,9 @@ class CMPDataIterFed(data.IterableDataset):
                 for idx in range(num_pad):
                     new_sg = pd.concat([new_sg.head(1), new_sg], axis=0)
                     
-                val=[(i, x) for x in self.gen_sequence(new_sg, self.seq_len, test_setting.columns)]
+                val=list(self.gen_sequence(new_sg, self.seq_len, test_setting.columns))
             else:
-                val=[(i, x) for x in self.gen_sequence(test_setting.iloc[end_index - self.seq_len:end_index, :], self.seq_len, test_setting.columns)]
+                val=list(self.gen_sequence(test_setting.iloc[end_index - self.seq_len:end_index, :], self.seq_len, test_setting.columns))
 
             seq_gen.extend(val)
             start_index = end_index
@@ -347,7 +276,7 @@ class CMPDataIterFed(data.IterableDataset):
         start_index = 0
         for i in range(test_engine_num):
             end_index = start_index+test_rul.loc[i, 'max']
-            val=[(i, np.array([x])) for x in self.gen_test_labels(test_y.iloc[end_index - self.seq_len:end_index, :], test_y.columns)]
+            val=list([self.gen_test_labels(test_y.iloc[end_index - self.seq_len:end_index, :], test_y.columns)])
             seq_gen.extend(val)
             start_index = end_index
         test_y = seq_gen
@@ -363,7 +292,7 @@ class CMPDataIterFed(data.IterableDataset):
     
     
     def generate_prmpts(self, labels):
-        return [(x[0],self.pmpt_1[int(x[1][0] * self.max_rul)]) for x in labels]
+        return [self.pmpt_1[int(x[0] * self.max_rul)] for x in labels]
 
 
     def gen_sequence(self, id_df, seq_length, seq_cols):

@@ -62,8 +62,7 @@ if __name__ == "__main__":
 					  'You may see unexpected behavior when restarting '
 					  'from checkpoints.')
 
-	data_loader, data_iter = get_dataiter('data_name', config.data.root, config.data.set, config.net.name, config,
-										  config.data.max_rul, config.data.seq_len, 'clip')
+	data_loader, data_iter = get_dataiter('data_name', config, 'clip')
 
 	pmpt_1 = data_iter.pmpt_1 if hasattr(data_iter, 'pmpt_1') else None
 	sym_net = get_symbol(config.net.name, config, hand_craft=config.net.hand_craft, pmpt_1 = pmpt_1)

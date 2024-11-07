@@ -1,6 +1,7 @@
+# Test_RMSE_cor = 17.05890, Test_RULscore_min = 1218.21563
 ---
 gpu: '0'
-save_frequency: 1
+save_frequency: 5
 seed: 5000
 task: 't1'
 
@@ -13,7 +14,7 @@ distributed: False
 #dataset
 data:
   root: './data'
-  set: 'FD003'
+  set: 'FD004'
   max_rul: 125
   seq_len: 30 
   num_worker: 4
@@ -27,15 +28,22 @@ net:
   num_hidden: 18
   hand_dim: 28
 
+#fedrated learning
+fed:
+  n_user: 5
+  n_train_step: 2
+  sample_interval: 1
+  iid: 'iid'
+
 #train
 train:
   resume_epoch: 0
   batch_size: 128
   lr: 0.001
   optimizer: 'adam'
-  lr_epoch: [100]
+  lr_epoch: [350]
   lr_factor: 0.1
-  end_epoch: 160
+  end_epoch: 700
   callback_freq: 50
   warmup_iters: 0
 
@@ -43,3 +51,4 @@ train:
 test:
   model_name: 'exp_202110121100_cnn_pe_ep-0050.pth'
   model_path: './output/basic/FD004'
+  test_freq: 1

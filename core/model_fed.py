@@ -31,6 +31,7 @@ class model(object):
         self.criterion = criterion
         self.logger = logger
         self.max_rul = 125
+        self.test_freq = config.test.test_freq
         self.step_callback_freq = config.train.callback_freq
         self.save_checkpoint_freq = config.save_frequency
         self.n_user = config.fed.n_user
@@ -258,7 +259,7 @@ class model(object):
             ###########
             
             if (self.data_iter is not None) \
-                    and ((i_epoch + 1) % max(1, int(self.save_checkpoint_freq / 2))) == 0:
+                    and (i_epoch % self.test_freq) == 0:
                 self.test()
                 # self.dataset.reset('val')
                 # self.val()
