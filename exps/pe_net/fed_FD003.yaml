@@ -1,4 +1,4 @@
-#Test_RMSE_cor = 18.60999, Test_RULscore_min = 4165.83883
+# 3000 Test_RMSE_cor = 25.82294, Test_RULscore_min = 2339.23571
 ---
 gpu: '0'
 save_frequency: 5
@@ -14,14 +14,14 @@ distributed: False
 #dataset
 data:
   root: './data'
-  set: 'FD001'
+  set: 'FD003'
   max_rul: 125
   seq_len: 30 
   num_worker: 4
 
 #network
 net:
-  name: 'bilstm_clip'
+  name: 'pe_net'
   hand_craft: False
   input_dim: 14
   aux_dim: 4
@@ -30,25 +30,25 @@ net:
 
 #fedrated learning
 fed:
-  n_user: 4
-  n_train_step: 2
+  n_user: 5
+  n_user_per_iter: 2
   sample_interval: 1
-  iid: 'non_iid'
+  iid: 'iid'
 
 #train
 train:
   resume_epoch: 0
   batch_size: 128
-  lr: 0.001
+  lr: 0.01
   optimizer: 'adam'
   lr_epoch: [100]
   lr_factor: 0.1
-  end_epoch: 200
+  end_epoch: 100
   callback_freq: 50
   warmup_iters: 0
 
 # test
 test:
   model_name: 'exp_202110121100_cnn_pe_ep-0050.pth'
-  model_path: './output/basic/FD_noniid'
+  model_path: './output/basic/FD004'
   test_freq: 1

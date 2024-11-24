@@ -60,15 +60,9 @@ class CMPDataIterFed(data.IterableDataset):
         self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
             self.test_y_per_user, self.test_pmpt1_per_user = self.divide_iid()
         
-        # logging.info("CMPDataIter:: iterator initialized (train data shape: {:})".format(len(self.train_x)))
-        # logging.info("CMPDataIter:: iterator initialized (train operation shape: {:})".format(len(self.train_ops)))
-        # logging.info("CMPDataIter:: iterator initialized (train label shape: {:})".format(len(self.train_y)))
-
-        # logging.info("CMPDataIter:: iterator initialized (test data shape: {:})".format(len(self.test_x)))
-        # logging.info("CMPDataIter:: iterator initialized (test operation shape: {:})".format(len(self.test_ops)))
-        # logging.info("CMPDataIter:: iterator initialized (test label shape: {:})".format(len(self.test_y)))
-
-        # self.folded_train_x, self.folded_train_ops, self.folded_train_y, self.folded_train_prmpt1 = self.cross_fold([self.train_x, self.train_ops, self.train_y, self.train_pmpt1])
+        # generate position encoding:
+        if 'pe' in self.net_name:
+            self.local_pe = self.gen_pe(self.seq_len, 16)
 
         self.initial()
         logging.info("CMPDataIter:: initialize the dataset")
@@ -406,6 +400,18 @@ class CMPDataIterFed(data.IterableDataset):
         data_matrix = id_df[label].values
         # For the test labels, only 1 RUL is required per engine which is the last columns on each engine
         return data_matrix[-1,:]
+    
+    
+    def gen_pe(self, len_seq, p_dim = 16):
+
+        def get_pe(p):
+            return [p / np.power(10000, 2 * (hid_j // 2) / p_dim) for hid_j in range(p_dim)]
+        
+        pe_table = np.array([get_pe(p_i) for p_i in range(len_seq)])
+        pe_table[:, 0::2] = np.sin(pe_table[:, 0::2])  # dim 2i
+        pe_table[:, 1::2] = np.cos(pe_table[:, 1::2])  # dim 2i+1
+    
+        return pe_table
         
     
     def reset(self, mode, uid=0):
@@ -485,6 +491,9 @@ class CMPDataIterFed(data.IterableDataset):
         out_ops = self.out_ops[self.start: self.end]
         out_y = self.out_y[self.start: self.end]
         out_prompt1 = self.out_prompt1[self.start: self.end]
+        
+        if 'pe' in self.net_name:
+            out_x = [np.concatenate((item, self.local_pe.copy()), axis=1) for item in out_x]
         
         return iter(zip(out_x, out_ops, out_y, out_prompt1))
 

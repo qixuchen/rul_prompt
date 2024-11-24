@@ -1,4 +1,5 @@
-# Test_RMSE_cor = 17.05890, Test_RULscore_min = 1218.21563
+#RMSE_cor = 12.85146, Test_RULscore_min = 206.66571
+#Test_RMSE_cor = 15.60152, Test_RULscore_min = 352.96740
 ---
 gpu: '0'
 save_frequency: 5
@@ -14,7 +15,7 @@ distributed: False
 #dataset
 data:
   root: './data'
-  set: 'FD004'
+  set: 'FD001'
   max_rul: 125
   seq_len: 30 
   num_worker: 4
@@ -31,7 +32,7 @@ net:
 #fedrated learning
 fed:
   n_user: 5
-  n_train_step: 2
+  n_user_per_iter: 2
   sample_interval: 1
   iid: 'iid'
 
@@ -41,9 +42,9 @@ train:
   batch_size: 128
   lr: 0.001
   optimizer: 'adam'
-  lr_epoch: [350]
+  lr_epoch: [300]
   lr_factor: 0.1
-  end_epoch: 700
+  end_epoch: 500
   callback_freq: 50
   warmup_iters: 0
 

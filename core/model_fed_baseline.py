@@ -78,29 +78,29 @@ class model(object):
             #                      optimizer_state=self.callback_kwargs['optimizer_dict'])
 
 
-    def load_state(self, state_dict, strict=False):
-        if strict:
-            self.global_net.load_state_dict(state_dict=state_dict)
-        else:
-            # customized partialy load function
-            net_state_keys = list(self.global_net.state_dict().keys())
-            for name, param in state_dict.items():
-                if name in self.global_net.state_dict().keys():
-                    dst_param_shape = self.global_net.state_dict()[name].shape
-                    if param.shape == dst_param_shape:
-                        self.global_net.state_dict()[name].copy_(param.view(dst_param_shape))
-                        net_state_keys.remove(name)
-            # indicating missed keys
-            if net_state_keys:
-                num_batches_list = []
-                for i in range(len(net_state_keys)):
-                    if 'num_batches_tracked' in net_state_keys[i]:
-                        num_batches_list.append(net_state_keys[i])
-                pruned_additional_states = [x for x in net_state_keys if x not in num_batches_list]
-                logging.info("There are layers in current network not initialized by pretrained")
-                logging.warning(">> Failed to load: {}".format(pruned_additional_states))
-                return False
-        return True
+    # def load_state(self, state_dict, strict=False):
+    #     if strict:
+    #         self.global_net.load_state_dict(state_dict=state_dict)
+    #     else:
+    #         # customized partialy load function
+    #         net_state_keys = list(self.global_net.state_dict().keys())
+    #         for name, param in state_dict.items():
+    #             if name in self.global_net.state_dict().keys():
+    #                 dst_param_shape = self.global_net.state_dict()[name].shape
+    #                 if param.shape == dst_param_shape:
+    #                     self.global_net.state_dict()[name].copy_(param.view(dst_param_shape))
+    #                     net_state_keys.remove(name)
+    #         # indicating missed keys
+    #         if net_state_keys:
+    #             num_batches_list = []
+    #             for i in range(len(net_state_keys)):
+    #                 if 'num_batches_tracked' in net_state_keys[i]:
+    #                     num_batches_list.append(net_state_keys[i])
+    #             pruned_additional_states = [x for x in net_state_keys if x not in num_batches_list]
+    #             logging.info("There are layers in current network not initialized by pretrained")
+    #             logging.warning(">> Failed to load: {}".format(pruned_additional_states))
+    #             return False
+    #     return True
 
 
     def get_checkpoint_path(self, epoch):
@@ -186,27 +186,7 @@ class model(object):
     
     def load_global_state(self, uid):
         target_net = self.user_nets[uid]
-        if self.agg_mode == 'all':
-            target_net.load_state_dict(state_dict=self.global_net.state_dict())
-        elif self.agg_mode == 'partial':
-            state_dict = deepcopy(self.global_net.state_dict())
-            skip_params = []
-            for k, _ in state_dict.items():
-                if k.startswith('fc'):
-                    skip_params.append(k)
-            for k in skip_params:
-                del state_dict[k]
-            target_net.load_state_dict(state_dict = state_dict, strict=False)
-        else:
-            raise ValueError(f'self.agg_mode must be "all" or "partial"')
-            
-        # net_state_keys = list(self.net.state_dict().keys())
-        #     for name, param in state_dict.items():
-        #         if name in self.net.state_dict().keys():
-        #             dst_param_shape = self.net.state_dict()[name].shape
-        #             if param.shape == dst_param_shape:
-        #                 self.net.state_dict()[name].copy_(param.view(dst_param_shape))
-        #                 net_state_keys.remove(name)
+        target_net.load_state_dict(state_dict=self.global_net.state_dict())
     
     
     def update_global_net(self, chosen_users):
@@ -225,18 +205,7 @@ class model(object):
         
         # Update server model based on clients models
         updated_weights = average_weights(updated_models)
-        if self.agg_mode == 'all':
-            self.global_net.load_state_dict(updated_weights)
-        elif self.agg_mode == 'partial':
-            skip_params = []
-            for k, _ in updated_weights.items():
-                if k.startswith('fc'):
-                    skip_params.append(k)
-            for k in skip_params:
-                del updated_weights[k]
-            self.global_net.load_state_dict(state_dict = updated_weights, strict=False)  
-        else:
-            raise ValueError(f'self.agg_mode must be "all" or "partial"')
+        self.global_net.load_state_dict(updated_weights)
         
         
     # def fit(self, data_iter, dataset, optimizer, lr_scheduler, metrics=None, \
@@ -345,21 +314,6 @@ class model(object):
                 self.callback_kwargs['batch'] = i_batch
                 update_start_time = time.time()
 
-                # add negative prompt vectors
-                intypes = ((dats[2].cpu().numpy())*self.max_rul).astype(np.int_)[:,0]
-                intypes_uni = set(intypes.flatten())
-                fulltypes = set(np.arange(self.max_rul+1).flatten())
-                complement = list(fulltypes - intypes_uni)
-                samples = random.sample(complement, len(complement))
-                fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
-                fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
-                add_prompt = torch.zeros(len(samples), 512)
-                for id, val in enumerate(samples):
-                    add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
-            
-                add_prompt = add_prompt
-                dats[3] = torch.cat((dats[3], add_prompt), 0)
-
                 # [forward] making next step
                 outputs, losses = self.forward(target_net, dats)
 
@@ -367,31 +321,20 @@ class model(object):
                 target_optimizer.zero_grad()
                 for loss in losses: loss.backward()
                 target_optimizer.step()
-                # print('{:}iter, lr0:{:}, lr1:{:}'.format(i, self.optimizer.state_dict()['param_groups'][0]['lr'], self.optimizer.state_dict()['param_groups'][1]['lr']))
-
+                
+                # print(outputs[0].shape)
+                # print(dats[2].shape)
+                # print(losses[0].shape)
+                # exit()
                 # [evaluation] update train metric
-                preds = [fulllabels[outputs[0][0].argmax(dim=-1).cpu().numpy()]]
-                mse_loss = torch.pow((preds[0] - dats[2].cpu()), 2).mean()
-
-                self.metrics.update(preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
+                self.metrics.update([output.data.cpu() for output in outputs], dats[2].cpu(),
+                            [loss.data.cpu() for loss in losses])
 
                 # timing each batch
                 sum_sample_elapse += time.time() - batch_start_time
                 sum_update_elapse += time.time() - update_start_time
                 batch_start_time = time.time()
                 sum_sample_inst += dats[0].shape[0]
-
-            # if (i_batch % self.step_callback_freq) == 0:
-            #     # retrive eval results and reset metic
-            #     self.callback_kwargs['namevals'] = self.metrics.get_name_value()
-            #     # speed monitor
-            #     self.callback_kwargs['sample_elapse'] = sum_sample_elapse / sum_sample_inst
-            #     self.callback_kwargs['update_elapse'] = sum_update_elapse / sum_sample_inst
-            #     sum_update_elapse = 0
-            #     sum_sample_elapse = 0
-            #     sum_sample_inst = 0
-            #     # callbacks
-            #     self.step_end_callback()
                 
             # need to use lr_scheduler.step, otherwise lr will not be updated
             target_lr_sche.step()
@@ -508,18 +451,8 @@ class model(object):
                 outputs, losses = self.forward(target_net, dats)
 
                 # [evaluation] update train metric
-                preds = torch.nn.functional.softmax(outputs[0][2], dim=1)
-                sorted_preds, indices = torch.sort(preds)
-                cumsum_preds = torch.cumsum(sorted_preds, dim = 1)
-                preds_mask = torch.where(cumsum_preds <= 0.1, 0.0, 1.0)
-                final_preds = (preds_mask * indices* sorted_preds).sum(dim=1, keepdim= True)/(((preds_mask * sorted_preds).sum(dim=1, keepdim = True))*125.0)
-                final_preds = [final_preds.cpu()]
-
-                # preds = outputs[0][2].argmax(dim=-1).cpu().numpy()/125.0
-                # preds = [torch.tensor(preds[:, np.newaxis])]
-                mse_loss = torch.pow((final_preds[0] - dats[2].cpu()), 2).mean()
-
-                self.metrics.update(final_preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
+                self.metrics.update([output.data.cpu() for output in outputs], dats[2].cpu(),
+                           [loss.data.cpu() for loss in losses])
 
                 # timing each batch
                 sum_sample_elapse += time.time() - batch_start_time
@@ -540,8 +473,6 @@ class model(object):
                 #     # callbacks
                 #     self.step_end_callback()
 
-
-
         # retrive eval results and reset metic
         self.callback_kwargs['namevals'] = self.metrics.get_name_value()
         # speed monitor
@@ -550,10 +481,10 @@ class model(object):
         # callbacks
         self.step_end_callback()
         self.epoch_callback_kwargs['namevals'] += [[('Test_'+x[0][0],x[0][1])]for x in self.metrics.get_name_value()]
-        
+
         if self.callback_kwargs['epoch'] == 0:
-            self.test_minrmse = self.epoch_callback_kwargs['namevals'][3][0][1]
-            self.test_minscore = self.epoch_callback_kwargs['namevals'][4][0][1]
+            self.test_minrmse = self.epoch_callback_kwargs['namevals'][2][0][1]
+            self.test_minscore = self.epoch_callback_kwargs['namevals'][3][0][1]
             self.model_id = self.callback_kwargs['epoch'] + 1
         else:
             # if self.epoch_callback_kwargs['namevals'][2][0][1] < self.test_minrmse:
@@ -562,48 +493,33 @@ class model(object):
             # if self.epoch_callback_kwargs['namevals'][3][0][1] < self.test_minscore:
             #     self.test_minscore = self.epoch_callback_kwargs['namevals'][3][0][1]
 
-            if self.epoch_callback_kwargs['namevals'][4][0][1] < self.test_minscore:
-                self.test_minscore = self.epoch_callback_kwargs['namevals'][4][0][1]
-                self.test_minrmse = self.epoch_callback_kwargs['namevals'][3][0][1]
+            if self.epoch_callback_kwargs['namevals'][3][0][1] < self.test_minscore:
+                self.test_minscore = self.epoch_callback_kwargs['namevals'][3][0][1]
+                self.test_minrmse = self.epoch_callback_kwargs['namevals'][2][0][1]
                 self.model_id = self.callback_kwargs['epoch'] + 1
+
 
     def forward(self, net, dats):
         """ typical forward function with:
             dats: data, data_ops, data_hc, target
             single output and single loss
         """
-
-        val = False
         if net.training:
             torch.set_grad_enabled(True)
             input_var = dats[0].float().cuda()
             ops_var = dats[1].float().cuda()
             target_var = dats[2].float().cuda()
-            prompt1 = dats[3].float().cuda()
-            
-            # output = [logits_per_x, logits_per_pmp1]
-            output = net(input_var, ops_var, prompt1, val=val)
-            
-            if hasattr(self, 'criterion') and self.criterion is not None and dats[2] is not None and target_var is not None:
-                loss = self.criterion(output, target_var)
-            else:
-                loss = None
-            return [output], [loss]
-        
         else:
             torch.set_grad_enabled(False)
-            val = True
             with torch.no_grad():
                 input_var = dats[0].float().cuda(non_blocking=True)
                 ops_var = dats[1].float().cuda(non_blocking=True)
                 target_var = dats[2].float().cuda(non_blocking=True)
-                prompt1 = dats[3].float().cuda()
-
-            # output = [logits_per_x, logits_per_pmp1]
-            output = net(input_var, ops_var, prompt1, val=val)
             
-            if hasattr(self, 'criterion') and self.criterion is not None and dats[2] is not None and target_var is not None:
-                loss = self.criterion(output, target_var)
-            else:
-                loss = None
-            return [output], [loss]
+        output = net(input_var, ops_var)
+            
+        if hasattr(self, 'criterion') and self.criterion is not None and dats[-1] is not None and target_var is not None:
+            loss = self.criterion(output, target_var)
+        else:
+            loss = None
+        return [output], [loss]

@@ -46,7 +46,7 @@ config.net.hand_dim = 0
 #fedrated learning
 config.fed = edict()
 config.fed.n_user = 1
-config.fed.n_train_step = 1
+config.fed.n_user_per_iter = 1
 config.fed.sample_interval = 1
 config.fed.iid = 'iid'
 
