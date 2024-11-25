@@ -36,6 +36,7 @@ class model(object):
         self.save_checkpoint_freq = config.save_frequency
         self.n_user = config.fed.n_user
         self.n_user_per_iter = config.fed.n_user_per_iter
+        self.train_epoch_per_step = config.fed.train_epoch_per_step
         self.agg_mode = 'all'
         
         self.user_nets = []
@@ -337,49 +338,49 @@ class model(object):
             target_optimizer = self.optimizers[uid]
             target_lr_sche = self.lr_schedulers[uid]
             # i= 0
+            for _ in range(self.train_epoch_per_step):
+                # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
+                for i_batch, dats in enumerate(self.data_iter):
+        
+                    # i += 1
+                    self.callback_kwargs['batch'] = i_batch
+                    update_start_time = time.time()
 
-            # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
-            for i_batch, dats in enumerate(self.data_iter):
-    
-                # i += 1
-                self.callback_kwargs['batch'] = i_batch
-                update_start_time = time.time()
+                    # add negative prompt vectors
+                    intypes = ((dats[2].cpu().numpy())*self.max_rul).astype(np.int_)[:,0]
+                    intypes_uni = set(intypes.flatten())
+                    fulltypes = set(np.arange(self.max_rul+1).flatten())
+                    complement = list(fulltypes - intypes_uni)
+                    samples = random.sample(complement, len(complement))
+                    fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
+                    fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
+                    add_prompt = torch.zeros(len(samples), 512)
+                    for id, val in enumerate(samples):
+                        add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
+                
+                    add_prompt = add_prompt
+                    dats[3] = torch.cat((dats[3], add_prompt), 0)
 
-                # add negative prompt vectors
-                intypes = ((dats[2].cpu().numpy())*self.max_rul).astype(np.int_)[:,0]
-                intypes_uni = set(intypes.flatten())
-                fulltypes = set(np.arange(self.max_rul+1).flatten())
-                complement = list(fulltypes - intypes_uni)
-                samples = random.sample(complement, len(complement))
-                fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
-                fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
-                add_prompt = torch.zeros(len(samples), 512)
-                for id, val in enumerate(samples):
-                    add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
-            
-                add_prompt = add_prompt
-                dats[3] = torch.cat((dats[3], add_prompt), 0)
+                    # [forward] making next step
+                    outputs, losses = self.forward(target_net, dats)
 
-                # [forward] making next step
-                outputs, losses = self.forward(target_net, dats)
+                    # [backward]
+                    target_optimizer.zero_grad()
+                    for loss in losses: loss.backward()
+                    target_optimizer.step()
+                    # print('{:}iter, lr0:{:}, lr1:{:}'.format(i, self.optimizer.state_dict()['param_groups'][0]['lr'], self.optimizer.state_dict()['param_groups'][1]['lr']))
 
-                # [backward]
-                target_optimizer.zero_grad()
-                for loss in losses: loss.backward()
-                target_optimizer.step()
-                # print('{:}iter, lr0:{:}, lr1:{:}'.format(i, self.optimizer.state_dict()['param_groups'][0]['lr'], self.optimizer.state_dict()['param_groups'][1]['lr']))
+                    # [evaluation] update train metric
+                    preds = [fulllabels[outputs[0][0].argmax(dim=-1).cpu().numpy()]]
+                    mse_loss = torch.pow((preds[0] - dats[2].cpu()), 2).mean()
 
-                # [evaluation] update train metric
-                preds = [fulllabels[outputs[0][0].argmax(dim=-1).cpu().numpy()]]
-                mse_loss = torch.pow((preds[0] - dats[2].cpu()), 2).mean()
+                    self.metrics.update(preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
 
-                self.metrics.update(preds, dats[2].cpu(), mse_loss, [loss.data.cpu() for loss in losses])
-
-                # timing each batch
-                sum_sample_elapse += time.time() - batch_start_time
-                sum_update_elapse += time.time() - update_start_time
-                batch_start_time = time.time()
-                sum_sample_inst += dats[0].shape[0]
+                    # timing each batch
+                    sum_sample_elapse += time.time() - batch_start_time
+                    sum_update_elapse += time.time() - update_start_time
+                    batch_start_time = time.time()
+                    sum_sample_inst += dats[0].shape[0]
 
             # if (i_batch % self.step_callback_freq) == 0:
             #     # retrive eval results and reset metic
