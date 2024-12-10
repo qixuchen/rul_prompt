@@ -1,6 +1,9 @@
-# 3000 Test_RMSE_cor = 24.03863, Test_RULscore_min = 10219.47866
+# layer norm
+# 3000 Test_RMSE_cor = 16.45278, Test_RULscore_min = 3413.12305
+#      Test_RMSE = 16.36699, Test_RULscore = 3486.25916
 
-# 3000 Test_RMSE_cor = 27.78405, Test_RULscore_min = 13334.36515
+#no norm
+# 3000 Test_RMSE_cor = 16.55287, Test_RULscore_min = 3370.82011
 ---
 gpu: '0'
 save_frequency: 5
@@ -33,7 +36,8 @@ net:
 #fedrated learning
 fed:
   n_user: 5
-  n_user_per_iter: 2
+  n_user_per_iter: 5
+  train_epoch_per_step: 2
   sample_interval: 1
   iid: 'non_iid_v2'
 
@@ -41,11 +45,11 @@ fed:
 train:
   resume_epoch: 0
   batch_size: 128
-  lr: 0.01
+  lr: 0.00005
   optimizer: 'adam'
-  lr_epoch: [100]
-  lr_factor: 0.1
-  end_epoch: 150
+  lr_epoch: [200]
+  lr_factor: 0.2
+  end_epoch: 300
   callback_freq: 50
   warmup_iters: 0
 

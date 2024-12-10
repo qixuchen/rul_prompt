@@ -36,6 +36,7 @@ class model(object):
         self.save_checkpoint_freq = config.save_frequency
         self.n_user = config.fed.n_user
         self.n_user_per_iter = config.fed.n_user_per_iter
+        self.train_epoch_per_step = config.fed.train_epoch_per_step
         self.agg_mode = 'all'
         
         self.user_nets = []
@@ -306,39 +307,39 @@ class model(object):
             target_optimizer = self.optimizers[uid]
             target_lr_sche = self.lr_schedulers[uid]
             # i= 0
+            for _ in range(self.train_epoch_per_step):
+                # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
+                for i_batch, dats in enumerate(self.data_iter):
+        
+                    # i += 1
+                    self.callback_kwargs['batch'] = i_batch
+                    update_start_time = time.time()
 
-            # for i_batch, (data, data_ops, data_hc, target) in enumerate(self.data_iter):
-            for i_batch, dats in enumerate(self.data_iter):
-    
-                # i += 1
-                self.callback_kwargs['batch'] = i_batch
-                update_start_time = time.time()
+                    # [forward] making next step
+                    outputs, losses = self.forward(target_net, dats)
 
-                # [forward] making next step
-                outputs, losses = self.forward(target_net, dats)
+                    # [backward]
+                    target_optimizer.zero_grad()
+                    for loss in losses: loss.backward()
+                    target_optimizer.step()
+                    
+                    # print(outputs[0].shape)
+                    # print(dats[2].shape)
+                    # print(losses[0].shape)
+                    # exit()
+                    # [evaluation] update train metric
+                    self.metrics.update([output.data.cpu() for output in outputs], dats[2].cpu(),
+                                [loss.data.cpu() for loss in losses])
 
-                # [backward]
-                target_optimizer.zero_grad()
-                for loss in losses: loss.backward()
-                target_optimizer.step()
-                
-                # print(outputs[0].shape)
-                # print(dats[2].shape)
-                # print(losses[0].shape)
-                # exit()
-                # [evaluation] update train metric
-                self.metrics.update([output.data.cpu() for output in outputs], dats[2].cpu(),
-                            [loss.data.cpu() for loss in losses])
-
-                # timing each batch
-                sum_sample_elapse += time.time() - batch_start_time
-                sum_update_elapse += time.time() - update_start_time
-                batch_start_time = time.time()
-                sum_sample_inst += dats[0].shape[0]
-                
+                    # timing each batch
+                    sum_sample_elapse += time.time() - batch_start_time
+                    sum_update_elapse += time.time() - update_start_time
+                    batch_start_time = time.time()
+                    sum_sample_inst += dats[0].shape[0]
+                    
             # need to use lr_scheduler.step, otherwise lr will not be updated
             target_lr_sche.step()
-            
+        
         # update gloabel model
         self.update_global_net(chosen_users)
             

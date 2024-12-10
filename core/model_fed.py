@@ -192,8 +192,9 @@ class model(object):
         elif self.agg_mode == 'partial':
             state_dict = deepcopy(self.global_net.state_dict())
             skip_params = []
+            print(state_dict.keys())
             for k, _ in state_dict.items():
-                if k.startswith('fc'):
+                if k.startswith('pmp_proj1'):
                     skip_params.append(k)
             for k in skip_params:
                 del state_dict[k]
@@ -231,7 +232,7 @@ class model(object):
         elif self.agg_mode == 'partial':
             skip_params = []
             for k, _ in updated_weights.items():
-                if k.startswith('fc'):
+                if k.startswith('pmp_proj1'):
                     skip_params.append(k)
             for k in skip_params:
                 del updated_weights[k]
