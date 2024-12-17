@@ -3,7 +3,7 @@
 #      Test_RMSE = 16.36699, Test_RULscore = 3486.25916
 
 #no norm
-# 3000 Test_RMSE_cor = 16.55287, Test_RULscore_min = 3370.82011
+# 3000 Test_RMSE_cor = 16.25377, Test_RULscore_min = 3212.26961
 ---
 gpu: '0'
 save_frequency: 5
@@ -47,9 +47,9 @@ train:
   batch_size: 128
   lr: 0.00005
   optimizer: 'adam'
-  lr_epoch: [200]
+  lr_epoch: [250]
   lr_factor: 0.2
-  end_epoch: 300
+  end_epoch: 400
   callback_freq: 50
   warmup_iters: 0
 

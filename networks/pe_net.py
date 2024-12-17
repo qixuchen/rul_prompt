@@ -24,22 +24,22 @@ class PE_NET(nn.Module):
 
         self.cnn_backbone = nn.Sequential(OrderedDict([
                                 ('cnn1', nn.Conv1d(in_channels = 16, out_channels = 16, kernel_size = 5, stride=2, padding=2)),
-                                ('ln1', nn.LayerNorm([16, 15])),
+                                # ('ln1', nn.LayerNorm([16, 15])),
                                 ('relu1', nn.ReLU(inplace=True)),
                                 ('cnn2_1', nn.Conv1d(16, 64, 3, padding=1)),
-                                ('ln2_1', nn.LayerNorm([64, 15])),
+                                # ('ln2_1', nn.LayerNorm([64, 15])),
                                 ('relu2_1', nn.ReLU(inplace=True)),
                                 ('cnn2_2', nn.Conv1d(64, 64, 3, padding=1)),
-                                ('ln2_2', nn.LayerNorm([64, 15])),
+                                # ('ln2_2', nn.LayerNorm([64, 15])),
                                 ('relu2_2', nn.ReLU(inplace=True)),
                                 ('cnn3_1', nn.Conv1d(64, 128, 3, 2, padding=1)),
-                                ('ln3_1', nn.LayerNorm([128, 8])),
+                                # ('ln3_1', nn.LayerNorm([128, 8])),
                                 ('relu3_1', nn.ReLU(inplace=True)),
                                 ('cnn3_2', nn.Conv1d(128, 128, 3, 1, padding=1)),
-                                ('ln3_2', nn.LayerNorm([128, 8])),
+                                # ('ln3_2', nn.LayerNorm([128, 8])),
                                 ('relu3_2', nn.ReLU(inplace=True)),
                                 ('cnn4_1', nn.Conv1d(128, 256, 3, 2, padding=1)),
-                                ('ln4_1', nn.LayerNorm([256, 4])),
+                                # ('ln4_1', nn.LayerNorm([256, 4])),
                                 ('relu4_1', nn.ReLU(inplace=True)),
                                 ]))
 

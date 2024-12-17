@@ -1,5 +1,7 @@
 #RMSE_cor = 12.85146, Test_RULscore_min = 206.66571
 #Test_RMSE_cor = 15.60152, Test_RULscore_min = 352.96740
+
+# 0.001 Test_RMSE_cor = 13.71011, Test_RULscore_min = 228.55609
 ---
 gpu: '0'
 save_frequency: 5
@@ -32,7 +34,8 @@ net:
 #fedrated learning
 fed:
   n_user: 5
-  n_user_per_iter: 2
+  n_user_per_iter: 5
+  train_epoch_per_step: 2
   sample_interval: 1
   iid: 'iid'
 
@@ -42,9 +45,9 @@ train:
   batch_size: 128
   lr: 0.001
   optimizer: 'adam'
-  lr_epoch: [300]
-  lr_factor: 0.1
-  end_epoch: 500
+  lr_epoch: [250]
+  lr_factor: 0.2
+  end_epoch: 400
   callback_freq: 50
   warmup_iters: 0
 

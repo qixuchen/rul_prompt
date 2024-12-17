@@ -1,5 +1,7 @@
 # Test_RMSE_cor = 17.05890, Test_RULscore_min = 1218.21563
 # Test_RMSE_cor = 17.81407, Test_RULscore_min = 1444.64496
+
+# 0.001 Test_RMSE_cor = 16.93585, Test_RULscore_min = 1182.80433
 ---
 gpu: '0'
 save_frequency: 5
@@ -29,10 +31,30 @@ net:
   num_hidden: 18
   hand_dim: 28
 
+# #fedrated learning
+# fed:
+#   n_user: 5
+#   n_user_per_iter: 2
+#   sample_interval: 1
+#   iid: 'iid'
+
+# #train
+# train:
+#   resume_epoch: 0
+#   batch_size: 128
+#   lr: 0.001
+#   optimizer: 'adam'
+#   lr_epoch: [350]
+#   lr_factor: 0.1
+#   end_epoch: 700
+#   callback_freq: 50
+#   warmup_iters: 0
+
 #fedrated learning
 fed:
   n_user: 5
-  n_user_per_iter: 2
+  n_user_per_iter: 5
+  train_epoch_per_step: 2
   sample_interval: 1
   iid: 'iid'
 
@@ -42,9 +64,9 @@ train:
   batch_size: 128
   lr: 0.001
   optimizer: 'adam'
-  lr_epoch: [350]
-  lr_factor: 0.1
-  end_epoch: 700
+  lr_epoch: [250]
+  lr_factor: 0.2
+  end_epoch: 400
   callback_freq: 50
   warmup_iters: 0
 
