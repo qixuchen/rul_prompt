@@ -1,9 +1,4 @@
-# layernorm
-# 3000 Test_RMSE_cor = 18.02951, Test_RULscore_min = 441.27323
-#      Test_RMSE = 18.38178, Test_RULscore = 451.61361
 
-# no norm
-# 3000 
 ---
 gpu: '0'
 save_frequency: 5

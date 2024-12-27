@@ -1,9 +1,9 @@
-# layernorm
-# 3000    Test_RMSE_cor = 17.45253, Test_RULscore_min = 4097.36351
-#         Test_RMSE = 17.45253, Test_RULscore = 4097.36351
 
-# no norm
+# all
 # 3000    Test_RMSE_cor = 17.78508, Test_RULscore_min = 4028.72374
+
+# partial
+# 3000    Test_RMSE_cor = 17.42535, Test_RULscore_min = 3700.79966
 ---
 gpu: '0'
 save_frequency: 5

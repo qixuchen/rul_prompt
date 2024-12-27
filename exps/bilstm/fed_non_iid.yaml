@@ -1,6 +1,8 @@
 #3000 Test_RMSE_cor = 16.90814, Test_RULscore_min = 3757.98779
 #4000 Test_RMSE_cor = 17.56056, Test_RULscore_min = 3763.50137
 #5000 Test_RMSE_cor = 17.34639, Test_RULscore_min = 3445.12624
+
+# 0.0005 Test_RMSE_cor = 16.51988, Test_RULscore_min = 3982.33136
 ---
 gpu: '0'
 save_frequency: 5
@@ -30,10 +32,30 @@ net:
   num_hidden: 18
   hand_dim: 28
 
+# #fedrated learning
+# fed:
+#   n_user: 4
+#   n_user_per_iter: 2
+#   sample_interval: 1
+#   iid: 'non_iid'
+
+# #train
+# train:
+#   resume_epoch: 0
+#   batch_size: 128
+#   lr: 0.001
+#   optimizer: 'adam'
+#   lr_epoch: [300]
+#   lr_factor: 0.1
+#   end_epoch: 500
+#   callback_freq: 50
+#   warmup_iters: 0
+
 #fedrated learning
 fed:
   n_user: 4
-  n_user_per_iter: 2
+  n_user_per_iter: 4
+  train_epoch_per_step: 2
   sample_interval: 1
   iid: 'non_iid'
 
@@ -41,14 +63,13 @@ fed:
 train:
   resume_epoch: 0
   batch_size: 128
-  lr: 0.001
+  lr: 0.0005
   optimizer: 'adam'
-  lr_epoch: [300]
-  lr_factor: 0.1
-  end_epoch: 500
+  lr_epoch: [250]
+  lr_factor: 0.2
+  end_epoch: 400
   callback_freq: 50
   warmup_iters: 0
-
 # test
 test:
   model_name: 'exp_202110121100_cnn_pe_ep-0050.pth'

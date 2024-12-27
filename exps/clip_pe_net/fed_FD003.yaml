@@ -1,8 +1,4 @@
-# layernorm
-# 3000 Test_RMSE_cor = 14.85211, Test_RULscore_min = 482.83668
-# Test_RMSE = 14.71679, Test_RULscore = 552.64234
 
-# no norm
 # 5000 Test_RMSE_cor = 15.61232, Test_RULscore_min = 520.70675
 
 

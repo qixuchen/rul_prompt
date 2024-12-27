@@ -1,8 +1,4 @@
-# layernorm
-# 4000 Test_RMSE_cor = 20.82168, Test_RULscore_min = 1668.54909
-#      Test_RMSE = 21.01140, Test_RULscore = 1721.92493
 
-# no norm
 # 4000 Test_RMSE_cor = 18.50935, Test_RULscore_min = 2462.02267
 
 gpu: '0'

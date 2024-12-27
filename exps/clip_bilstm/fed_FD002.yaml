@@ -1,7 +1,11 @@
 # Test_RMSE_cor = 14.97671, Test_RULscore_min = 787.19597
 # Test_RMSE_cor = 15.22860, Test_RULscore_min = 861.48249
 
+# all
 # 0.001 Test_RMSE_cor = 15.25001, Test_RULscore_min = 857.18588
+
+# partial 
+# 0.001 Test_RMSE_cor = 15.86174, Test_RULscore_min = 857.44825
 ---
 gpu: '0'
 save_frequency: 5
