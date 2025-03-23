@@ -3,6 +3,10 @@
 
 # partial
 # 3000 Test_RMSE_cor = 16.89674, Test_RULscore_min = 3195.91239
+
+# no alignment
+
+# Test_RMSE_cor = 16.73695, Test_RULscore_min = 3513.83374
 ---
 gpu: '0'
 save_frequency: 5

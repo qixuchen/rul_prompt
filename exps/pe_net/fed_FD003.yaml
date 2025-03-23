@@ -1,4 +1,4 @@
-
+# 3000 Test_RMSE_cor = 15.34834, Test_RULscore_min = 826.11404
 ---
 gpu: '0'
 save_frequency: 5

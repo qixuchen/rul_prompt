@@ -37,6 +37,7 @@ class model(object):
         self.n_user = config.fed.n_user
         self.n_user_per_iter = config.fed.n_user_per_iter
         self.train_epoch_per_step = config.fed.train_epoch_per_step
+        # self.agg_mode = 'partial'
         self.agg_mode = 'all'
         
         self.user_nets = []
@@ -192,7 +193,6 @@ class model(object):
         elif self.agg_mode == 'partial':
             state_dict = deepcopy(self.global_net.state_dict())
             skip_params = []
-            print(state_dict.keys())
             for k, _ in state_dict.items():
                 if k.startswith('pmp_proj1'):
                     skip_params.append(k)

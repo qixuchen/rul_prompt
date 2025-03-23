@@ -59,7 +59,6 @@ class CMPDataIterFed(data.IterableDataset):
         
         self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
             self.test_y_per_user, self.test_pmpt1_per_user = self.divide_iid()
-        
         # generate position encoding:
         if 'pe' in self.net_name:
             self.local_pe = self.gen_pe(self.seq_len, 16)
@@ -102,14 +101,18 @@ class CMPDataIterFed(data.IterableDataset):
         for i in range(len(train_id_list)):
             user = i % self.n_user
             train_user_id_maps[i] = user
-            
+        
+        # ### for data distribution plot
+        # print(train_user_id_maps)
+        # ### for data distribution plot
+        
         test_id_list = self.test_data_df['id'].unique().tolist()
         random.shuffle(test_id_list)   
         test_user_id_maps = {}
         for i in range(len(test_id_list)):
             user = i % self.n_user
             test_user_id_maps[i] = user
-            
+        
         train_x_per_user = [[] for _ in range(self.n_user)]
         for item in self.train_x:
             assigned_user = train_user_id_maps[item[0]]
@@ -159,12 +162,18 @@ class CMPDataIterFed(data.IterableDataset):
         train_rul.columns = ['id', 'max']
         train_df = train_df.merge(train_rul, on=['id'], how='left')
         train_y = pd.DataFrame(data=[train_df['max'] - train_df['cycle']]).T
+        
+        # ### for data distribution plot
+        # train_df['rul'] = train_df.apply(lambda row: min(row['max'] - row['cycle'], self.max_rul), axis = 1)
+        # train_id_max_rul = pd.DataFrame(train_df.groupby('id')['rul'].max()).reset_index()
+        # print(train_id_max_rul)
+        # ### for data distribution plot
 
         train_df.drop('max', axis=1, inplace=True)
         train_df.drop(['s1', 's5', 's6', 's10', 's16', 's18', 's19'], axis =1, inplace = True)
 
         train_df['setting1'] = train_df['setting1'].round(1)
-
+        
         train_y = train_y.apply(lambda x: [y if y <= self.max_rul else self.max_rul for y in x])
         train_engine_num = train_df['id'].nunique()
         logging.info("CMPDataIter:: iterator initialized (train engine number: {:})".format(train_engine_num))
@@ -185,7 +194,7 @@ class CMPDataIterFed(data.IterableDataset):
         test_df.drop(['s1', 's5', 's6', 's10', 's16', 's18', 's19'], axis =1, inplace = True)
 
         test_df['setting1'] = test_df['setting1'].round(1)
-
+            
         test_y = test_y.apply(lambda x: [y if y <= self.max_rul else self.max_rul for y in x])
         test_engine_num = test_df['id'].nunique()
         logging.info("CMPDataIter:: iterator initialized (test engine number: {:})".format(test_engine_num))

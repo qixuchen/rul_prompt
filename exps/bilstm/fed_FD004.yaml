@@ -1,6 +1,3 @@
-# 5000 Test_RMSE_cor = 15.86779, Test_RULscore_min = 998.26018
-# 4000 Test_RMSE_cor = 17.54908, Test_RULscore_min = 1695.75427
-
 # 0.0005 Test_RMSE_cor = 16.83233, Test_RULscore_min = 1952.90396
 gpu: '0'
 save_frequency: 5

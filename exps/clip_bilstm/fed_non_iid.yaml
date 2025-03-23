@@ -1,11 +1,11 @@
-#Test_RMSE_cor = 18.41848, Test_RULscore_min = 3966.01403
-#Test_RMSE_cor = 17.84962, Test_RULscore_min = 3813.43592
-
 # all 
 # 0.001 Test_RMSE_cor = 17.47909, Test_RULscore_min = 4062.12567
 
 # partial 
 # 0.001 Test_RMSE_cor = 17.11099, Test_RULscore_min = 3790.72632
+
+# no alignment
+# Test_RMSE_cor = 18.88839, Test_RULscore_min = 4400.71355
 
 ---
 gpu: '0'

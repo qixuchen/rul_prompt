@@ -1,11 +1,14 @@
-#Test_RMSE_cor = 16.81992, Test_RULscore_min = 3373.07159
-#Test_RMSE_cor = 17.15885, Test_RULscore_min = 3442.09526
-
 # all 
 # 0.001 Test_RMSE_cor = 16.14920, Test_RULscore_min = 3181.57699
 
 # partial 
-# 0.001 Test_RMSE_cor = 17.44197, Test_RULscore_min = 3681.50152
+# 0.001 0.2 250 400 Test_RMSE_cor = 17.44197, Test_RULscore_min = 3681.50152
+# 0.0005 0.2 250 400 Test_RMSE_cor = 16.42387, Test_RULscore_min = 3429.18983
+# 0.0005 0.2 400 500 Test_RMSE_cor = 16.27049, Test_RULscore_min = 3332.68369
+# 0.0005 0.2 400 600 Test_RMSE_cor = 16.32981, Test_RULscore_min = 3302.73304
+
+# no alignment
+# Test_RMSE_cor = 16.32557, Test_RULscore_min = 3412.89805
 ---
 gpu: '0'
 save_frequency: 5

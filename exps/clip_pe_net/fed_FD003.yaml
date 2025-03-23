@@ -1,5 +1,13 @@
+# all 
+# 3000 Test_RMSE_cor = 15.61232, Test_RULscore_min = 520.70675
 
-# 5000 Test_RMSE_cor = 15.61232, Test_RULscore_min = 520.70675
+# partial 
+# 3000 Test_RMSE_cor = 15.21951, Test_RULscore_min = 510.02309
+
+# no alignment
+# Test_RMSE_cor = 16.21299, Test_RULscore_min = 547.86384
+
+
 
 
 gpu: '0'
