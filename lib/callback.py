@@ -37,8 +37,8 @@ class CallbackList(Callback):
             str_out += callback(**kwargs, silent=True) + "\t"
 
         if not silent:
-            logging.info(str_out)
-            # print(str_out)
+            # logging.info(str_out)
+            print(str_out)
         return str_out   
 
 
@@ -64,8 +64,8 @@ class SpeedMonitor(Callback):
                 str_out += "Speed {:.2f} sample/sec ".format(sample_freq)
 
         if not silent:
-            self.logger.info(str_out)
-            # print(str_out)
+            # self.logger.info(str_out)
+            print(str_out)
         return str_out
 
 class MetricPrinter(Callback):
@@ -84,8 +84,8 @@ class MetricPrinter(Callback):
                 str_out += ", " if i != (len(namevals)-1) else " "
 
         if not silent:
-            self.logger.info(str_out)
-            # print(str_out)
+            # self.logger.info(str_out)
+            print(str_out)
         return str_out
 
 

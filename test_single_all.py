@@ -34,7 +34,7 @@ from networks.bi_lstm_handcraft import Bi_LSTM_HAND
 from networks.cnn_bi_lstm import CNN_Bi_LSTM
 from networks.cnn_0 import CNN
 from networks.cnn_b6_pe import CNN_PE
-from networks.cnn_b6 import CNN_B
+from rul_prompt.networks.cnn import CNN_B
 from networks.cnn_s1 import CNN_S
 from networks.cnn_dcn import CNN_DCN
 from networks.trans_1 import TST

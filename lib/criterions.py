@@ -176,10 +176,11 @@ class KLLoss_fast(nn.Module):
         batch_size = prediction[0].shape[0]
         probs1 = F.log_softmax(prediction[0], 1)
         probs2 = F.log_softmax(prediction[1], 1)
-        probs3 = F.softmax(gt2 * 10, 1)
+        probs3 = F.softmax(gt2 * 20, 1)
         loss1 = self.error_metric(probs1, probs3) * batch_size
         loss2 = self.error_metric(probs2, probs3.t()) * batch_size
         losses = (loss1 + loss2)/ 2.0
+        
         return losses
 
 

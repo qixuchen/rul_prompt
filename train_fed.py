@@ -13,16 +13,15 @@ import random
 import warnings
 import torch
 
-
 from config import config, update_config
 import create_logger
-from lib import metric
+from lib import metric_clip as metric
 
-from core.model import model
+
+from core.model_fed import model
 from dataset.iterator_factory import get_dataiter
 from networks.get_symbol import get_symbol
 from lib import criterions
-
 
 torch.backends.cudnn.enabled = False
 
@@ -48,7 +47,8 @@ if __name__ == "__main__":
 	logger.info('training config:{}\n'.format(pprint.pformat(config)))
 
 	os.environ["CUDA_VISIBLE_DEVICES"] = config.gpu
-
+	n_user = 5
+ 
 	if config.seed:
 		random.seed(config.seed)
 		np.random.seed(config.seed)
@@ -62,46 +62,50 @@ if __name__ == "__main__":
 					  'You may see unexpected behavior when restarting '
 					  'from checkpoints.')
 
-	data_loader, data_iter = get_dataiter('data_name', config, 'normal')
-
-	sym_net = get_symbol(config.net.name, config, hand_craft=config.net.hand_craft)
+	data_loader, data_iter = get_dataiter('data_name', config, 'fed')
+	pmpt_1 = data_iter.pmpt_1 if hasattr(data_iter, 'pmpt_1') else None
+ 
+	# decide wich model to use
+	sym_net = get_symbol(config.net.name, config, hand_craft=config.net.hand_craft, pmpt_1 = pmpt_1)
 	sym_net.float()
 
 	model_prefix = os.path.join(config.output_pt, 'exp_'+ model_fixtime + '_' + config.net.name)
 
-	criterion = torch.nn.MSELoss().cuda()
+	criterion = criterions.KLLoss_fast()
 
-	net = model(net=sym_net, criterion=criterion, model_prefix=model_prefix, step_callback_freq=config.train.callback_freq,
-				save_checkpoint_freq=config.save_frequency, logger = logger)
-	net.net.cuda()
-	net.net = torch.nn.DataParallel(net.net).cuda()
+	net = model(net=sym_net, criterion=criterion, config=config, model_prefix=model_prefix, logger = logger)
+ 
+	net.global_net.cuda()
+	for n in net.user_nets:
+		n.cuda()
+  
+	metrics = metric.MetricList(metric.RMSE(max_rul = config.data.max_rul), 
+							    metric.RULscore(max_rul = config.data.max_rul),
+							    metric.CLIP_Loss(max_rul = config.data.max_rul))
 
-	if config.train.optimizer.lower() == 'sgd':
-		optimizer = torch.optim.SGD(net.net.parameters(), 
-									lr=config.train.lr, 
-									momentum=0.9, 
-									weight_decay=0.0001, 
-									nesterov=True)
-	elif config.train.optimizer.lower() == 'adam':
-		optimizer = torch.optim.Adam(net.net.parameters(),
-									lr=config.train.lr,
-									weight_decay=0.0001)
-	elif config.train.optimizer.lower() == 'adamw':
-		optimizer = torch.optim.AdamW(net.net.parameters(),
-									lr=config.train.lr,
-									weight_decay=0.0001)
-	elif config.train.optimizer.lower() == 'rmsprop':
-		optimizer = torch.optim.RMSprop(net.net.parameters(),
-									lr=config.train.lr,
-									weight_decay=0.0001)
-	else:
-		raise NotImplementedError(config.train.optimizer.lower())
+	net.fit(data_iter=data_loader, dataset = data_iter, config=config, metrics=metrics)
+
+	# if config.train.optimizer.lower() == 'sgd':
+	# 	optimizer = torch.optim.SGD(net.net.parameters(), 
+	# 								lr=config.train.lr, 
+	# 								momentum=0.9, 
+	# 								weight_decay=0.0001, 
+	# 								nesterov=True)
+	# elif config.train.optimizer.lower() == 'adam':
+	# 	optimizer = torch.optim.Adam(net.net.parameters(),
+	# 								lr=config.train.lr,
+	# 								weight_decay=0.0001)
+	# elif config.train.optimizer.lower() == 'adamw':
+	# 	optimizer = torch.optim.AdamW(net.net.parameters(),
+	# 								lr=config.train.lr,
+	# 								weight_decay=0.0001)
+	# elif config.train.optimizer.lower() == 'rmsprop':
+	# 	optimizer = torch.optim.RMSprop(net.net.parameters(),
+	# 								lr=config.train.lr,
+	# 								weight_decay=0.0001)
+	# else:
+	# 	raise NotImplementedError(config.train.optimizer.lower())
 	
 
-	lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones = \
-					[int(x) for x in config.train.lr_epoch], gamma=config.train.lr_factor)
-
-	metrics = metric.MetricList(metric.RMSE(max_rul = config.data.max_rul), metric.RULscore(max_rul = config.data.max_rul),)
-
-	net.fit(data_iter=data_loader, dataset = data_iter, optimizer=optimizer, lr_scheduler=lr_scheduler, metrics=metrics,
-			epoch_start=0, epoch_end=config.train.end_epoch)
+	# lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones = \
+	# 				[int(x) for x in config.train.lr_epoch], gamma=config.train.lr_factor)

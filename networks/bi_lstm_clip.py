@@ -7,6 +7,8 @@ import torch
 from collections import OrderedDict
 import numpy as np
 
+EPSILON = 1e-8
+
 class Bi_LSTM_CLIP(nn.Module):
     def __init__(self, input_dim, prompt_dict):
         super(Bi_LSTM_CLIP, self).__init__()
@@ -64,11 +66,11 @@ class Bi_LSTM_CLIP(nn.Module):
 
         x = self.fc(x)
 
-        x = x / x.norm(dim=1, keepdim=True)
+        x = x / (x.norm(dim=1, keepdim=True) + EPSILON)
         
         pmp_feat1 = self.pmp_proj1(pmp1)
 
-        pmp_feat1 = pmp_feat1 / pmp_feat1.norm(dim=1, keepdim=True)
+        pmp_feat1 = pmp_feat1 / (pmp_feat1.norm(dim=1, keepdim=True) + EPSILON)
 
         logit_scale = self.logit_scale.exp()
         # logits_per_x = logit_scale * x @ pmp_feat1.t()
@@ -77,7 +79,7 @@ class Bi_LSTM_CLIP(nn.Module):
 
         if val:
             preds_feat = self.pmp_proj1(self.prompt_dict)
-            preds_feat = preds_feat / preds_feat.norm(dim=1, keepdim=True)
+            preds_feat = preds_feat / (preds_feat.norm(dim=1, keepdim=True) + EPSILON)
             logits_per_pred = logit_scale * x @ preds_feat.t()
             
         if not val:

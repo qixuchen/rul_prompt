@@ -62,9 +62,9 @@ class model(object):
         
         self.epoch_callback(**(self.epoch_callback_kwargs))
 
-        if self.callback_kwargs['epoch'] == 0 or ((self.callback_kwargs['epoch'] + 1) % self.save_checkpoint_freq) == 0:
-            self.save_checkpoint(epoch=self.callback_kwargs['epoch'] + 1,
-                                 optimizer_state=self.callback_kwargs['optimizer_dict'])
+        # if self.callback_kwargs['epoch'] == 0 or ((self.callback_kwargs['epoch'] + 1) % self.save_checkpoint_freq) == 0:
+        #     self.save_checkpoint(epoch=self.callback_kwargs['epoch'] + 1,
+        #                          optimizer_state=self.callback_kwargs['optimizer_dict'])
 
     def load_state(self, state_dict, strict=False):
         if strict:
@@ -212,8 +212,9 @@ class model(object):
             ###########
             # 2] Evaluation
             ###########
-            if (self.data_iter is not None) \
-                    and ((i_epoch + 1) % max(1, int(self.save_checkpoint_freq / 2))) == 0:
+            # if (self.data_iter is not None) \
+            #         and ((i_epoch + 1) % max(1, int(self.save_checkpoint_freq / 2))) == 0:
+            if (self.data_iter is not None):
                 self.dataset.reset('test')
                 self.test()
                 # self.dataset.reset('val')
@@ -269,8 +270,6 @@ class model(object):
                 add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
           
             add_prompt = add_prompt
-            # print(dats[3].shape)
-            # print(add_prompt.shape)
             dats[3] = torch.cat((dats[3], add_prompt), 0)
 
             # [forward] making next step

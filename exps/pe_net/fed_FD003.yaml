@@ -1,7 +1,8 @@
+# 3000 Test_RMSE_cor = 15.34834, Test_RULscore_min = 826.11404
 ---
 gpu: '0'
-save_frequency: 1
-seed: 5000
+save_frequency: 5
+seed: 3000
 task: 't1'
 
 dist_backend: 'nccl'
@@ -20,22 +21,30 @@ data:
 
 #network
 net:
-  name: 'bilstm_clip'
+  name: 'pe_net'
   hand_craft: False
   input_dim: 14
   aux_dim: 4
   num_hidden: 18
   hand_dim: 28
 
+#fedrated learning
+fed:
+  n_user: 5
+  n_user_per_iter: 5
+  train_epoch_per_step: 2
+  sample_interval: 1
+  iid: 'iid'
+
 #train
 train:
   resume_epoch: 0
   batch_size: 128
-  lr: 0.001
+  lr: 0.00005
   optimizer: 'adam'
-  lr_epoch: [100]
-  lr_factor: 0.1
-  end_epoch: 160
+  lr_epoch: [250]
+  lr_factor: 0.2
+  end_epoch: 400
   callback_freq: 50
   warmup_iters: 0
 
@@ -43,3 +52,4 @@ train:
 test:
   model_name: 'exp_202110121100_cnn_pe_ep-0050.pth'
   model_path: './output/basic/FD004'
+  test_freq: 1

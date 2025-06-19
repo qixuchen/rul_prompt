@@ -43,6 +43,13 @@ config.net.input_dim = 9
 config.net.aux_dim = 4
 config.net.hand_dim = 0
 
+#fedrated learning
+config.fed = edict()
+config.fed.n_user = 1
+config.fed.n_user_per_iter = 1
+config.fed.sample_interval = 1
+config.fed.train_epoch_per_step = 1
+config.fed.iid = 'iid'
 
 #train
 config.train = edict()
@@ -61,6 +68,8 @@ config.train.lr_mult = 0.2
 config.test = edict()
 config.test.model_name = ''
 config.test.model_path = ''
+config.test.test_freq = 1
+
 
 def update_config(config_file):
     if not os.path.exists(config_file):
