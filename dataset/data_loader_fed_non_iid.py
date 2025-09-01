@@ -25,7 +25,7 @@ from config import config
 
 class CMPDataIterFedNonIID(data.IterableDataset):
     
-    def __init__(self, data_root, data_set, max_rul, seq_len, net_name, n_user=4, sample_interval=1, iid='non_iid'):
+    def __init__(self, data_root, data_set, llm_name, max_rul, seq_len, net_name, n_user=4, sample_interval=1, iid='non_iid'):
         super(CMPDataIterFedNonIID, self).__init__()
         # load params
         assert n_user == 4, "Only support 4 users since there are only 4 datasets."
@@ -35,6 +35,7 @@ class CMPDataIterFedNonIID(data.IterableDataset):
         self.max_rul = max_rul
         self.seq_len = seq_len
         self.net_name = net_name
+        self.llm_name = llm_name
         self.n_user = n_user
         self.iid = iid
         self.sample_interval = sample_interval
@@ -46,8 +47,7 @@ class CMPDataIterFedNonIID(data.IterableDataset):
         self.val_fold = 0
         self.cur_user = 0
         
-        self.prompt_path = './feats'
-        self.pmpt_1 = self.load_prompt(self.prompt_path)
+        self.pmpt_1 = self.load_prompt(self.llm_name)
 
         # load CMAPSS_data
         self.train_x_per_user, self.train_ops_per_user, self.train_y_per_user, self.train_pmpt1_per_user, self.test_x_per_user, self.test_ops_per_user, \
@@ -290,8 +290,13 @@ class CMPDataIterFedNonIID(data.IterableDataset):
         return train_x, train_ops, train_y, train_pmpt1, test_x, test_ops, test_y, test_pmpt1
     
 
-    def load_prompt(self, pmpt_path):
-        pmpt_pt1 = os.path.join(pmpt_path, 'clip_feature_ts_forcasting.pkl')
+    def load_prompt(self, llm_name):
+        pmpt_path = './feats'
+        assert llm_name in ['clip', 'siglip']
+        if llm_name == 'clip':
+            pmpt_pt1 = os.path.join('./feats', 'clip_feature_ts_forcasting.pkl')
+        else:
+            pmpt_pt1 = os.path.join('./feats', 'siglip.pkl')
         return pickle.load(open(pmpt_pt1, 'rb'))
     
     

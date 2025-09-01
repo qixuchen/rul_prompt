@@ -36,6 +36,7 @@ config.data.test_id = 0
 #network
 config.net = edict()
 config.net.name = 'bilstm'
+config.net.llm = 'clip'
 config.net.hand_craft = False
 
 config.net.num_hidden = 18

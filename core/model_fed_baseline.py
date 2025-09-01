@@ -37,7 +37,8 @@ class model(object):
         self.n_user = config.fed.n_user
         self.n_user_per_iter = config.fed.n_user_per_iter
         self.train_epoch_per_step = config.fed.train_epoch_per_step
-        self.agg_mode = 'all'
+        # self.agg_mode = 'all'
+        self.agg_mode = 'partial'
         
         self.user_nets = []
         for _ in range(self.n_user):
@@ -187,7 +188,19 @@ class model(object):
     
     def load_global_state(self, uid):
         target_net = self.user_nets[uid]
-        target_net.load_state_dict(state_dict=self.global_net.state_dict())
+        if self.agg_mode == 'all':
+            target_net.load_state_dict(state_dict=self.global_net.state_dict())
+        elif self.agg_mode == 'partial':
+            state_dict = deepcopy(self.global_net.state_dict())
+            skip_params = []
+            for k, _ in state_dict.items():
+                if k.startswith('fc') or k.startswith('cls') or k.startswith('reg'):
+                    skip_params.append(k)
+            for k in skip_params:
+                del state_dict[k]
+            target_net.load_state_dict(state_dict = state_dict, strict=False)
+        else:
+            raise ValueError(f'self.agg_mode must be "all" or "partial"')
     
     
     def update_global_net(self, chosen_users):
@@ -206,7 +219,18 @@ class model(object):
         
         # Update server model based on clients models
         updated_weights = average_weights(updated_models)
-        self.global_net.load_state_dict(updated_weights)
+        if self.agg_mode == 'all':
+            self.global_net.load_state_dict(updated_weights)
+        elif self.agg_mode == 'partial':
+            skip_params = []
+            for k, _ in updated_weights.items():
+                if k.startswith('fc') or k.startswith('cls') or k.startswith('reg'):
+                    skip_params.append(k)
+            for k in skip_params:
+                del updated_weights[k]
+            self.global_net.load_state_dict(state_dict = updated_weights, strict=False)  
+        else:
+            raise ValueError(f'self.agg_mode must be "all" or "partial"')
         
         
     # def fit(self, data_iter, dataset, optimizer, lr_scheduler, metrics=None, \

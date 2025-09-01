@@ -88,8 +88,8 @@ class PE_NET_CLIP(nn.Module):
                                 ('relu2', nn.ReLU(inplace=True)),
                                 ('dropout2', nn.Dropout(p=0.2))
                                 ]))
-        
-        self.pmp_proj1 = nn.Linear(512, 256)
+
+        self.pmp_proj1 = nn.Linear(self.prompt_dict.shape[1], 256)
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
 
         self.reg = nn.Linear(256, 1)

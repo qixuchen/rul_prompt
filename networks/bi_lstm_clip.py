@@ -41,7 +41,7 @@ class Bi_LSTM_CLIP(nn.Module):
 
         # self.cls = nn.Linear(8, 1)
 
-        self.pmp_proj1 = nn.Linear(512, 8)
+        self.pmp_proj1 = nn.Linear(self.prompt_dict.shape[1], 8)
 
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
 

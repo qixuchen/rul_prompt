@@ -355,7 +355,7 @@ class model(object):
                     samples = random.sample(complement, len(complement))
                     fulllabels = np.concatenate((intypes, np.array(samples)), axis=0)
                     fulllabels = torch.tensor(fulllabels[:, np.newaxis]/self.max_rul)
-                    add_prompt = torch.zeros(len(samples), 512)
+                    add_prompt = torch.zeros(len(samples), self.dataset.pmpt_1.shape[1])
                     for id, val in enumerate(samples):
                         add_prompt[id, :] = torch.from_numpy(self.dataset.pmpt_1[val])
                 
