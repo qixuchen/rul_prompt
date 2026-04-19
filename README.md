@@ -31,13 +31,13 @@ For `train_fed.py`, prompt feature files are also required in `feats/`:
 Run one federated experiment with a config in `exps/clip_bilstm/` or `exps/clip_pe_net/`:
 
 ```bash
-python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml
+python train_fed.py --cfg exps/clip_bilstm/fed_FD001.yaml
 ```
 
 You can override the random seed from command line:
 
 ```bash
-python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml --seed 4000
+python train_fed.py --cfg exps/clip_bilstm/fed_FD001.yaml --seed 4000
 ```
 
 Optional: run multiple seeds and save logs:
@@ -45,7 +45,7 @@ Optional: run multiple seeds and save logs:
 ```bash
 mkdir -p exp_results/bilstm_clip
 for seed in 4000 5000 6000 7000; do
-  python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml --seed "$seed" \
-    > "exp_results/bilstm_clip/fed_non_iid_v3_seed${seed}.txt"
+  python train_fed.py --cfg exps/clip_bilstm/fed_FD001.yaml --seed "$seed" \
+    > "exp_results/bilstm_clip/fed_FD001_seed${seed}.txt"
 done
 ```
