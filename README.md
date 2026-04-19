@@ -1,27 +1,51 @@
-# Code for Machine Remaining Useful Life Prediction task 
+# FedLER
 
+This repository contains code for running FedLER on CMAPSS.
+This README focuses on the **main experiment only**: federated prompt training with `train_fed.py`.
 
-## Prerequisites
-This code is based on Pytorch. 
+## 1) Environment Setup
 
-It has been tested on Pytorch v1.7.1 and CUDA v10.1.243 under Ubuntu 18.04. 
+Create and activate a Python environment, then install dependencies:
 
-You can also try to run it on other versons. 
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Training
-All your configurations are included in ./exps/*.yaml and the default value are defined in ./config.py. 
+## 2) Data Setup
 
-For Bi-LSTM network without CLIP, please run:
+Place CMAPSS files under `data/CMAPSSData/`:
+
+- `train_FD001.txt`, `train_FD002.txt`, `train_FD003.txt`, `train_FD004.txt`
+- `test_FD001.txt`, `test_FD002.txt`, `test_FD003.txt`, `test_FD004.txt`
+- `RUL_FD001.txt`, `RUL_FD002.txt`, `RUL_FD003.txt`, `RUL_FD004.txt`
+
+For `train_fed.py`, prompt feature files are also required in `feats/`:
+
+- `clip_feature_ts_forcasting.pkl` (when `net.llm: clip`)
+- `siglip.pkl` (when `net.llm: siglip`)
+
+## 3) Run the Main Experiment (`train_fed`)
+
+Run one federated experiment with a config in `exps/clip_bilstm/` or `exps/clip_pe_net/`:
+
+```bash
+python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml
 ```
-python train.py --cfg exps/basic.yaml
+
+You can override the random seed from command line:
+
+```bash
+python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml --seed 4000
 ```
-For Bi-LSTM with CLIP, please run:
+
+Optional: run multiple seeds and save logs:
+
+```bash
+mkdir -p exp_results/bilstm_clip
+for seed in 4000 5000 6000 7000; do
+  python train_fed.py --cfg exps/clip_bilstm/fed_non_iid_v3.yaml --seed "$seed" \
+    > "exp_results/bilstm_clip/fed_non_iid_v3_seed${seed}.txt"
+done
 ```
-python train_clip.py --cfg exps/clip.yaml
-```
-## Visualization
-Please indicate the path for the .log file in ./plot.py, then run:
-```
-python plot.py
-```
-A loss curve will be saved at the root path.
